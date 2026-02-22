@@ -8,6 +8,11 @@ import GenderScreen from "./pages/GenderScreen";
 import ServiceScreen from "./pages/ServiceScreen";
 import DashboardScreen from "./pages/DashboardScreen";
 import PriceListScreen from "./pages/PriceListScreen";
+import BookingScreen from "./pages/BookingScreen";
+import OrderDrinkScreen from "./pages/OrderDrinkScreen";
+import OrderProductScreen from "./pages/OrderProductScreen";
+import TrendingScreen from "./pages/TrendingScreen";
+import ChooseMasterScreen from "./pages/ChooseMasterScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +29,11 @@ const App = () => (
           <Route path="/services" element={<ServiceScreen />} />
           <Route path="/dashboard" element={<DashboardScreen />} />
           <Route path="/price-list" element={<PriceListScreen />} />
+          <Route path="/booking" element={<BookingScreen />} />
+          <Route path="/order-drink" element={<OrderDrinkScreen />} />
+          <Route path="/order-product" element={<OrderProductScreen />} />
+          <Route path="/trending" element={<TrendingScreen />} />
+          <Route path="/choose-master" element={<ChooseMasterScreen />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
