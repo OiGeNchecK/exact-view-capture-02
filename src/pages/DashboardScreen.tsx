@@ -9,7 +9,6 @@ import {
   ShoppingBag,
   TrendingUp,
   UserCheck,
-  Percent,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -21,12 +20,11 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { key: 'price_list', icon: ClipboardList, route: '/price-list' },
-  { key: 'booking', icon: CalendarPlus, route: '/dashboard' },
-  { key: 'order_drink', icon: Coffee, route: '/dashboard' },
-  { key: 'order_product', icon: ShoppingBag, route: '/dashboard' },
-  { key: 'trending', icon: TrendingUp, route: '/dashboard' },
-  { key: 'choose_master', icon: UserCheck, route: '/dashboard' },
-  { key: 'promotions', icon: Percent, route: '/dashboard' },
+  { key: 'booking', icon: CalendarPlus, route: '/booking' },
+  { key: 'order_drink', icon: Coffee, route: '/order-drink' },
+  { key: 'order_product', icon: ShoppingBag, route: '/order-product' },
+  { key: 'trending', icon: TrendingUp, route: '/trending' },
+  { key: 'choose_master', icon: UserCheck, route: '/choose-master' },
 ];
 
 const DashboardScreen = () => {
