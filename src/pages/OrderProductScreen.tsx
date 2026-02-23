@@ -1,40 +1,22 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockProducts } from '@/data/mockProducts';
-import { Minus, Plus, ShoppingBag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { Minus, Plus } from 'lucide-react';
 
 const OrderProductScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
   const category = useKioskStore((s) => s.category);
   const addToCart = useKioskStore((s) => s.addToCart);
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const removeFromCart = useKioskStore((s) => s.removeFromCart);
+  const cartItems = useKioskStore((s) => s.cartItems);
 
   const products = mockProducts.filter((p) => p.category === category);
 
-  const setQty = (id: string, delta: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(0, (prev[id] ?? 0) + delta),
-    }));
-  };
-
-  const handleOrder = () => {
-    const totalItems = Object.values(quantities).reduce((sum, q) => sum + q, 0);
-    if (totalItems === 0) {
-      toast.error(t('select_product'));
-      return;
-    }
-    for (let i = 0; i < totalItems; i++) addToCart();
-    toast.success(t('product_ordered'));
-    navigate('/dashboard');
-  };
+  const getQty = (id: string) => cartItems.find((ci) => ci.id === id)?.quantity ?? 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,45 +32,41 @@ const OrderProductScreen = () => {
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
         <div className="w-full max-w-md space-y-4">
-          {products.map((product, i) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 * i }}
-              className="flex items-center justify-between rounded-2xl border border-border bg-glass p-4"
-            >
-              <div>
-                <p className="font-medium text-foreground">{product.name[language]}</p>
-                <p className="text-sm text-gold">{product.price} {t('currency')}</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setQty(product.id, -1)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
-                >
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="w-6 text-center text-lg font-semibold text-gold">
-                  {quantities[product.id] ?? 0}
-                </span>
-                <button
-                  onClick={() => setQty(product.id, 1)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
-                >
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-
-          <Button
-            onClick={handleOrder}
-            className="mt-6 w-full rounded-xl bg-gold py-6 text-lg font-semibold text-background hover:bg-gold-bright"
-          >
-            <ShoppingBag className="mr-2 h-5 w-5" />
-            {t('order')}
-          </Button>
+          {products.map((product, i) => {
+            const qty = getQty(product.id);
+            return (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 * i }}
+                className="flex items-center justify-between rounded-2xl border border-border bg-glass p-4"
+              >
+                <div>
+                  <p className="font-medium text-foreground">{product.name[language]}</p>
+                  <p className="text-sm text-gold">{product.price} {t('currency')}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => removeFromCart(product.id)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-destructive hover:text-destructive disabled:opacity-30"
+                    disabled={qty === 0}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </button>
+                  <span className="w-6 text-center text-lg font-semibold text-gold">
+                    {qty}
+                  </span>
+                  <button
+                    onClick={() => addToCart({ id: product.id, name: product.name[language], price: product.price * 100 })}
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
+                  >
+                    <Plus className="h-4 w-4" />
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
 
           <motion.button
             initial={{ opacity: 0 }}

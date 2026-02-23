@@ -49,6 +49,10 @@ export const translations: Record<Language, Record<string, string>> = {
     available_now: 'Вільна зараз',
     master_selected: 'Майстер обрано',
     no_masters: 'Немає вільних майстрів',
+    age: 'Вік',
+    experience: 'Стаж',
+    years: 'років',
+    work_photos: 'Фото робіт',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -98,6 +102,10 @@ export const translations: Record<Language, Record<string, string>> = {
     available_now: 'Jetzt verfügbar',
     master_selected: 'Meister gewählt',
     no_masters: 'Keine freien Meister verfügbar',
+    age: 'Alter',
+    experience: 'Erfahrung',
+    years: 'Jahre',
+    work_photos: 'Arbeitsfotos',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -147,5 +155,9 @@ export const translations: Record<Language, Record<string, string>> = {
     available_now: 'Available now',
     master_selected: 'Master selected',
     no_masters: 'No available masters',
+    age: 'Age',
+    experience: 'Experience',
+    years: 'years',
+    work_photos: 'Work Photos',
   },
 };
