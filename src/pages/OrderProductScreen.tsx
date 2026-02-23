@@ -68,11 +68,11 @@ const OrderProductScreen = () => {
             );
           })}
 
-          <motion.button
+        <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-4 w-full text-center text-muted-foreground transition-colors hover:text-gold"
+            className="mt-4 w-full rounded-xl border border-border bg-glass py-3 text-center text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
           >
             ← {t('back')}
           </motion.button>

@@ -89,7 +89,7 @@ const PriceListScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           onClick={() => navigate('/dashboard')}
-          className="mx-auto mt-10 block text-muted-foreground transition-colors hover:text-gold"
+          className="mx-auto mt-10 block rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
         >
           ← {t('back')}
         </motion.button>
