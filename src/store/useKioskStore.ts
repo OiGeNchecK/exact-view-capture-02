@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { Language } from '@/i18n/translations';
+import type { Master } from '@/data/mockMasters';
 
 export type Gender = 'female' | 'male';
 export type ServiceCategory = 'hair' | 'nails' | 'makeup' | 'sugaring' | 'massage' | 'laser';
@@ -17,11 +18,13 @@ interface KioskState {
   category: ServiceCategory | null;
   cartItems: CartItem[];
   cartTotal: number;
+  selectedMaster: Master | null;
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
   addToCart: (item: { id: string; name: string; price: number }) => void;
   removeFromCart: (id: string) => void;
+  setSelectedMaster: (master: Master | null) => void;
   resetSession: () => void;
 }
 
@@ -33,6 +36,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   category: null,
   cartItems: [],
   cartTotal: 0,
+  selectedMaster: null,
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
@@ -53,5 +57,6 @@ export const useKioskStore = create<KioskState>((set) => ({
         : s.cartItems.filter((ci) => ci.id !== id);
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE' }),
+  setSelectedMaster: (master) => set({ selectedMaster: master }),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null }),
 }));

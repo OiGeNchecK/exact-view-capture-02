@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { UserCheck, CalendarIcon, Clock } from 'lucide-react';
+import { UserCheck, Clock, CalendarDays } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -24,7 +22,13 @@ const BookingScreen = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
+  const [showCalendar, setShowCalendar] = useState(true);
   const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '' });
+
+  const handleDateSelect = (d: Date | undefined) => {
+    setDate(d);
+    if (d) setShowCalendar(false);
+  };
 
   const handleSubmit = () => {
     if (!date || !time || !form.firstName || !form.lastName || !form.phone || !form.email) {
@@ -38,7 +42,7 @@ const BookingScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-8 pt-24 pb-12">
+      <main className="flex min-h-screen flex-col items-center px-8 pt-20 pb-12">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,33 +53,37 @@ const BookingScreen = () => {
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
         <div className="w-full max-w-md space-y-6">
-          {/* Master icon + Date picker */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="flex flex-col items-center gap-4">
-            <Popover>
-              <PopoverTrigger asChild>
-                <button className="group flex flex-col items-center gap-3 rounded-3xl border border-border bg-glass p-8 transition-all hover:border-gold-bright hover:shadow-gold-lg">
-                  <UserCheck className="h-12 w-12 text-gold transition-transform group-hover:scale-110" />
-                  <span className="text-sm text-muted-foreground">
-                    {date ? format(date, 'dd.MM.yyyy') : t('select_date')}
-                  </span>
-                </button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="center">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  disabled={(d) => d < new Date()}
-                  initialFocus
-                  className={cn("p-3 pointer-events-auto")}
-                />
-              </PopoverContent>
-            </Popover>
+          {/* Date selection */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            {!date || showCalendar ? (
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex items-center gap-2 text-gold">
+                  <CalendarDays className="h-5 w-5" />
+                  <span className="font-medium">{t('select_date')}</span>
+                </div>
+                <div className="rounded-2xl border border-border bg-glass p-2">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={handleDateSelect}
+                    disabled={(d) => d < new Date(new Date().setHours(0, 0, 0, 0))}
+                    className={cn("p-3 pointer-events-auto")}
+                  />
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowCalendar(true)}
+                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-gold/50 bg-gold/10 px-6 py-4 transition-all hover:border-gold-bright hover:bg-gold/20"
+              >
+                <CalendarDays className="h-5 w-5 text-gold" />
+                <span className="font-medium text-gold">{format(date, 'dd.MM.yyyy')}</span>
+              </button>
+            )}
           </motion.div>
 
-          {/* Time slots */}
-          {date && (
+          {/* Time slots - only when date selected and calendar hidden */}
+          {date && !showCalendar && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
               <div className="flex items-center gap-2 text-gold">
                 <Clock className="h-5 w-5" />
@@ -101,7 +109,7 @@ const BookingScreen = () => {
           )}
 
           {/* Form */}
-          {date && time && (
+          {date && time && !showCalendar && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
               <Input
                 placeholder={t('first_name')}
@@ -147,7 +155,7 @@ const BookingScreen = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-8 w-full text-center text-muted-foreground transition-colors hover:text-gold"
+            className="mt-8 w-full rounded-xl border border-border bg-glass py-3 text-center text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
           >
             ← {t('back')}
           </motion.button>

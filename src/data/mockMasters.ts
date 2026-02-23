@@ -5,6 +5,7 @@ export interface Master {
   id: string;
   name: string;
   avatar: string;
+  photo: string;
   specialization: ServiceCategory[];
   available: boolean;
   title: Record<Language, string>;
@@ -17,7 +18,9 @@ export interface Master {
 
 export const mockMasters: Master[] = [
   {
-    id: '1', name: 'Anna K.', avatar: 'AK', specialization: ['hair'], available: true,
+    id: '1', name: 'Anna K.', avatar: 'AK',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
+    specialization: ['hair'], available: true,
     title: { UA: 'Стиліст-колорист', DE: 'Stylistin-Koloristin', EN: 'Stylist-Colorist' },
     age: 28, experienceYears: 7,
     education: { UA: 'Академія краси, Київ', DE: 'Schönheitsakademie, Kiew', EN: 'Beauty Academy, Kyiv' },
@@ -29,7 +32,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '2', name: 'Maria S.', avatar: 'MS', specialization: ['nails'], available: true,
+    id: '2', name: 'Maria S.', avatar: 'MS',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
+    specialization: ['nails'], available: true,
     title: { UA: 'Майстер манікюру', DE: 'Nageldesignerin', EN: 'Nail Technician' },
     age: 25, experienceYears: 5,
     education: { UA: 'Школа нігтьового сервісу', DE: 'Nageldesign-Schule', EN: 'Nail Design School' },
@@ -41,7 +46,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '3', name: 'Elena P.', avatar: 'EP', specialization: ['makeup'], available: true,
+    id: '3', name: 'Elena P.', avatar: 'EP',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face',
+    specialization: ['makeup'], available: true,
     title: { UA: 'Візажист', DE: 'Visagistin', EN: 'Makeup Artist' },
     age: 32, experienceYears: 10,
     education: { UA: 'Інститут краси, Відень', DE: 'Schönheitsinstitut, Wien', EN: 'Beauty Institute, Vienna' },
@@ -53,7 +60,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '4', name: 'Olga T.', avatar: 'OT', specialization: ['sugaring', 'laser'], available: true,
+    id: '4', name: 'Olga T.', avatar: 'OT',
+    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face',
+    specialization: ['sugaring', 'laser'], available: true,
     title: { UA: 'Косметолог', DE: 'Kosmetikerin', EN: 'Cosmetologist' },
     age: 30, experienceYears: 8,
     education: { UA: 'Медичний коледж, Львів', DE: 'Medizinische Hochschule, Lwiw', EN: 'Medical College, Lviv' },
@@ -65,7 +74,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '5', name: 'Sofia M.', avatar: 'SM', specialization: ['massage'], available: true,
+    id: '5', name: 'Sofia M.', avatar: 'SM',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+    specialization: ['massage'], available: true,
     title: { UA: 'Масажист', DE: 'Masseurin', EN: 'Massage Therapist' },
     age: 27, experienceYears: 6,
     education: { UA: 'Академія масажу, Берлін', DE: 'Massage-Akademie, Berlin', EN: 'Massage Academy, Berlin' },
@@ -77,7 +88,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '6', name: 'Diana R.', avatar: 'DR', specialization: ['hair', 'makeup'], available: true,
+    id: '6', name: 'Diana R.', avatar: 'DR',
+    photo: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=face',
+    specialization: ['hair', 'makeup'], available: true,
     title: { UA: 'Стиліст', DE: 'Stylistin', EN: 'Stylist' },
     age: 35, experienceYears: 12,
     education: { UA: 'Академія стилю, Мілан', DE: 'Stil-Akademie, Mailand', EN: 'Style Academy, Milan' },
@@ -89,7 +102,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '7', name: 'Katya V.', avatar: 'KV', specialization: ['nails'], available: true,
+    id: '7', name: 'Katya V.', avatar: 'KV',
+    photo: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=200&h=200&fit=crop&crop=face',
+    specialization: ['nails'], available: true,
     title: { UA: 'Майстер педикюру', DE: 'Pediküre-Meisterin', EN: 'Pedicure Specialist' },
     age: 24, experienceYears: 4,
     education: { UA: 'Курси nail-арту, Варшава', DE: 'Nail-Art Kurse, Warschau', EN: 'Nail Art Courses, Warsaw' },
@@ -101,7 +116,9 @@ export const mockMasters: Master[] = [
     ],
   },
   {
-    id: '8', name: 'Lena B.', avatar: 'LB', specialization: ['laser'], available: true,
+    id: '8', name: 'Lena B.', avatar: 'LB',
+    photo: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=200&h=200&fit=crop&crop=face',
+    specialization: ['laser'], available: true,
     title: { UA: 'Лазерний терапевт', DE: 'Lasertherapeutin', EN: 'Laser Therapist' },
     age: 29, experienceYears: 6,
     education: { UA: 'Медичний університет, Відень', DE: 'Medizinische Universität, Wien', EN: 'Medical University, Vienna' },

@@ -53,6 +53,10 @@ export const translations: Record<Language, Record<string, string>> = {
     experience: 'Стаж',
     years: 'років',
     work_photos: 'Фото робіт',
+    select_master: 'Обрати',
+    milk: 'Молоко',
+    cart_empty: 'Кошик порожній',
+    total: 'Разом',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -106,6 +110,10 @@ export const translations: Record<Language, Record<string, string>> = {
     experience: 'Erfahrung',
     years: 'Jahre',
     work_photos: 'Arbeitsfotos',
+    select_master: 'Auswählen',
+    milk: 'Milch',
+    cart_empty: 'Warenkorb ist leer',
+    total: 'Gesamt',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -159,5 +167,9 @@ export const translations: Record<Language, Record<string, string>> = {
     experience: 'Experience',
     years: 'years',
     work_photos: 'Work Photos',
+    select_master: 'Select',
+    milk: 'Milk',
+    cart_empty: 'Cart is empty',
+    total: 'Total',
   },
 };
