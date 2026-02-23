@@ -1,23 +1,32 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockMasters } from '@/data/mockMasters';
-import { CheckCircle } from 'lucide-react';
+import type { Master } from '@/data/mockMasters';
+import { CheckCircle, Calendar, GraduationCap, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 const ChooseMasterScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
   const category = useKioskStore((s) => s.category);
+  const [selectedMaster, setSelectedMaster] = useState<Master | null>(null);
 
   const masters = mockMasters.filter(
     (m) => m.available && m.specialization.includes(category!)
   );
 
-  const handleSelect = (name: string) => {
+  const handleSelect = (master: Master) => {
+    setSelectedMaster(master);
+  };
+
+  const handleConfirm = (name: string) => {
     toast.success(`${t('master_selected')}: ${name}`);
+    setSelectedMaster(null);
     navigate('/dashboard');
   };
 
@@ -43,7 +52,7 @@ const ChooseMasterScreen = () => {
               transition={{ delay: 0.1 * i }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => handleSelect(master.name)}
+              onClick={() => handleSelect(master)}
               className="group flex items-center gap-4 rounded-2xl border border-border bg-glass p-5 transition-all hover:border-gold-bright hover:shadow-gold-lg"
             >
               <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold bg-gold/10 font-display text-lg font-bold text-gold">
@@ -77,6 +86,55 @@ const ChooseMasterScreen = () => {
           ← {t('back')}
         </motion.button>
       </main>
+
+      <Dialog open={!!selectedMaster} onOpenChange={() => setSelectedMaster(null)}>
+        <DialogContent className="max-w-md border-border bg-background p-0">
+          {selectedMaster && (
+            <div className="p-6">
+              <div className="mb-4 flex items-center gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-gold bg-gold/10 font-display text-xl font-bold text-gold">
+                  {selectedMaster.avatar}
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-foreground">{selectedMaster.name}</h2>
+                  <p className="text-sm text-gold">{selectedMaster.title[language]}</p>
+                </div>
+              </div>
+
+              <div className="mb-5 space-y-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="h-4 w-4 text-gold" />
+                  <span>{t('age')}: {selectedMaster.age} | {t('experience')}: {selectedMaster.experienceYears} {t('years')}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <GraduationCap className="h-4 w-4 text-gold" />
+                  <span>{selectedMaster.education[language]}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <MapPin className="h-4 w-4 text-gold" />
+                  <span>{selectedMaster.workplace[language]}</span>
+                </div>
+              </div>
+
+              <p className="mb-3 text-sm font-medium text-gold">{t('work_photos')}</p>
+              <div className="grid grid-cols-3 gap-2">
+                {selectedMaster.photos.map((photo, i) => (
+                  <div key={i} className="aspect-square overflow-hidden rounded-xl border border-border">
+                    <img src={photo} alt={`${selectedMaster.name} work ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => handleConfirm(selectedMaster.name)}
+                className="mt-5 w-full rounded-xl bg-gold py-3 text-lg font-semibold text-background transition-colors hover:bg-gold-bright"
+              >
+                {t('master_selected')}
+              </button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

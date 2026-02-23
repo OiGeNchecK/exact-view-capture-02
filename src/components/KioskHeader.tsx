@@ -5,8 +5,9 @@ import { ShoppingBag, LogOut } from 'lucide-react';
 
 const KioskHeader = () => {
   const { t } = useTranslation();
-  const { category, cartCount, resetSession } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession } = useKioskStore();
   const navigate = useNavigate();
+  const cartCount = cartItems.length;
 
   const handleEnd = () => {
     resetSession();
@@ -27,6 +28,11 @@ const KioskHeader = () => {
       )}
 
       <div className="flex items-center gap-4">
+        {cartTotal > 0 && (
+          <span className="text-sm font-semibold text-gold">
+            {(cartTotal / 100).toFixed(2)} €
+          </span>
+        )}
         <button
           onClick={() => {}}
           className="relative rounded-xl border border-border bg-glass p-3 text-foreground transition-colors hover:border-gold-dim hover:text-gold"
