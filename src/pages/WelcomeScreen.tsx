@@ -44,10 +44,10 @@ const WelcomeScreen = () => {
           <button
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={`flex items-center gap-3 rounded-xl border px-6 py-4 text-lg transition-all duration-300 ${
+            className={`flex items-center gap-3 rounded-xl px-6 py-4 text-lg transition-all duration-300 ${
               language === lang.code
-                ? 'border-gold-bright bg-glass shadow-gold text-gold'
-                : 'border-border bg-glass text-muted-foreground hover:border-gold-dim hover:text-foreground'
+                ? 'card-luxury !border-gold text-gold shadow-gold'
+                : 'card-luxury text-muted-foreground hover:text-foreground'
             }`}
           >
             <span className="text-2xl">{lang.flag}</span>

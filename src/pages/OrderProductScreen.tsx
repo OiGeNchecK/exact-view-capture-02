@@ -40,7 +40,7 @@ const OrderProductScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className="flex items-center justify-between rounded-2xl border border-border bg-glass p-4"
+                className="flex items-center justify-between rounded-2xl card-luxury p-4"
               >
                 <div>
                   <p className="font-medium text-foreground">{product.name[language]}</p>
@@ -72,7 +72,7 @@ const OrderProductScreen = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-4 w-full rounded-xl border border-border bg-glass py-3 text-center text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+            className="mt-4 w-full rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
           >
             ← {t('back')}
           </motion.button>

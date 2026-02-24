@@ -32,7 +32,7 @@ const TrendingScreen = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * i }}
-              className="group overflow-hidden rounded-2xl border border-border bg-glass transition-all hover:border-gold-bright hover:shadow-gold-lg"
+              className="group overflow-hidden rounded-2xl card-luxury transition-all"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
@@ -60,7 +60,7 @@ const TrendingScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           onClick={() => navigate('/dashboard')}
-          className="mt-10 rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+          className="mt-10 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </motion.button>

@@ -47,7 +47,7 @@ const ServiceScreen = () => {
               whileHover={{ scale: 1.04, y: -4 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => handleSelect(cat.code)}
-              className="group flex h-44 w-44 flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-glass transition-all duration-300 hover:border-gold-bright hover:shadow-gold-lg md:h-48 md:w-48"
+              className="card-luxury group flex h-44 w-44 flex-col items-center justify-center gap-4 rounded-2xl transition-all duration-300 md:h-48 md:w-48"
             >
               <Icon className="h-10 w-10 text-gold transition-transform duration-300 group-hover:scale-110" />
               <span className="px-3 text-center text-base font-medium leading-tight text-foreground">
@@ -63,7 +63,7 @@ const ServiceScreen = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
         onClick={() => navigate('/')}
-        className="mt-16 rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+        className="mt-16 rounded-xl border border-border card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
       >
         ← {t('back')}
       </motion.button>
