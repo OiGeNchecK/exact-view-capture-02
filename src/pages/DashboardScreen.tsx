@@ -30,55 +30,60 @@ const menuItems: MenuItem[] = [
 const DashboardScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
-  const category = useKioskStore((s) => s.category);
   const selectedMaster = useKioskStore((s) => s.selectedMaster);
+  const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
 
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-8 pt-20 pb-12">
-        {/* Selected master badge */}
-        {selectedMaster && (
-          <motion.div
+      <main className="flex min-h-screen flex-col items-center px-4 pt-20 pb-12 sm:px-8">
+        {/* Selected master badge — click to re-choose */}
+        {selectedMaster ? (
+          <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              setSelectedMaster(null);
+              navigate('/choose-master');
+            }}
             className="mb-4 flex items-center gap-3 rounded-2xl border-2 border-gold bg-gold/10 px-5 py-2"
           >
             <img
               src={selectedMaster.photo}
               alt={selectedMaster.name}
-              className="h-10 w-10 rounded-xl object-cover"
+              className="h-12 w-12 rounded-xl object-cover"
             />
-            <div>
+            <div className="text-left">
               <p className="text-sm font-semibold text-gold">{selectedMaster.name}</p>
               <p className="text-xs text-muted-foreground">{selectedMaster.title[language]}</p>
             </div>
-          </motion.div>
+          </motion.button>
+        ) : (
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => navigate('/choose-master')}
+            className="mb-4 flex w-full max-w-3xl items-center justify-center gap-3 rounded-2xl border border-gold/50 bg-gold/10 px-6 py-4 transition-all hover:border-gold-bright hover:bg-gold/20 hover:shadow-gold-lg"
+          >
+            <UserCheck className="h-6 w-6 text-gold" />
+            <span className="text-base font-semibold text-gold sm:text-lg">{t('choose_master')}</span>
+          </motion.button>
         )}
 
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 font-display text-4xl font-bold text-gold"
+          className="mb-4 font-display text-3xl font-bold text-gold sm:text-4xl"
         >
           {t('dashboard')}
         </motion.h1>
         <div className="mx-auto mb-6 h-px w-24 bg-gold-gradient" />
 
-        {/* Choose master button */}
-        <motion.button
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/choose-master')}
-          className="mb-8 flex w-full max-w-3xl items-center justify-center gap-3 rounded-2xl border border-gold/50 bg-gold/10 px-6 py-4 transition-all hover:border-gold-bright hover:bg-gold/20 hover:shadow-gold-lg"
-        >
-          <UserCheck className="h-6 w-6 text-gold" />
-          <span className="text-lg font-semibold text-gold">{t('choose_master')}</span>
-        </motion.button>
-
-        <div className="grid w-full max-w-3xl grid-cols-2 gap-5 md:grid-cols-3">
+        <div className="grid w-full max-w-3xl grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3">
           {menuItems.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -90,10 +95,10 @@ const DashboardScreen = () => {
                 whileHover={{ scale: 1.04, y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.route)}
-                className="group flex flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-glass p-8 transition-all duration-300 hover:border-gold-bright hover:shadow-gold-lg"
+                className="group flex flex-col items-center justify-center gap-3 rounded-3xl border border-border bg-glass p-6 transition-all duration-300 hover:border-gold-bright hover:shadow-gold-lg sm:gap-4 sm:p-8"
               >
-                <Icon className="h-9 w-9 text-gold transition-transform duration-300 group-hover:scale-110" />
-                <span className="text-center text-base font-medium leading-tight text-foreground">
+                <Icon className="h-8 w-8 text-gold transition-transform duration-300 group-hover:scale-110 sm:h-9 sm:w-9" />
+                <span className="text-center text-sm font-medium leading-tight text-foreground sm:text-base">
                   {t(item.key)}
                 </span>
               </motion.button>

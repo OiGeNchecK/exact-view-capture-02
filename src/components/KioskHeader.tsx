@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, X, Minus, Plus } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { toast } from 'sonner';
 
 const KioskHeader = () => {
   const { t } = useTranslation();
@@ -17,32 +18,37 @@ const KioskHeader = () => {
     navigate('/');
   };
 
+  const handleConfirmOrder = () => {
+    toast.success(t('order_confirmed'));
+    setCartOpen(false);
+  };
+
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-border bg-background/80 px-8 py-4 backdrop-blur-xl">
-        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-3">
-          <span className="font-display text-2xl font-bold tracking-wider text-gold">TINTEI</span>
-          <span className="font-display text-sm tracking-[0.2em] text-gold-dim">BEAUTY</span>
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
+        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
+          <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
+          <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
         </button>
 
-        {/* Center: category - absolutely positioned so cart changes don't shift it */}
+        {/* Center: category in gold border */}
         {category && (
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-glass px-4 py-1.5 text-sm font-medium text-foreground">
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold bg-gold/10 px-4 py-1.5 text-xs font-medium text-gold sm:text-sm">
             {t(category)}
           </span>
         )}
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           {cartTotal > 0 && (
-            <span className="text-sm font-semibold text-gold">
+            <span className="text-xs font-semibold text-gold sm:text-sm">
               {(cartTotal / 100).toFixed(2)} €
             </span>
           )}
           <button
             onClick={() => setCartOpen(true)}
-            className="relative rounded-xl border border-border bg-glass p-3 text-foreground transition-colors hover:border-gold-dim hover:text-gold"
+            className="relative rounded-xl border border-border bg-glass p-2.5 text-foreground transition-colors hover:border-gold-dim hover:text-gold sm:p-3"
           >
-            <ShoppingBag className="h-5 w-5" />
+            <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
             {cartCount > 0 && (
               <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-gold-gradient text-xs font-bold text-primary-foreground">
                 {cartCount}
@@ -52,10 +58,10 @@ const KioskHeader = () => {
 
           <button
             onClick={handleEnd}
-            className="flex items-center gap-2 rounded-xl border border-destructive/30 bg-glass px-4 py-3 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
+            className="flex items-center gap-1.5 rounded-xl border border-destructive/30 bg-glass px-3 py-2.5 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10 sm:gap-2 sm:px-4 sm:py-3 sm:text-sm"
           >
             <LogOut className="h-4 w-4" />
-            {t('end_session')}
+            <span className="hidden sm:inline">{t('end_session')}</span>
           </button>
         </div>
       </header>
@@ -94,10 +100,18 @@ const KioskHeader = () => {
               </div>
             ))}
             {cartItems.length > 0 && (
-              <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-                <span className="font-semibold text-foreground">{t('total')}</span>
-                <span className="text-lg font-bold text-gold">{(cartTotal / 100).toFixed(2)} €</span>
-              </div>
+              <>
+                <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
+                  <span className="font-semibold text-foreground">{t('total')}</span>
+                  <span className="text-lg font-bold text-gold">{(cartTotal / 100).toFixed(2)} €</span>
+                </div>
+                <button
+                  onClick={handleConfirmOrder}
+                  className="mt-2 w-full rounded-xl bg-gold py-3 text-lg font-semibold text-background transition-colors hover:bg-gold-bright"
+                >
+                  {t('confirm_order')}
+                </button>
+              </>
             )}
           </div>
         </SheetContent>
