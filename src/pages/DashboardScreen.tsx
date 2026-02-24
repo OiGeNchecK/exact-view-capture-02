@@ -95,7 +95,7 @@ const DashboardScreen = () => {
                 whileHover={{ scale: 1.04, y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.route)}
-                className="group flex flex-col items-center justify-center gap-3 rounded-3xl border border-border bg-glass p-6 transition-all duration-300 hover:border-gold-bright hover:shadow-gold-lg sm:gap-4 sm:p-8"
+                className="card-luxury group flex flex-col items-center justify-center gap-3 rounded-2xl p-6 transition-all duration-300 sm:gap-4 sm:p-8"
               >
                 <Icon className="h-8 w-8 text-gold transition-transform duration-300 group-hover:scale-110 sm:h-9 sm:w-9" />
                 <span className="text-center text-sm font-medium leading-tight text-foreground sm:text-base">
@@ -111,7 +111,7 @@ const DashboardScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
           onClick={() => navigate('/services')}
-          className="mt-10 rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+          className="mt-10 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </motion.button>

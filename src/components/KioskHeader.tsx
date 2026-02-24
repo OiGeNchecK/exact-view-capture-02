@@ -25,7 +25,7 @@ const KioskHeader = () => {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
         <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
           <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
           <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
@@ -46,7 +46,7 @@ const KioskHeader = () => {
           )}
           <button
             onClick={() => setCartOpen(true)}
-            className="relative rounded-xl border border-border bg-glass p-2.5 text-foreground transition-colors hover:border-gold-dim hover:text-gold sm:p-3"
+            className="relative rounded-xl card-luxury p-2.5 text-foreground transition-colors hover:text-gold sm:p-3"
           >
             <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
             {cartCount > 0 && (
@@ -58,7 +58,7 @@ const KioskHeader = () => {
 
           <button
             onClick={handleEnd}
-            className="flex items-center gap-1.5 rounded-xl border border-destructive/30 bg-glass px-3 py-2.5 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10 sm:gap-2 sm:px-4 sm:py-3 sm:text-sm"
+            className="flex items-center gap-1.5 rounded-xl border border-destructive/30 card-luxury px-3 py-2.5 text-xs font-medium text-destructive transition-colors hover:bg-destructive/10 sm:gap-2 sm:px-4 sm:py-3 sm:text-sm"
           >
             <LogOut className="h-4 w-4" />
             <span className="hidden sm:inline">{t('end_session')}</span>
@@ -77,7 +77,7 @@ const KioskHeader = () => {
               <p className="py-8 text-center text-muted-foreground">{t('cart_empty')}</p>
             )}
             {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center justify-between rounded-xl border border-border bg-glass p-3">
+              <div key={item.id} className="flex items-center justify-between rounded-xl card-luxury p-3">
                 <div className="flex-1">
                   <p className="text-sm font-medium text-foreground">{item.name}</p>
                   <p className="text-xs text-gold">{(item.price / 100).toFixed(2)} €</p>

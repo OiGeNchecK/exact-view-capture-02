@@ -61,7 +61,7 @@ const BookingScreen = () => {
                   <CalendarDays className="h-5 w-5" />
                   <span className="font-medium">{t('select_date')}</span>
                 </div>
-                <div className="rounded-2xl border border-border bg-glass p-2">
+                <div className="rounded-2xl card-luxury p-2">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -155,7 +155,7 @@ const BookingScreen = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-8 w-full rounded-xl border border-border bg-glass py-3 text-center text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+            className="mt-8 w-full rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
           >
             ← {t('back')}
           </motion.button>

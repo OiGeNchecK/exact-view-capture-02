@@ -46,7 +46,7 @@ const PriceListScreen = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 rounded-2xl border border-border bg-glass px-5 py-5 transition-all duration-300 hover:border-gold-dim hover:shadow-gold"
+                className="group grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 rounded-2xl card-luxury px-5 py-5 transition-all duration-300"
               >
                 <span className="text-lg font-medium text-foreground">{s.name[language]}</span>
                 <span className="flex w-20 items-center justify-center gap-1.5 text-sm text-muted-foreground">
@@ -89,7 +89,7 @@ const PriceListScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           onClick={() => navigate('/dashboard')}
-          className="mx-auto mt-10 block rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+          className="mx-auto mt-10 block rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </motion.button>

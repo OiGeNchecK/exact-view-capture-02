@@ -51,7 +51,7 @@ const ChooseMasterScreen = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setViewMaster(master)}
-              className="group flex flex-col items-center gap-3 rounded-2xl border border-border bg-glass p-4 transition-all hover:border-gold-bright hover:shadow-gold-lg"
+              className="card-luxury group flex flex-col items-center gap-3 rounded-2xl p-4 transition-all"
             >
               <div className="h-24 w-24 overflow-hidden rounded-xl border-2 border-gold/30 transition-all group-hover:border-gold-bright sm:h-28 sm:w-28">
                 <img src={master.photo} alt={master.name} className="h-full w-full object-cover" loading="lazy" />
@@ -75,7 +75,7 @@ const ChooseMasterScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           onClick={() => navigate('/dashboard')}
-          className="mt-10 rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
+          className="mt-10 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </motion.button>
