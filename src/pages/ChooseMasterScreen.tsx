@@ -31,17 +31,17 @@ const ChooseMasterScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-8 pt-20 pb-12">
+      <main className="flex min-h-screen flex-col items-center px-4 pt-20 pb-12 sm:px-8">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 font-display text-4xl font-bold text-gold"
+          className="mb-4 font-display text-3xl font-bold text-gold sm:text-4xl"
         >
           {t('choose_master')}
         </motion.h1>
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid w-full max-w-2xl grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
+        <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 sm:gap-5">
           {masters.map((master, i) => (
             <motion.button
               key={master.id}
@@ -53,7 +53,7 @@ const ChooseMasterScreen = () => {
               onClick={() => setViewMaster(master)}
               className="group flex flex-col items-center gap-3 rounded-2xl border border-border bg-glass p-4 transition-all hover:border-gold-bright hover:shadow-gold-lg"
             >
-              <div className="h-20 w-20 overflow-hidden rounded-xl border-2 border-gold/30 transition-all group-hover:border-gold-bright">
+              <div className="h-24 w-24 overflow-hidden rounded-xl border-2 border-gold/30 transition-all group-hover:border-gold-bright sm:h-28 sm:w-28">
                 <img src={master.photo} alt={master.name} className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className="text-center">
@@ -86,7 +86,7 @@ const ChooseMasterScreen = () => {
           {viewMaster && (
             <div className="p-6">
               <div className="mb-4 flex items-center gap-4">
-                <div className="h-16 w-16 overflow-hidden rounded-2xl border-2 border-gold">
+                <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-gold">
                   <img src={viewMaster.photo} alt={viewMaster.name} className="h-full w-full object-cover" />
                 </div>
                 <div>

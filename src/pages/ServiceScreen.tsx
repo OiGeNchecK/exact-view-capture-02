@@ -62,8 +62,8 @@ const ServiceScreen = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
-        onClick={() => navigate('/gender')}
-        className="mt-16 text-muted-foreground transition-colors hover:text-gold"
+        onClick={() => navigate('/')}
+        className="mt-16 rounded-xl border border-border bg-glass px-6 py-3 text-muted-foreground transition-colors hover:border-gold-dim hover:text-gold"
       >
         ← {t('back')}
       </motion.button>
