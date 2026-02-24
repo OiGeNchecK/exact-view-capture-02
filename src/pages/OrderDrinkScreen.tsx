@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockDrinks } from '@/data/mockDrinks';
 import { Minus, Plus, Milk } from 'lucide-react';
@@ -11,6 +12,7 @@ import { toast } from 'sonner';
 const OrderDrinkScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
+  const { addToCart } = useKioskStore();
   const [orders, setOrders] = useState<Record<string, { selected: boolean; sugar: number; milk: boolean }>>({});
 
   const toggleDrink = (id: string) => {
@@ -40,6 +42,16 @@ const OrderDrinkScreen = () => {
       toast.error(t('select_drink'));
       return;
     }
+    selected.forEach(([id, config]) => {
+      const drink = mockDrinks.find((d) => d.id === id);
+      if (!drink) return;
+      let name = drink.name[language];
+      const extras: string[] = [];
+      if (config.sugar > 0) extras.push(`${config.sugar}x ${t('sugar_spoons')}`);
+      if (config.milk) extras.push(t('milk'));
+      if (extras.length > 0) name += ` (${extras.join(', ')})`;
+      addToCart({ id: `drink_${id}_${Date.now()}`, name, price: 0 });
+    });
     toast.success(t('drink_ordered'));
     navigate('/dashboard');
   };
