@@ -36,7 +36,7 @@ const DashboardScreen = () => {
   return (
     <div className="min-h-screen">
       <KioskHeader />
-      <main className="flex flex-col items-center px-4 pt-24 pb-12">
+      <main className="flex min-h-screen flex-col items-center justify-center px-4 pb-12">
         {/* Selected master badge */}
         {selectedMaster ? (
           <motion.button
