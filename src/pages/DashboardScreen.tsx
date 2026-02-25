@@ -36,7 +36,7 @@ const DashboardScreen = () => {
   return (
     <div className="min-h-screen">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center justify-center px-4 pt-16 pb-12">
+      <main className="flex flex-col items-center px-4 pt-24 pb-12">
         {/* Selected master badge */}
         {selectedMaster ? (
           <motion.button
@@ -97,11 +97,11 @@ const DashboardScreen = () => {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.route)}
-                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-10 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-14 md:py-16"
+                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-16 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-20 md:py-24"
                 style={{ minWidth: 0, maxWidth: 220 }}
               >
                 <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
-                <span className="text-center text-sm font-medium leading-tight text-foreground sm:text-base">
+                <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
                   {t(item.key)}
                 </span>
               </motion.button>
