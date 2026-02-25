@@ -42,13 +42,13 @@ const DashboardScreen = () => {
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => {
               setSelectedMaster(null);
               navigate('/choose-master');
             }}
-            className="mb-6 flex items-center gap-3 rounded-2xl border-2 border-gold bg-gold/10 px-5 py-2"
+            className="tile-luxury mb-6 flex items-center gap-3 rounded-2xl px-5 py-4"
           >
             <img
               src={selectedMaster.photo}
@@ -64,12 +64,12 @@ const DashboardScreen = () => {
           <motion.button
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/choose-master')}
-            className="mb-6 flex items-center justify-center gap-3 rounded-2xl border border-gold/50 bg-gold/10 px-6 py-3 transition-all hover:border-gold hover:bg-gold/20 hover:shadow-gold-lg"
+            className="tile-luxury mb-6 flex items-center justify-center gap-3 rounded-2xl px-6 py-4"
           >
-            <UserCheck className="h-5 w-5 text-gold" />
+            <UserCheck className="h-5 w-5 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
             <span className="text-base font-semibold text-gold">{t('choose_master')}</span>
           </motion.button>
         )}
