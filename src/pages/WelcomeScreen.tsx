@@ -16,43 +16,52 @@ const WelcomeScreen = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-8">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 sm:px-8">
       {/* Logo */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="mb-16 text-center"
+        className="mb-12 text-center sm:mb-16"
       >
-        <h1 className="font-display text-6xl font-bold tracking-wider text-gold">
+        <h1 className="font-display text-5xl font-bold tracking-wider text-gold sm:text-6xl">
           TINTEI
         </h1>
-        <p className="mt-2 font-display text-2xl tracking-[0.3em] text-gold-glow">
+        <p className="mt-2 font-display text-xl tracking-[0.3em] text-gold-glow sm:text-2xl">
           BEAUTY
         </p>
         <div className="mx-auto mt-6 h-px w-32 bg-gold-gradient" />
       </motion.div>
 
-      {/* Language selection */}
+      {/* Language selection — tile cards */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="mb-12 flex gap-4"
+        className="mb-12 flex flex-wrap justify-center gap-4 sm:gap-5"
       >
-        {languages.map((lang) => (
-          <button
+        {languages.map((lang, i) => (
+          <motion.button
             key={lang.code}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 + i * 0.08, type: 'spring', stiffness: 120 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.97 }}
             onClick={() => setLanguage(lang.code)}
-            className={`flex items-center gap-3 rounded-xl px-6 py-4 text-lg transition-all duration-300 ${
+            className={`tile-luxury group flex w-36 flex-col items-center justify-center gap-3 rounded-2xl px-4 py-10 sm:w-44 sm:gap-4 sm:py-14 ${
               language === lang.code
-                ? 'card-luxury !border-gold text-gold shadow-gold'
-                : 'card-luxury text-muted-foreground hover:text-foreground'
+                ? '!border-gold shadow-gold-lg'
+                : ''
             }`}
           >
-            <span className="text-2xl">{lang.flag}</span>
-            <span className="font-body font-medium">{lang.label}</span>
-          </button>
+            <span className="text-4xl drop-shadow-[0_0_8px_hsl(40_55%_50%/0.4)] transition-transform duration-300 group-hover:scale-110 sm:text-5xl">
+              {lang.flag}
+            </span>
+            <span className="text-sm font-medium text-foreground sm:text-base">
+              {lang.label}
+            </span>
+          </motion.button>
         ))}
       </motion.div>
 
@@ -61,7 +70,7 @@ const WelcomeScreen = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.6 }}
-        className="mb-10 text-center text-lg text-muted-foreground"
+        className="mb-10 text-center text-base text-muted-foreground sm:text-lg"
       >
         {t('welcome_subtitle')}
       </motion.p>
@@ -74,7 +83,7 @@ const WelcomeScreen = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
         onClick={() => navigate('/services')}
-        className="bg-gold-gradient rounded-2xl px-16 py-5 text-xl font-semibold text-primary-foreground shadow-gold-lg transition-shadow hover:shadow-gold-lg"
+        className="bg-gold-gradient rounded-2xl px-12 py-4 text-lg font-semibold text-primary-foreground shadow-gold-lg transition-shadow hover:shadow-gold-lg sm:px-16 sm:py-5 sm:text-xl"
       >
         {t('start')}
       </motion.button>
