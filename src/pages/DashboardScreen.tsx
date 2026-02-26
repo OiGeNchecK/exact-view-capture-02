@@ -34,9 +34,9 @@ const DashboardScreen = () => {
   const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
 
   return (
-    <div className="min-h-screen">
+    <div className="h-screen overflow-hidden">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center justify-center px-4 pb-12">
+      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center gap-4 px-4 pt-16">
         {/* Selected master badge */}
         {selectedMaster ? (
           <motion.button
@@ -48,12 +48,12 @@ const DashboardScreen = () => {
               setSelectedMaster(null);
               navigate('/choose-master');
             }}
-            className="tile-luxury mb-6 flex items-center gap-3 rounded-2xl px-5 py-4"
+            className="tile-luxury flex items-center gap-3 rounded-2xl px-5 py-3"
           >
             <img
               src={selectedMaster.photo}
               alt={selectedMaster.name}
-              className="h-12 w-12 rounded-xl object-cover"
+              className="h-10 w-10 rounded-xl object-cover"
             />
             <div className="text-left">
               <p className="text-sm font-semibold text-gold">{selectedMaster.name}</p>
@@ -67,7 +67,7 @@ const DashboardScreen = () => {
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/choose-master')}
-            className="tile-luxury mb-6 flex items-center justify-center gap-3 rounded-2xl px-6 py-4"
+            className="tile-luxury flex items-center justify-center gap-3 rounded-2xl px-6 py-3"
           >
             <UserCheck className="h-5 w-5 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
             <span className="text-base font-semibold text-gold">{t('choose_master')}</span>
@@ -78,14 +78,14 @@ const DashboardScreen = () => {
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-3 font-display text-3xl font-bold text-gold sm:text-4xl"
+          className="font-display text-2xl font-bold text-gold sm:text-3xl"
         >
           {t('dashboard')}
         </motion.h1>
-        <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto h-px w-24 bg-gold-gradient" />
 
         {/* Fullscreen Tiles Row */}
-        <div className="flex w-full max-w-[1200px] items-center justify-center gap-4 px-2 sm:gap-5 md:gap-6">
+        <div className="flex w-full max-w-[1200px] items-center justify-center gap-3 px-2 sm:gap-4 md:gap-5">
           {menuItems.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -97,11 +97,11 @@ const DashboardScreen = () => {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.route)}
-                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-16 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-20 md:py-24"
+                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-3 rounded-2xl px-2 py-8 sm:gap-4 sm:rounded-[20px] sm:px-3 sm:py-12 md:py-16"
                 style={{ minWidth: 0, maxWidth: 220 }}
               >
-                <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
-                <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
+                <Icon className="h-8 w-8 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-9 sm:w-9" />
+                <span className="min-h-[2rem] text-center text-xs font-medium leading-tight text-foreground sm:text-sm">
                   {t(item.key)}
                 </span>
               </motion.button>
@@ -115,7 +115,7 @@ const DashboardScreen = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
           onClick={() => navigate('/services')}
-          className="mt-12 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
+          className="rounded-xl card-luxury px-6 py-2.5 text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </motion.button>

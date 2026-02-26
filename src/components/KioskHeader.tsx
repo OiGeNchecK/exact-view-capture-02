@@ -72,7 +72,7 @@ const KioskHeader = () => {
           <SheetHeader>
             <SheetTitle className="text-gold">{t('cart')}</SheetTitle>
           </SheetHeader>
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-4 flex flex-col gap-3 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)', WebkitOverflowScrolling: 'touch' }}>
             {cartItems.length === 0 && (
               <p className="py-8 text-center text-muted-foreground">{t('cart_empty')}</p>
             )}

@@ -1,98 +1,106 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
 import { mockServices } from '@/data/mockServices';
 import KioskHeader from '@/components/KioskHeader';
-import { Plus, Minus, Clock } from 'lucide-react';
+import { Plus, Minus, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PriceListScreen = () => {
   const { t, language } = useTranslation();
   const { category, addToCart, removeFromCart, cartItems } = useKioskStore();
   const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const services = mockServices.filter((s) => s.categoryCode === category);
-
   const getQty = (id: string) => cartItems.find((ci) => ci.id === id)?.quantity ?? 0;
-
   const formatPrice = (cents: number) => `${(cents / 100).toFixed(2)} €`;
 
+  const scroll = (dir: number) => {
+    scrollRef.current?.scrollBy({ left: dir * 280, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden">
       <KioskHeader />
-      <main className="mx-auto max-w-3xl px-8 pb-16 pt-28">
+      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center px-4 pt-16">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 text-center font-display text-4xl font-bold text-gold"
+          className="mb-2 font-display text-2xl font-bold text-gold sm:text-3xl"
         >
           {t('price_list')}
         </motion.h1>
-        <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto mb-4 h-px w-24 bg-gold-gradient" />
 
-        <div className="mb-3 grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 px-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          <span>{t('service')}</span>
-          <span className="w-20 text-center">{t('duration')}</span>
-          <span className="w-24 text-right">{t('price')}</span>
-          <span className="w-24" />
-        </div>
+        <div className="relative w-full max-w-[900px] flex-1 min-h-0">
+          <button onClick={() => scroll(-1)} className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full card-luxury p-2 text-gold hover:bg-gold/10">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button onClick={() => scroll(1)} className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full card-luxury p-2 text-gold hover:bg-gold/10">
+            <ChevronRight className="h-5 w-5" />
+          </button>
 
-        <div className="flex flex-col gap-3">
-          {services.map((s, i) => {
-            const qty = getQty(s.id);
-            return (
-              <motion.div
-                key={s.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="group grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 rounded-2xl card-luxury px-5 py-5 transition-all duration-300"
-              >
-                <span className="text-lg font-medium text-foreground">{s.name[language]}</span>
-                <span className="flex w-20 items-center justify-center gap-1.5 text-sm text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
-                  {s.durationMin} {t('minutes')}
-                </span>
-                <span className="w-24 text-right text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
-                <div className="flex w-24 items-center justify-end gap-2">
-                  {qty > 0 && (
+          <div
+            ref={scrollRef}
+            className="flex h-full items-center gap-4 overflow-x-auto px-10 scrollbar-hide"
+            style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}
+          >
+            {services.map((s, i) => {
+              const qty = getQty(s.id);
+              return (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="shrink-0 w-[220px] flex flex-col items-center rounded-2xl card-luxury p-5 text-center"
+                  style={{ scrollSnapAlign: 'center' }}
+                >
+                  <h3 className="mb-3 text-base font-medium text-foreground">{s.name[language]}</h3>
+                  <div className="mb-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    {s.durationMin} {t('minutes')}
+                  </div>
+                  <p className="mb-4 text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</p>
+                  <div className="flex items-center gap-2">
+                    {qty > 0 && (
+                      <>
+                        <button
+                          onClick={() => removeFromCart(s.id)}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-border text-foreground hover:border-destructive hover:text-destructive"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </button>
+                        <span className="w-5 text-center text-sm font-semibold text-gold">{qty}</span>
+                      </>
+                    )}
                     <button
-                      onClick={() => removeFromCart(s.id)}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-glass text-foreground transition-all hover:border-destructive hover:text-destructive"
+                      onClick={() => addToCart({ id: s.id, name: s.name[language], price: s.priceCents })}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-border text-gold hover:border-gold-bright hover:bg-gold-gradient hover:text-primary-foreground"
                     >
-                      <Minus className="h-4 w-4" />
+                      <Plus className="h-5 w-5" />
                     </button>
-                  )}
-                  {qty > 0 && (
-                    <span className="w-5 text-center text-sm font-semibold text-gold">{qty}</span>
-                  )}
-                  <button
-                    onClick={() => addToCart({ id: s.id, name: s.name[language], price: s.priceCents })}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-glass text-gold transition-all duration-200 hover:border-gold-bright hover:bg-gold-gradient hover:text-primary-foreground hover:shadow-gold"
-                  >
-                    <Plus className="h-5 w-5" />
-                  </button>
-                </div>
-              </motion.div>
-            );
-          })}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
         {services.length === 0 && (
-          <p className="py-20 text-center text-lg text-muted-foreground">
+          <p className="py-8 text-center text-lg text-muted-foreground">
             No services found for this category.
           </p>
         )}
 
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+        <button
           onClick={() => navigate('/dashboard')}
-          className="mx-auto mt-10 block rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
+          className="py-3 rounded-xl card-luxury px-6 text-sm text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
-        </motion.button>
+        </button>
       </main>
     </div>
   );
