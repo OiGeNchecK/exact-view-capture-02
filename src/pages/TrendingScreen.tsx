@@ -16,21 +16,21 @@ const TrendingScreen = () => {
   const trends = mockTrending.filter((tr) => tr.category === category);
 
   const scroll = (dir: number) => {
-    scrollRef.current?.scrollBy({ left: dir * 280, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: dir * 300, behavior: 'smooth' });
   };
 
   return (
     <div className="h-screen overflow-hidden">
       <KioskHeader />
-      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center gap-3 px-4 pt-16">
+      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center px-4 pt-16">
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="font-display text-2xl font-bold text-gold sm:text-3xl"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-2 font-display text-2xl font-bold text-gold sm:text-3xl"
         >
           {t('trending')}
         </motion.h1>
-        <div className="mx-auto h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto mb-4 h-px w-24 bg-gold-gradient" />
 
         <div className="relative w-full max-w-[900px] flex-1 min-h-0">
           <button onClick={() => scroll(-1)} className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full card-luxury p-2 text-gold hover:bg-gold/10">
@@ -46,27 +46,30 @@ const TrendingScreen = () => {
             style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}
           >
             {trends.map((trend, i) => (
-              <div
+              <motion.div
                 key={trend.id}
-                className="shrink-0 w-[180px] tile-luxury flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * i }}
+                className="shrink-0 w-[260px] overflow-hidden rounded-2xl card-luxury"
                 style={{ scrollSnapAlign: 'center' }}
               >
-                <div className="w-full aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={trend.image}
                     alt={trend.title[language]}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
                     loading="lazy"
                   />
                 </div>
-                <div className="px-2 pb-3">
+                <div className="p-3">
                   <h3 className="text-center text-sm font-medium text-foreground">{trend.title[language]}</h3>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {trends.length === 0 && (
-              <div className="flex w-full items-center justify-center text-muted-foreground">
+              <div className="flex w-full items-center justify-center py-12 text-muted-foreground">
                 {t('no_trends')}
               </div>
             )}
@@ -75,7 +78,7 @@ const TrendingScreen = () => {
 
         <button
           onClick={() => navigate('/dashboard')}
-          className="pb-2 rounded-xl card-luxury px-6 py-2.5 text-sm text-muted-foreground transition-colors hover:text-gold"
+          className="py-3 rounded-xl card-luxury px-6 text-sm text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
         </button>
