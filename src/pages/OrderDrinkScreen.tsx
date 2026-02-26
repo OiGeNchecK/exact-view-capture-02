@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -8,6 +8,7 @@ import { mockDrinks } from '@/data/mockDrinks';
 import { Minus, Plus, Milk, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useState } from 'react';
 
 const OrderDrinkScreen = () => {
   const { t, language } = useTranslation();
@@ -58,21 +59,21 @@ const OrderDrinkScreen = () => {
   };
 
   const scroll = (dir: number) => {
-    scrollRef.current?.scrollBy({ left: dir * 280, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: dir * 220, behavior: 'smooth' });
   };
 
   return (
     <div className="h-screen overflow-hidden">
       <KioskHeader />
-      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center px-4 pt-16">
+      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center gap-3 px-4 pt-16">
         <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-2 font-display text-2xl font-bold text-gold sm:text-3xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="font-display text-2xl font-bold text-gold sm:text-3xl"
         >
           {t('order_drink')}
         </motion.h1>
-        <div className="mx-auto mb-4 h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto h-px w-24 bg-gold-gradient" />
 
         {/* Horizontal scroll area */}
         <div className="relative w-full max-w-[900px] flex-1 min-h-0">
@@ -92,41 +93,34 @@ const OrderDrinkScreen = () => {
               const order = orders[drink.id];
               const isSelected = order?.selected;
               return (
-                <motion.div
+                <div
                   key={drink.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 * i }}
-                  className={`shrink-0 w-[240px] flex flex-col rounded-2xl transition-all overflow-hidden ${
-                    isSelected ? 'card-luxury !border-gold' : 'card-luxury'
+                  className={`shrink-0 w-[180px] flex flex-col items-center rounded-2xl overflow-hidden transition-all tile-luxury ${
+                    isSelected ? '!border-gold' : ''
                   }`}
                   style={{ scrollSnapAlign: 'center' }}
                 >
                   {/* Photo */}
                   <button onClick={() => toggleDrink(drink.id)} className="w-full">
-                    <div className="aspect-[4/3] overflow-hidden">
+                    <div className="aspect-square overflow-hidden">
                       <img src={drink.image} alt={drink.name[language]} className="h-full w-full object-cover" loading="lazy" />
                     </div>
-                    <div className="p-3">
-                      <p className="text-center text-base font-medium text-foreground">{drink.name[language]}</p>
+                    <div className="px-2 py-2">
+                      <p className="text-center text-sm font-medium text-foreground">{drink.name[language]}</p>
                     </div>
                   </button>
 
                   {/* Options */}
                   {isSelected && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="space-y-2 border-t border-border/50 px-3 pb-3 pt-2"
-                    >
+                    <div className="w-full space-y-2 border-t border-border/50 px-3 pb-3 pt-2">
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-muted-foreground">{t('sugar_spoons')}</span>
                         <div className="flex items-center gap-2">
-                          <button onClick={() => setSugar(drink.id, -1)} className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright">
+                          <button onClick={() => setSugar(drink.id, -1)} className="flex h-6 w-6 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright">
                             <Minus className="h-3 w-3" />
                           </button>
-                          <span className="w-5 text-center text-sm font-semibold text-gold">{order.sugar}</span>
-                          <button onClick={() => setSugar(drink.id, 1)} className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright">
+                          <span className="w-4 text-center text-xs font-semibold text-gold">{order.sugar}</span>
+                          <button onClick={() => setSugar(drink.id, 1)} className="flex h-6 w-6 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright">
                             <Plus className="h-3 w-3" />
                           </button>
                         </div>
@@ -136,7 +130,7 @@ const OrderDrinkScreen = () => {
                           <span className="text-xs text-muted-foreground">{t('milk')}</span>
                           <button
                             onClick={() => toggleMilk(drink.id)}
-                            className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs transition-all ${
+                            className={`flex items-center gap-1 rounded-lg border px-2 py-1 text-xs transition-all ${
                               order.milk ? 'border-gold-bright bg-gold/20 text-gold' : 'border-border bg-glass text-muted-foreground hover:border-gold-bright'
                             }`}
                           >
@@ -145,16 +139,16 @@ const OrderDrinkScreen = () => {
                           </button>
                         </div>
                       )}
-                    </motion.div>
+                    </div>
                   )}
-                </motion.div>
+                </div>
               );
             })}
           </div>
         </div>
 
         {/* Bottom actions */}
-        <div className="flex w-full max-w-[400px] gap-3 py-3">
+        <div className="flex w-full max-w-[400px] gap-3 pb-2">
           <button
             onClick={() => navigate('/dashboard')}
             className="rounded-xl card-luxury px-5 py-2.5 text-sm text-muted-foreground transition-colors hover:text-gold"
