@@ -1,69 +1,87 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockTrending } from '@/data/mockTrending';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const TrendingScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
   const category = useKioskStore((s) => s.category);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const trends = mockTrending.filter((tr) => tr.category === category);
 
+  const scroll = (dir: number) => {
+    scrollRef.current?.scrollBy({ left: dir * 300, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-8 pt-24 pb-12">
+      <main className="flex h-[calc(100vh-64px)] flex-col items-center justify-center px-4 pt-16">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 font-display text-4xl font-bold text-gold"
+          className="mb-2 font-display text-2xl font-bold text-gold sm:text-3xl"
         >
           {t('trending')}
         </motion.h1>
-        <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto mb-4 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid w-full max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2">
-          {trends.map((trend, i) => (
-            <motion.div
-              key={trend.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i }}
-              className="group overflow-hidden rounded-2xl card-luxury transition-all"
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={trend.image}
-                  alt={trend.title[language]}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-center font-medium text-foreground">{trend.title[language]}</h3>
-              </div>
-            </motion.div>
-          ))}
+        <div className="relative w-full max-w-[900px] flex-1 min-h-0">
+          <button onClick={() => scroll(-1)} className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full card-luxury p-2 text-gold hover:bg-gold/10">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button onClick={() => scroll(1)} className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full card-luxury p-2 text-gold hover:bg-gold/10">
+            <ChevronRight className="h-5 w-5" />
+          </button>
 
-          {trends.length === 0 && (
-            <div className="col-span-full py-12 text-center text-muted-foreground">
-              {t('no_trends')}
-            </div>
-          )}
+          <div
+            ref={scrollRef}
+            className="flex h-full items-center gap-4 overflow-x-auto px-10 scrollbar-hide"
+            style={{ scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}
+          >
+            {trends.map((trend, i) => (
+              <motion.div
+                key={trend.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * i }}
+                className="shrink-0 w-[260px] overflow-hidden rounded-2xl card-luxury"
+                style={{ scrollSnapAlign: 'center' }}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={trend.image}
+                    alt={trend.title[language]}
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-3">
+                  <h3 className="text-center text-sm font-medium text-foreground">{trend.title[language]}</h3>
+                </div>
+              </motion.div>
+            ))}
+
+            {trends.length === 0 && (
+              <div className="flex w-full items-center justify-center py-12 text-muted-foreground">
+                {t('no_trends')}
+              </div>
+            )}
+          </div>
         </div>
 
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+        <button
           onClick={() => navigate('/dashboard')}
-          className="mt-10 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
+          className="py-3 rounded-xl card-luxury px-6 text-sm text-muted-foreground transition-colors hover:text-gold"
         >
           ← {t('back')}
-        </motion.button>
+        </button>
       </main>
     </div>
   );
