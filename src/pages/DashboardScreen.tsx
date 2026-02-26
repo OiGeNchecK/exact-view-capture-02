@@ -67,10 +67,10 @@ const DashboardScreen = () => {
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate('/choose-master')}
-            className="tile-luxury flex items-center justify-center gap-3 rounded-2xl px-6 py-3"
+            className="tile-luxury flex items-center justify-center gap-3 rounded-2xl px-8 py-4 sm:px-10 sm:py-5"
           >
-            <UserCheck className="h-5 w-5 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
-            <span className="text-base font-semibold text-gold">{t('choose_master')}</span>
+            <UserCheck className="h-6 w-6 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
+            <span className="text-base font-semibold text-gold sm:text-lg">{t('choose_master')}</span>
           </motion.button>
         )}
 
