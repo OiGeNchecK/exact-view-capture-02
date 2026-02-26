@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore, type ServiceCategory } from '@/store/useKioskStore';
@@ -18,13 +17,8 @@ const categories: { code: ServiceCategory; icon: LucideIcon }[] = [
 
 const ServiceScreen = () => {
   const { t } = useTranslation();
-  const { setCategory, category } = useKioskStore();
+  const { setCategory } = useKioskStore();
   const navigate = useNavigate();
-
-  // Clear category when entering service selection
-  useEffect(() => {
-    if (category) setCategory(null as unknown as ServiceCategory);
-  }, []);
 
   const handleSelect = (code: ServiceCategory) => {
     setCategory(code);
@@ -34,11 +28,11 @@ const ServiceScreen = () => {
   return (
     <div className="min-h-screen">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center justify-center px-4 pb-12 sm:px-8">
+      <main className="flex flex-col items-center px-4 pt-24 pb-12 sm:px-8">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-3 font-display text-3xl font-bold text-gold sm:text-4xl"
+          className="mb-3 font-display text-3xl font-bold text-gold sm:text-4xl md:text-5xl"
         >
           {t('select_service')}
         </motion.h1>
@@ -56,8 +50,8 @@ const ServiceScreen = () => {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => handleSelect(cat.code)}
-                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-16 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-20 md:py-24"
-                style={{ minWidth: 0, maxWidth: 220 }}
+                className="tile-luxury group flex w-[calc(33%-0.75rem)] flex-col items-center justify-center gap-4 rounded-2xl px-3 py-12 sm:w-[170px] sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-16 md:py-20"
+                style={{ minWidth: 0, maxWidth: 200 }}
               >
                 <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
                 <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
