@@ -40,7 +40,7 @@ const OrderProductScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className="flex items-center justify-between rounded-2xl card-luxury p-4"
+                className="flex items-center justify-between rounded-2xl tile-luxury p-5"
               >
                 <div>
                   <p className="font-medium text-foreground">{product.name[language]}</p>
