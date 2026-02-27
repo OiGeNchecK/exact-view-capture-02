@@ -20,7 +20,7 @@ const PriceListScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="mx-auto max-w-3xl px-8 pb-16 pt-28">
+      <main className="mx-auto px-4 pb-16 pt-24">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ const PriceListScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        <div className="flex w-full items-start justify-center gap-4 overflow-x-auto px-2 sm:gap-5">
           {services.map((s, i) => {
             const qty = getQty(s.id);
             return (
@@ -39,14 +39,13 @@ const PriceListScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="tile-luxury flex flex-col items-center justify-between rounded-2xl px-4 py-6 text-center"
+                className="tile-luxury flex flex-1 flex-col items-center justify-center gap-3 rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20"
+                style={{ minWidth: 0, maxWidth: 220 }}
               >
-                <div className="mb-3">
-                  <Clock className="mx-auto mb-2 h-6 w-6 text-gold" />
-                  <span className="text-base font-medium text-foreground">{s.name[language]}</span>
-                </div>
-                <span className="mb-1 text-xs text-muted-foreground">{s.durationMin} {t('minutes')}</span>
-                <span className="mb-3 text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
+                <Clock className="h-8 w-8 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
+                <span className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{s.name[language]}</span>
+                <span className="text-xs text-muted-foreground">{s.durationMin} {t('minutes')}</span>
+                <span className="text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
                 <div className="flex items-center gap-2">
                   {qty > 0 && (
                     <button

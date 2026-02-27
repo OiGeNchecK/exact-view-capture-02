@@ -31,7 +31,7 @@ const OrderProductScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
+        <div className="flex w-full items-start justify-center gap-4 overflow-x-auto px-2 sm:gap-5">
           {products.map((product, i) => {
             const qty = getQty(product.id);
             return (
@@ -40,12 +40,11 @@ const OrderProductScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className="tile-luxury flex flex-col items-center justify-between rounded-2xl px-4 py-6 text-center"
+                className="tile-luxury flex flex-1 flex-col items-center justify-center gap-3 rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20"
+                style={{ minWidth: 0, maxWidth: 220 }}
               >
-                <div className="mb-3">
-                  <p className="text-sm font-medium text-foreground">{product.name[language]}</p>
-                  <p className="mt-1 text-lg font-semibold text-gold">{product.price} {t('currency')}</p>
-                </div>
+                <p className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{product.name[language]}</p>
+                <p className="text-lg font-semibold text-gold">{product.price} {t('currency')}</p>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => removeFromCart(product.id)}
