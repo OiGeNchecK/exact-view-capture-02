@@ -80,7 +80,7 @@ const OrderDrinkScreen = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
                 className={`overflow-hidden rounded-2xl transition-all ${
-                  isSelected ? 'card-luxury !border-gold' : 'card-luxury'
+                  isSelected ? 'tile-luxury !border-gold-bright' : 'tile-luxury'
                 }`}
               >
                 <button
