@@ -69,7 +69,7 @@ const OrderDrinkScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
+        <div className="flex w-full items-start justify-center gap-4 overflow-x-auto px-2 sm:gap-5">
           {mockDrinks.map((drink, i) => {
             const order = orders[drink.id];
             const isSelected = order?.selected;
@@ -79,9 +79,10 @@ const OrderDrinkScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className={`tile-luxury flex flex-col items-center rounded-2xl px-4 py-6 text-center transition-all ${
+                className={`tile-luxury flex flex-1 flex-col items-center rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20 ${
                   isSelected ? '!border-gold' : ''
                 }`}
+                style={{ minWidth: 0, maxWidth: 220 }}
               >
                 <button
                   onClick={() => toggleDrink(drink.id)}
@@ -90,7 +91,7 @@ const OrderDrinkScreen = () => {
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border">
                     <img src={drink.image} alt={drink.name[language]} className="h-full w-full object-cover" loading="lazy" />
                   </div>
-                  <span className="text-sm font-medium text-foreground">{drink.name[language]}</span>
+                  <span className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{drink.name[language]}</span>
                 </button>
 
                 {isSelected && (
