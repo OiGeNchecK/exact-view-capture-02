@@ -69,7 +69,7 @@ const OrderDrinkScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
-        <div className="w-full max-w-md space-y-4">
+        <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
           {mockDrinks.map((drink, i) => {
             const order = orders[drink.id];
             const isSelected = order?.selected;
@@ -79,59 +79,57 @@ const OrderDrinkScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className={`overflow-hidden rounded-2xl transition-all ${
-                  isSelected ? 'card-luxury !border-gold' : 'card-luxury'
+                className={`tile-luxury flex flex-col items-center rounded-2xl px-4 py-6 text-center transition-all ${
+                  isSelected ? '!border-gold' : ''
                 }`}
               >
                 <button
                   onClick={() => toggleDrink(drink.id)}
-                  className="flex w-full items-center gap-4 p-4 text-left"
+                  className="flex w-full flex-col items-center gap-3"
                 >
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border">
                     <img src={drink.image} alt={drink.name[language]} className="h-full w-full object-cover" loading="lazy" />
                   </div>
-                  <span className="text-lg font-medium text-foreground">{drink.name[language]}</span>
+                  <span className="text-sm font-medium text-foreground">{drink.name[language]}</span>
                 </button>
 
                 {isSelected && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="space-y-3 border-t border-border/50 px-4 pb-4 pt-3"
+                    className="mt-3 w-full space-y-3 border-t border-border/50 pt-3"
                   >
-                    {/* Sugar */}
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{t('sugar_spoons')}</span>
-                      <div className="flex items-center gap-3">
+                      <span className="text-xs text-muted-foreground">{t('sugar_spoons')}</span>
+                      <div className="flex items-center gap-2">
                         <button
                           onClick={() => setSugar(drink.id, -1)}
-                          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
                         >
-                          <Minus className="h-4 w-4" />
+                          <Minus className="h-3 w-3" />
                         </button>
-                        <span className="w-6 text-center text-lg font-semibold text-gold">{order.sugar}</span>
+                        <span className="w-5 text-center text-sm font-semibold text-gold">{order.sugar}</span>
                         <button
                           onClick={() => setSugar(drink.id, 1)}
-                          className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
+                          className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
                         >
-                          <Plus className="h-4 w-4" />
+                          <Plus className="h-3 w-3" />
                         </button>
                       </div>
                     </div>
 
-                    {/* Milk option */}
                     {drink.hasMilkOption && (
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">{t('milk')}</span>
+                        <span className="text-xs text-muted-foreground">{t('milk')}</span>
                         <button
                           onClick={() => toggleMilk(drink.id)}
-                          className={`flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition-all ${
+                          className={`flex items-center gap-1 rounded-lg border px-3 py-1.5 text-xs transition-all ${
                             order.milk
                               ? 'border-gold-bright bg-gold/20 text-gold'
                               : 'border-border bg-glass text-muted-foreground hover:border-gold-bright'
                           }`}
                         >
-                          <Milk className="h-4 w-4" />
+                          <Milk className="h-3 w-3" />
                           {order.milk ? '✓' : '+'}
                         </button>
                       </div>
@@ -141,10 +139,11 @@ const OrderDrinkScreen = () => {
               </motion.div>
             );
           })}
+        </div>
 
           <Button
             onClick={handleOrder}
-            className="mt-6 w-full rounded-xl bg-gold py-6 text-lg font-semibold text-background hover:bg-gold-bright"
+            className="mt-6 w-full max-w-2xl rounded-xl bg-gold py-6 text-lg font-semibold text-background hover:bg-gold-bright"
           >
             {t('order')}
           </Button>
@@ -153,11 +152,10 @@ const OrderDrinkScreen = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-4 w-full rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
+            className="mt-4 w-full max-w-2xl rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
           >
             ← {t('back')}
           </motion.button>
-        </div>
       </main>
     </div>
   );

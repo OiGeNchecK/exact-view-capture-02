@@ -30,35 +30,28 @@ const PriceListScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
 
-        <div className="mb-3 grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 px-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          <span>{t('service')}</span>
-          <span className="w-20 text-center">{t('duration')}</span>
-          <span className="w-24 text-right">{t('price')}</span>
-          <span className="w-24" />
-        </div>
-
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
           {services.map((s, i) => {
             const qty = getQty(s.id);
             return (
               <motion.div
                 key={s.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group grid grid-cols-[1fr_auto_auto_auto] items-center gap-4 rounded-2xl card-luxury px-5 py-5 transition-all duration-300"
+                className="tile-luxury flex flex-col items-center justify-between rounded-2xl px-4 py-6 text-center"
               >
-                <span className="text-lg font-medium text-foreground">{s.name[language]}</span>
-                <span className="flex w-20 items-center justify-center gap-1.5 text-sm text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
-                  {s.durationMin} {t('minutes')}
-                </span>
-                <span className="w-24 text-right text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
-                <div className="flex w-24 items-center justify-end gap-2">
+                <div className="mb-3">
+                  <Clock className="mx-auto mb-2 h-6 w-6 text-gold" />
+                  <span className="text-base font-medium text-foreground">{s.name[language]}</span>
+                </div>
+                <span className="mb-1 text-xs text-muted-foreground">{s.durationMin} {t('minutes')}</span>
+                <span className="mb-3 text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
+                <div className="flex items-center gap-2">
                   {qty > 0 && (
                     <button
                       onClick={() => removeFromCart(s.id)}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-glass text-foreground transition-all hover:border-destructive hover:text-destructive"
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-glass text-foreground transition-all hover:border-destructive hover:text-destructive"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
@@ -68,7 +61,7 @@ const PriceListScreen = () => {
                   )}
                   <button
                     onClick={() => addToCart({ id: s.id, name: s.name[language], price: s.priceCents })}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-glass text-gold transition-all duration-200 hover:border-gold-bright hover:bg-gold-gradient hover:text-primary-foreground hover:shadow-gold"
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-glass text-gold transition-all duration-200 hover:border-gold-bright hover:bg-gold-gradient hover:text-primary-foreground hover:shadow-gold"
                   >
                     <Plus className="h-5 w-5" />
                   </button>
