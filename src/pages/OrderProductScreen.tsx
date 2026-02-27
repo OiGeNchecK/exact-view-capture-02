@@ -31,7 +31,7 @@ const OrderProductScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
-        <div className="w-full max-w-md space-y-4">
+        <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
           {products.map((product, i) => {
             const qty = getQty(product.id);
             return (
@@ -40,13 +40,13 @@ const OrderProductScreen = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
-                className="flex items-center justify-between rounded-2xl card-luxury p-4"
+                className="tile-luxury flex flex-col items-center justify-between rounded-2xl px-4 py-6 text-center"
               >
-                <div>
-                  <p className="font-medium text-foreground">{product.name[language]}</p>
-                  <p className="text-sm text-gold">{product.price} {t('currency')}</p>
+                <div className="mb-3">
+                  <p className="text-sm font-medium text-foreground">{product.name[language]}</p>
+                  <p className="mt-1 text-lg font-semibold text-gold">{product.price} {t('currency')}</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => removeFromCart(product.id)}
                     className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-destructive hover:text-destructive disabled:opacity-30"
@@ -54,9 +54,7 @@ const OrderProductScreen = () => {
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-6 text-center text-lg font-semibold text-gold">
-                    {qty}
-                  </span>
+                  <span className="w-5 text-center text-sm font-semibold text-gold">{qty}</span>
                   <button
                     onClick={() => addToCart({ id: product.id, name: product.name[language], price: product.price * 100 })}
                     className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
@@ -67,16 +65,16 @@ const OrderProductScreen = () => {
               </motion.div>
             );
           })}
+        </div>
 
         <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => navigate('/dashboard')}
-            className="mt-4 w-full rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
+            className="mt-6 w-full max-w-2xl rounded-xl card-luxury py-3 text-center text-muted-foreground transition-colors hover:text-gold"
           >
             ← {t('back')}
           </motion.button>
-        </div>
       </main>
     </div>
   );
