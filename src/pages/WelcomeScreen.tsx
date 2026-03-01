@@ -38,22 +38,24 @@ const WelcomeScreen = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="mb-12 flex flex-wrap justify-center gap-4 sm:gap-5"
+        className="mb-12 flex w-full items-stretch justify-center gap-4 overflow-x-auto overflow-y-hidden px-2 sm:gap-5"
+        style={{ scrollbarWidth: 'none' }}
       >
         {languages.map((lang, i) => (
           <motion.button
             key={lang.code}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ delay: 0.4 + i * 0.08, type: 'spring', stiffness: 120 }}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => setLanguage(lang.code)}
-            className={`tile-luxury group flex w-36 flex-col items-center justify-center gap-3 rounded-2xl px-4 py-10 sm:w-44 sm:gap-4 sm:py-14 ${
+            className={`tile-luxury group flex shrink-0 flex-col items-center justify-center gap-3 rounded-2xl px-4 py-10 sm:gap-4 sm:py-14 ${
               language === lang.code
                 ? '!border-gold shadow-gold-lg'
                 : ''
             }`}
+            style={{ width: 180, maxWidth: 220 }}
           >
             <span className="text-4xl drop-shadow-[0_0_8px_hsl(40_55%_50%/0.4)] transition-transform duration-300 group-hover:scale-110 sm:text-5xl">
               {lang.flag}

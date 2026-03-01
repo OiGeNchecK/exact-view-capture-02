@@ -85,20 +85,20 @@ const DashboardScreen = () => {
         <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
 
         {/* Fullscreen Tiles Row */}
-        <div className="flex w-full max-w-[1200px] items-center justify-center gap-4 px-2 sm:gap-5 md:gap-6">
+        <div className="flex w-full items-stretch justify-center gap-4 overflow-x-auto overflow-y-hidden px-2 sm:gap-5 md:gap-6" style={{ scrollbarWidth: 'none' }}>
           {menuItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <motion.button
                 key={item.key}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.15 + i * 0.07, type: 'spring', stiffness: 120 }}
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(item.route)}
-                className="tile-luxury group flex flex-1 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-16 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-20 md:py-24"
-                style={{ minWidth: 0, maxWidth: 220 }}
+                className="tile-luxury group flex shrink-0 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-16 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-20 md:py-24"
+                style={{ width: 200, maxWidth: 220 }}
               >
                 <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
                 <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
