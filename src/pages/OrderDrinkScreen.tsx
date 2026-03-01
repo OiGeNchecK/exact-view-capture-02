@@ -79,25 +79,24 @@ const OrderDrinkScreen = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.05 * i }}
-                className={`tile-luxury flex shrink-0 flex-col items-center rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20 ${
+                onClick={() => toggleDrink(drink.id)}
+                className={`tile-luxury flex shrink-0 cursor-pointer flex-col items-center rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20 ${
                   isSelected ? '!border-gold' : ''
                 }`}
                 style={{ width: 200, maxWidth: 220 }}
               >
-                <button
-                  onClick={() => toggleDrink(drink.id)}
-                  className="flex w-full flex-col items-center gap-3"
-                >
+                <div className="flex w-full flex-col items-center gap-3">
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border">
                     <img src={drink.image} alt={drink.name[language]} className="h-full w-full object-cover" loading="lazy" />
                   </div>
                   <span className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{drink.name[language]}</span>
-                </button>
+                </div>
 
                 {isSelected && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
+                    onClick={(e) => e.stopPropagation()}
                     className="mt-3 w-full space-y-3 border-t border-border/50 pt-3"
                   >
                     <div className="flex items-center justify-between">
