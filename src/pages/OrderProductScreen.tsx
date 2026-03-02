@@ -43,6 +43,9 @@ const OrderProductScreen = () => {
                 className="tile-luxury flex shrink-0 flex-col items-center justify-center gap-3 rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20"
                 style={{ width: 200, maxWidth: 220 }}
               >
+                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border">
+                  <img src={product.image} alt={product.name[language]} className="h-full w-full object-cover" loading="lazy" />
+                </div>
                 <p className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{product.name[language]}</p>
                 <p className="text-lg font-semibold text-gold">{product.price} {t('currency')}</p>
                 <div className="flex items-center gap-2">
