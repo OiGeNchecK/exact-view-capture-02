@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockMasters } from '@/data/mockMasters';
 import type { Master } from '@/data/mockMasters';
-import { Calendar, GraduationCap, MapPin } from 'lucide-react';
+import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -16,6 +16,7 @@ const ChooseMasterScreen = () => {
   const category = useKioskStore((s) => s.category);
   const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
   const [viewMaster, setViewMaster] = useState<Master | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const masters = mockMasters.filter(
     (m) => m.available && m.specialization.includes(category!)
@@ -26,6 +27,15 @@ const ChooseMasterScreen = () => {
     toast.success(`${t('master_selected')}: ${master.name}`);
     setViewMaster(null);
     navigate('/dashboard');
+  };
+
+  const openLightbox = (index: number) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+
+  const goLightbox = (dir: number) => {
+    if (lightboxIndex === null || !viewMaster) return;
+    const len = viewMaster.photos.length;
+    setLightboxIndex((lightboxIndex + dir + len) % len);
   };
 
   return (
@@ -81,6 +91,7 @@ const ChooseMasterScreen = () => {
         </motion.button>
       </main>
 
+      {/* Master detail dialog */}
       <Dialog open={!!viewMaster} onOpenChange={() => setViewMaster(null)}>
         <DialogContent className="max-w-md border-border bg-background p-0">
           {viewMaster && (
@@ -113,9 +124,13 @@ const ChooseMasterScreen = () => {
               <p className="mb-3 text-sm font-medium text-gold">{t('work_photos')}</p>
               <div className="grid grid-cols-3 gap-2">
                 {viewMaster.photos.map((photo, i) => (
-                  <div key={i} className="aspect-square overflow-hidden rounded-xl border border-border">
+                  <button
+                    key={i}
+                    onClick={() => openLightbox(i)}
+                    className="aspect-square overflow-hidden rounded-xl border border-border transition-all hover:border-gold"
+                  >
                     <img src={photo} alt={`${viewMaster.name} work ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
-                  </div>
+                  </button>
                 ))}
               </div>
 
@@ -129,6 +144,48 @@ const ChooseMasterScreen = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Lightbox overlay */}
+      <AnimatePresence>
+        {lightboxIndex !== null && viewMaster && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
+            onClick={closeLightbox}
+          >
+            <button onClick={closeLightbox} className="absolute right-4 top-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70">
+              <X className="h-6 w-6" />
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); goLightbox(-1); }}
+              className="absolute left-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+            >
+              <ChevronLeft className="h-8 w-8" />
+            </button>
+            <motion.img
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              src={viewMaster.photos[lightboxIndex]}
+              alt={`${viewMaster.name} work ${lightboxIndex + 1}`}
+              className="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={(e) => { e.stopPropagation(); goLightbox(1); }}
+              className="absolute right-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+            <div className="absolute bottom-6 text-sm text-white/70">
+              {lightboxIndex + 1} / {viewMaster.photos.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

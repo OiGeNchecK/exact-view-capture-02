@@ -4,7 +4,7 @@ import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
 import { mockServices } from '@/data/mockServices';
 import KioskHeader from '@/components/KioskHeader';
-import { Plus, Minus, Clock } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 const PriceListScreen = () => {
   const { t, language } = useTranslation();
@@ -42,7 +42,9 @@ const PriceListScreen = () => {
                 className="tile-luxury flex shrink-0 flex-col items-center justify-center gap-3 rounded-2xl px-3 py-14 text-center sm:py-16 md:py-20"
                 style={{ width: 200, maxWidth: 220 }}
               >
-                <Clock className="h-8 w-8 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)]" />
+                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border">
+                  <img src={s.image} alt={s.name[language]} className="h-full w-full object-cover" loading="lazy" />
+                </div>
                 <span className="min-h-[2.5rem] text-sm font-medium leading-tight text-foreground">{s.name[language]}</span>
                 <span className="text-xs text-muted-foreground">{s.durationMin} {t('minutes')}</span>
                 <span className="text-lg font-semibold text-gold">{formatPrice(s.priceCents)}</span>
