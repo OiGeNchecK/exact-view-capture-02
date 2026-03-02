@@ -34,9 +34,9 @@ const DashboardScreen = () => {
   const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
 
   return (
-    <div className="min-h-screen">
+    <div className="flex h-screen flex-col overflow-hidden">
       <KioskHeader />
-      <main className="flex flex-col items-center px-4 pt-24 pb-12">
+      <main className="flex flex-1 flex-col items-center justify-center px-4">
         {/* Selected master badge */}
         {selectedMaster ? (
           <motion.button

@@ -38,7 +38,7 @@ const ServiceScreen = () => {
         </motion.h1>
         <div className="mx-auto mb-10 h-px w-24 bg-gold-gradient" />
 
-        <div className="flex w-full items-stretch justify-center gap-4 overflow-x-auto overflow-y-hidden px-2 sm:gap-5 md:gap-6" style={{ scrollbarWidth: 'none' }}>
+        <div className="grid w-full max-w-2xl grid-cols-3 gap-4 px-2 sm:gap-5 md:gap-6">
           {categories.map((cat, i) => {
             const Icon = cat.icon;
             return (
@@ -50,8 +50,7 @@ const ServiceScreen = () => {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => handleSelect(cat.code)}
-                className="tile-luxury group flex shrink-0 flex-col items-center justify-center gap-4 rounded-2xl px-3 py-12 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-16 md:py-20"
-                style={{ width: 200, maxWidth: 220 }}
+                className="tile-luxury group flex flex-col items-center justify-center gap-4 rounded-2xl px-3 py-10 sm:gap-5 sm:rounded-[20px] sm:px-4 sm:py-14 md:py-16"
               >
                 <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
                 <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
