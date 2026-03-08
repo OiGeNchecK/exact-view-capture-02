@@ -31,6 +31,10 @@ const KioskHeader = () => {
   };
 
   const handleConfirmOrder = () => {
+    cartItems.forEach((item) => {
+      addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type });
+    });
+    clearCart();
     toast.success(t('order_confirmed'));
     setCartOpen(false);
   };
