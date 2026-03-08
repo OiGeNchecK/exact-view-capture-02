@@ -140,6 +140,8 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Passwort',
     register_btn: 'Registrieren',
     login_btn: 'Anmelden',
+    guest_name_title: 'Wie heißen Sie?',
+    your_name: 'Ihr Name',
   },
   EN: {
     welcome_title: 'Welcome',
