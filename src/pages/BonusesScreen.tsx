@@ -47,7 +47,7 @@ const BonusesScreen = () => {
   const addToHistory = useKioskStore((s) => s.addToHistory);
 
   const handleOrder = (offer: BonusOffer) => {
-    const discountedPrice = Math.round(offer.originalPrice * (1 - offer.discountPercent / 100)) * 100;
+    const discountedPrice = Math.round(offer.originalPrice * (1 - offer.discountPercent / 100));
     const item = { id: offer.id, name: offer.name[language], price: discountedPrice };
     addToCart(item);
     addToHistory({ ...item, quantity: 1, type: offer.type });
