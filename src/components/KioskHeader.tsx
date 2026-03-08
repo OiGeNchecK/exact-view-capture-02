@@ -39,6 +39,14 @@ const KioskHeader = () => {
         )}
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {customerInfo && (
+            <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
+              <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
+              <span className="text-xs font-medium text-foreground sm:text-sm">
+                {customerInfo.firstName}{customerInfo.lastName ? ` ${customerInfo.lastName}` : ''}
+              </span>
+            </div>
+          )
           {cartTotal > 0 && (
             <span className="text-xs font-semibold text-gold sm:text-sm">
               {(cartTotal / 100).toFixed(2)} €

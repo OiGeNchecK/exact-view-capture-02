@@ -51,7 +51,7 @@ const CustomerInfoScreen = () => {
 
   const handleLogin = () => {
     const newErrors: Record<string, boolean> = {};
-    if (!loginEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail.trim())) newErrors.loginEmail = true;
+    if (!loginIdentifier.trim()) newErrors.loginIdentifier = true;
     if (!loginPassword.trim()) newErrors.loginPassword = true;
 
     if (Object.keys(newErrors).length > 0) {
