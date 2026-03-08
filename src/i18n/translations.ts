@@ -92,6 +92,7 @@ export const translations: Record<Language, Record<string, string>> = {
     note_placeholder: 'Напишіть нотатку...',
     no_notes: 'Нотаток поки немає',
     no_gallery: 'Немає фото для цієї категорії',
+    any_master: 'Вільний майстер',
   },
   DE: {
     welcome_title: 'Willkommen',
