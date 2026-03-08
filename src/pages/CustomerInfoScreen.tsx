@@ -46,6 +46,7 @@ const CustomerInfoScreen = () => {
       phone: phone.trim(),
       email: email.trim(),
     });
+    setIsGuest(false);
     navigate('/services');
   };
 
