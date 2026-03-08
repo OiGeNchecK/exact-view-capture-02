@@ -122,6 +122,10 @@ export const translations: Record<Language, Record<string, string>> = {
     milk: 'Milch',
     cart_empty: 'Warenkorb ist leer',
     total: 'Gesamt',
+    customer_info_title: 'Ihre Daten',
+    optional: 'optional',
+    fill_required_fields: 'Bitte füllen Sie die Pflichtfelder aus',
+    continue: 'Weiter',
   },
   EN: {
     welcome_title: 'Welcome',
