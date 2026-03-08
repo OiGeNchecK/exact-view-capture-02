@@ -12,6 +12,13 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface CustomerInfo {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email?: string;
+}
+
 interface KioskState {
   language: Language;
   gender: Gender | null;
@@ -19,12 +26,14 @@ interface KioskState {
   cartItems: CartItem[];
   cartTotal: number;
   selectedMaster: Master | null;
+  customerInfo: CustomerInfo | null;
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
   addToCart: (item: { id: string; name: string; price: number }) => void;
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
+  setCustomerInfo: (info: CustomerInfo) => void;
   resetSession: () => void;
 }
 
