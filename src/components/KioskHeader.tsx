@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, CalendarCheck, X, Phone, Mail } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, CalendarCheck, X, Phone, Mail, CheckCircle } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
