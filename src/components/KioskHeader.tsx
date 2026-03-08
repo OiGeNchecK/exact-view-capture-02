@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { toast } from 'sonner';
 
