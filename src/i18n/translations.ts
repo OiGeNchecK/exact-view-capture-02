@@ -69,6 +69,8 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Пароль',
     register_btn: 'Зареєструватися',
     login_btn: 'Увійти',
+    guest_name_title: 'Як вас звати?',
+    your_name: 'Ваше ім\'я',
   },
   DE: {
     welcome_title: 'Willkommen',
