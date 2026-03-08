@@ -59,7 +59,9 @@ const CustomerInfoScreen = () => {
       return;
     }
 
-    // TODO: actual login logic
+    // TODO: actual login logic — name will come from backend
+    // For now, simulate with identifier as name
+    setCustomerInfo({ firstName: loginIdentifier.trim(), lastName: '', phone: '' });
     navigate('/services');
   };
 
