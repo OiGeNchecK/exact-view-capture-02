@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t, language } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -18,6 +18,13 @@ const KioskHeader = () => {
   const [noteText, setNoteText] = useState('');
   const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
+
+  // Profile edit state
+  const [editFirstName, setEditFirstName] = useState('');
+  const [editLastName, setEditLastName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const handleEnd = () => {
     resetSession();
