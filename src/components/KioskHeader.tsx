@@ -68,12 +68,6 @@ const KioskHeader = () => {
           </button>
         </div>
 
-        {/* Center: category in gold border */}
-        {category && (
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold bg-gold/10 px-4 py-1.5 text-xs font-medium text-gold sm:text-sm">
-            {t(category)}
-          </span>
-        )}
 
         <div className="flex items-center gap-2 sm:gap-4">
           {/* My Bookings popover */}
