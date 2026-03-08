@@ -24,7 +24,7 @@ const CustomerInfoScreen = () => {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   // Login fields
-  const [loginEmail, setLoginEmail] = useState('');
+  const [loginIdentifier, setLoginIdentifier] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginErrors, setLoginErrors] = useState<Record<string, boolean>>({});
 
