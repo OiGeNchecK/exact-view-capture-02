@@ -341,7 +341,7 @@ const KioskHeader = () => {
                   </button>
                   <span className="w-5 text-center text-sm font-semibold text-gold">{item.quantity}</span>
                   <button
-                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price })}
+                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, type: item.type })}
                     className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-gold-bright hover:text-gold"
                   >
                     <Plus className="h-3 w-3" />
