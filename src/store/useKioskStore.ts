@@ -124,5 +124,13 @@ export const useKioskStore = create<KioskState>((set) => ({
     set((s) => ({
       notes: s.notes.filter((n) => n.id !== id),
     })),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [] }),
+  addBooking: (booking) =>
+    set((s) => ({
+      bookings: [...s.bookings, { ...booking, id: crypto.randomUUID(), createdAt: new Date().toISOString() }],
+    })),
+  cancelBooking: (id) =>
+    set((s) => ({
+      bookings: s.bookings.filter((b) => b.id !== id),
+    })),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [], bookings: [] }),
 }));
