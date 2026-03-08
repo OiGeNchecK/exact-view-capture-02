@@ -295,6 +295,18 @@ const CustomerInfoScreen = () => {
               {t('continue')}
               <ArrowRight className="h-5 w-5" />
             </motion.button>
+
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setMode('register')}
+              className="mt-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+            >
+              ← {t('back')}
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
