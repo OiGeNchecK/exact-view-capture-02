@@ -33,7 +33,10 @@ const KioskHeader = () => {
           </button>
           <button
             onClick={() => {
-              toast.success(t('admin_called'));
+              const name = customerInfo
+                ? `${customerInfo.firstName}${customerInfo.lastName ? ' ' + customerInfo.lastName : ''}`
+                : t('guest_name_title');
+              toast.success(`${t('admin_called')} — ${name}`);
             }}
             className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
           >

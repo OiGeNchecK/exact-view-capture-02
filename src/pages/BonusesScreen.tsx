@@ -21,7 +21,7 @@ const generateBonuses = (): BonusOffer[] => {
   const productBonuses: BonusOffer[] = mockProducts.slice(0, 4).map((p) => ({
     id: `bonus-${p.id}`,
     name: p.name,
-    originalPrice: p.price,
+    originalPrice: p.price * 100,
     discountPercent: [10, 15, 20, 25][Math.floor(Math.random() * 4)],
     type: 'product',
     image: p.image,
@@ -47,7 +47,7 @@ const BonusesScreen = () => {
   const addToHistory = useKioskStore((s) => s.addToHistory);
 
   const handleOrder = (offer: BonusOffer) => {
-    const discountedPrice = Math.round(offer.originalPrice * (1 - offer.discountPercent / 100));
+    const discountedPrice = Math.round(offer.originalPrice * (1 - offer.discountPercent / 100)) * 100;
     const item = { id: offer.id, name: offer.name[language], price: discountedPrice };
     addToCart(item);
     addToHistory({ ...item, quantity: 1, type: offer.type });
@@ -94,9 +94,9 @@ const BonusesScreen = () => {
               )}
               <p className="text-center text-sm font-medium text-foreground">{offer.name[language]}</p>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground line-through">€{offer.originalPrice}</span>
+                <span className="text-xs text-muted-foreground line-through">€{(offer.originalPrice / 100).toFixed(0)}</span>
                 <span className="text-base font-bold text-gold">
-                  €{Math.round(offer.originalPrice * (1 - offer.discountPercent / 100))}
+                  €{(Math.round(offer.originalPrice * (1 - offer.discountPercent / 100)) / 100).toFixed(0)}
                 </span>
               </div>
               <span className="rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
@@ -129,9 +129,9 @@ const BonusesScreen = () => {
             >
               <p className="text-center text-sm font-medium text-foreground">{offer.name[language]}</p>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-muted-foreground line-through">€{offer.originalPrice}</span>
+                <span className="text-xs text-muted-foreground line-through">€{(offer.originalPrice / 100).toFixed(0)}</span>
                 <span className="text-base font-bold text-gold">
-                  €{Math.round(offer.originalPrice * (1 - offer.discountPercent / 100))}
+                  €{(Math.round(offer.originalPrice * (1 - offer.discountPercent / 100)) / 100).toFixed(0)}
                 </span>
               </div>
               <span className="rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
