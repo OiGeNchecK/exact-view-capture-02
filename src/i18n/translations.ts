@@ -60,6 +60,7 @@ export const translations: Record<Language, Record<string, string>> = {
     cart_empty: 'Кошик порожній',
     total: 'Разом',
     customer_info_title: 'Ваші дані',
+    continue_as_guest: 'Переглянути як гість',
     optional: 'необов\'язково',
     fill_required_fields: 'Заповніть обов\'язкові поля',
     continue: 'Продовжити',
