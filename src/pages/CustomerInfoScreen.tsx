@@ -43,6 +43,17 @@ const CustomerInfoScreen = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 sm:px-8">
+      {/* Guest link */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1, duration: 0.4 }}
+        onClick={() => navigate('/services')}
+        className="mb-8 text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-gold"
+      >
+        {t('continue_as_guest')}
+      </motion.button>
+
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
