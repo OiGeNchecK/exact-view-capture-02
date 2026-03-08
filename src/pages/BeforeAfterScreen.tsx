@@ -77,7 +77,7 @@ const BeforeAfterScreen = () => {
         {filtered.length === 0 ? (
           <p className="text-muted-foreground">{t('no_gallery')}</p>
         ) : (
-          <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid w-full max-w-3xl grid-cols-1 place-items-center gap-6 sm:grid-cols-2">
             {filtered.map((item, i) => (
               <motion.div
                 key={item.id}
