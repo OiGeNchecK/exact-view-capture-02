@@ -73,7 +73,7 @@ export const translations: Record<Language, Record<string, string>> = {
     your_name: 'Ваше ім\'я',
     email_or_phone: 'Email або номер телефону',
     bonuses: 'Бонуси',
-    before_after: 'Галерея (До / Після)',
+    before_after: 'Галерея\nДо / Після',
     procedure_history: 'Історія процедур і покупок',
     tab_procedures: 'Історія процедур',
     tab_purchases: 'Історія покупок',
