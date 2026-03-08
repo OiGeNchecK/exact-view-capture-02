@@ -77,6 +77,12 @@ export const translations: Record<Language, Record<string, string>> = {
     procedure_history: 'Історія процедур',
     call_admin: 'Виклик Адміністратора',
     admin_called: 'Адміністратора викликано!',
+    bonuses_subtitle: 'Спеціальні знижки для вас',
+    product_discounts: 'Знижки на продукти',
+    service_discounts: 'Знижки на послуги',
+    before_label: 'До',
+    after_label: 'Після',
+    no_history: 'Історія процедур порожня',
   },
   DE: {
     welcome_title: 'Willkommen',
