@@ -149,6 +149,11 @@ export const translations: Record<Language, Record<string, string>> = {
     guest_name_title: 'Wie heißen Sie?',
     your_name: 'Ihr Name',
     email_or_phone: 'E-Mail oder Telefonnummer',
+    bonuses: 'Boni',
+    before_after: 'Vorher / Nachher Galerie',
+    procedure_history: 'Behandlungshistorie',
+    call_admin: 'Administrator rufen',
+    admin_called: 'Administrator wurde gerufen!',
   },
   EN: {
     welcome_title: 'Welcome',
