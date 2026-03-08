@@ -93,6 +93,9 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'Нотаток поки немає',
     no_gallery: 'Немає фото для цієї категорії',
     any_master: 'Вільний майстер',
+    my_bookings: 'Мої терміни',
+    no_bookings: 'Немає заброньованих термінів',
+    booking_cancelled: 'Термін скасовано',
   },
   DE: {
     welcome_title: 'Willkommen',
