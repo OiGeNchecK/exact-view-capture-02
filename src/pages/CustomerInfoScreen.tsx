@@ -10,7 +10,7 @@ type Mode = 'register' | 'login' | 'guest';
 const CustomerInfoScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setCustomerInfo } = useKioskStore();
+  const { setCustomerInfo, setIsGuest } = useKioskStore();
 
   const [mode, setMode] = useState<Mode>('register');
   const [guestName, setGuestName] = useState('');
