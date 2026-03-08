@@ -133,5 +133,9 @@ export const useKioskStore = create<KioskState>((set) => ({
     set((s) => ({
       bookings: s.bookings.filter((b) => b.id !== id),
     })),
+  updateCustomerInfo: (info) =>
+    set((s) => ({
+      customerInfo: s.customerInfo ? { ...s.customerInfo, ...info } : null,
+    })),
   resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [], bookings: [] }),
 }));

@@ -300,5 +300,8 @@ export const translations: Record<Language, Record<string, string>> = {
     booking_cancelled: 'Booking cancelled',
     yes: 'Yes',
     no: 'No',
+    edit_profile: 'My Profile',
+    save: 'Save',
+    profile_updated: 'Profile updated!',
   },
 };
