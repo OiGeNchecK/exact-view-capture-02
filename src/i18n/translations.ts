@@ -93,6 +93,9 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'Нотаток поки немає',
     no_gallery: 'Немає фото для цієї категорії',
     any_master: 'Вільний майстер',
+    my_bookings: 'Мої терміни',
+    no_bookings: 'Немає заброньованих термінів',
+    booking_cancelled: 'Термін скасовано',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -186,6 +189,9 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'Noch keine Notizen',
     no_gallery: 'Keine Fotos für diese Kategorie',
     any_master: 'Freier Meister',
+    my_bookings: 'Meine Termine',
+    no_bookings: 'Keine gebuchten Termine',
+    booking_cancelled: 'Termin storniert',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -279,5 +285,8 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'No notes yet',
     no_gallery: 'No photos for this category',
     any_master: 'Any Available Master',
+    my_bookings: 'My Bookings',
+    no_bookings: 'No bookings yet',
+    booking_cancelled: 'Booking cancelled',
   },
 };

@@ -35,6 +35,18 @@ export interface NoteItem {
   date: string;
 }
 
+export interface BookingItem {
+  id: string;
+  category: ServiceCategory;
+  date: string;
+  time: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  createdAt: string;
+}
+
 interface KioskState {
   language: Language;
   gender: Gender | null;
@@ -46,6 +58,7 @@ interface KioskState {
   isGuest: boolean;
   orderHistory: OrderHistoryItem[];
   notes: NoteItem[];
+  bookings: BookingItem[];
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
@@ -57,6 +70,8 @@ interface KioskState {
   addToHistory: (item: Omit<OrderHistoryItem, 'date'>) => void;
   addNote: (text: string, author: 'client' | 'master') => void;
   deleteNote: (id: string) => void;
+  addBooking: (booking: Omit<BookingItem, 'id' | 'createdAt'>) => void;
+  cancelBooking: (id: string) => void;
   resetSession: () => void;
 }
 
@@ -73,6 +88,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   isGuest: false,
   orderHistory: [],
   notes: [],
+  bookings: [],
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
@@ -108,5 +124,13 @@ export const useKioskStore = create<KioskState>((set) => ({
     set((s) => ({
       notes: s.notes.filter((n) => n.id !== id),
     })),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [] }),
+  addBooking: (booking) =>
+    set((s) => ({
+      bookings: [...s.bookings, { ...booking, id: crypto.randomUUID(), createdAt: new Date().toISOString() }],
+    })),
+  cancelBooking: (id) =>
+    set((s) => ({
+      bookings: s.bookings.filter((b) => b.id !== id),
+    })),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [], bookings: [] }),
 }));

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
@@ -20,6 +21,8 @@ const timeSlots = [
 const BookingScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const category = useKioskStore((s) => s.category);
+  const addBooking = useKioskStore((s) => s.addBooking);
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
   const [showCalendar, setShowCalendar] = useState(true);
@@ -35,6 +38,15 @@ const BookingScreen = () => {
       toast.error(t('fill_all_fields'));
       return;
     }
+    addBooking({
+      category: category || 'hair',
+      date: format(date, 'dd.MM.yyyy'),
+      time,
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phone: form.phone,
+      email: form.email,
+    });
     toast.success(t('booking_confirmed'));
     navigate('/dashboard');
   };
