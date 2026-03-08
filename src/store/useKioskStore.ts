@@ -88,6 +88,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   isGuest: false,
   orderHistory: [],
   notes: [],
+  bookings: [],
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
