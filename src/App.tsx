@@ -26,6 +26,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/customer-info" element={<CustomerInfoScreen />} />
           {/* Gender screen removed */}
           <Route path="/services" element={<ServiceScreen />} />
           <Route path="/dashboard" element={<DashboardScreen />} />

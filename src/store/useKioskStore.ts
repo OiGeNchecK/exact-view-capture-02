@@ -68,5 +68,6 @@ export const useKioskStore = create<KioskState>((set) => ({
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
   setSelectedMaster: (master) => set({ selectedMaster: master }),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null }),
+  setCustomerInfo: (info) => set({ customerInfo: info }),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null }),
 }));
