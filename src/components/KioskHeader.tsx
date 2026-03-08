@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, Scissors, CalendarCheck, X } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, Scissors, CalendarCheck, X, Phone, Mail } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t, language } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -18,6 +18,13 @@ const KioskHeader = () => {
   const [noteText, setNoteText] = useState('');
   const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
+
+  // Profile edit state
+  const [editFirstName, setEditFirstName] = useState('');
+  const [editLastName, setEditLastName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const handleEnd = () => {
     resetSession();
@@ -140,12 +147,87 @@ const KioskHeader = () => {
             </button>
           )}
           {customerInfo && (
-            <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
-              <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
-              <span className="text-xs font-medium text-foreground sm:text-sm">
-                {customerInfo.firstName}{customerInfo.lastName ? ` ${customerInfo.lastName}` : ''}
-              </span>
-            </div>
+            <Popover open={profileOpen} onOpenChange={(open) => {
+              setProfileOpen(open);
+              if (open && customerInfo) {
+                setEditFirstName(customerInfo.firstName);
+                setEditLastName(customerInfo.lastName);
+                setEditPhone(customerInfo.phone);
+                setEditEmail(customerInfo.email || '');
+              }
+            }}>
+              <PopoverTrigger asChild>
+                <button className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 transition-colors hover:border-gold/40 hover:bg-gold/10 sm:gap-2 sm:px-4 sm:py-2">
+                  <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
+                  <span className="text-xs font-medium text-foreground sm:text-sm">
+                    {customerInfo.firstName}{customerInfo.lastName ? ` ${customerInfo.lastName}` : ''}
+                  </span>
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 border-border bg-background p-0" align="end" sideOffset={8}>
+                <div className="border-b border-border px-4 py-3">
+                  <p className="text-sm font-semibold text-gold">{t('edit_profile')}</p>
+                </div>
+                <div className="flex flex-col gap-3 p-4">
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder={t('first_name')}
+                      value={editFirstName}
+                      onChange={(e) => setEditFirstName(e.target.value)}
+                      className="w-full rounded-xl border border-border bg-card px-4 py-2.5 pl-10 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder={t('last_name')}
+                      value={editLastName}
+                      onChange={(e) => setEditLastName(e.target.value)}
+                      className="w-full rounded-xl border border-border bg-card px-4 py-2.5 pl-10 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="tel"
+                      placeholder={t('phone')}
+                      value={editPhone}
+                      onChange={(e) => setEditPhone(e.target.value)}
+                      className="w-full rounded-xl border border-border bg-card px-4 py-2.5 pl-10 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="email"
+                      placeholder={t('email')}
+                      value={editEmail}
+                      onChange={(e) => setEditEmail(e.target.value)}
+                      className="w-full rounded-xl border border-border bg-card px-4 py-2.5 pl-10 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
+                    />
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (!editFirstName.trim()) return;
+                      updateCustomerInfo({
+                        firstName: editFirstName.trim(),
+                        lastName: editLastName.trim(),
+                        phone: editPhone.trim(),
+                        email: editEmail.trim() || undefined,
+                      });
+                      setProfileOpen(false);
+                      toast.success(t('profile_updated'));
+                    }}
+                    className="mt-1 w-full rounded-xl bg-gold-gradient py-2.5 text-sm font-semibold text-primary-foreground shadow-gold-lg transition-opacity hover:opacity-90"
+                  >
+                    {t('save')}
+                  </button>
+                </div>
+              </PopoverContent>
+            </Popover>
           )}
           {cartTotal > 0 && (
             <span className="text-xs font-semibold text-gold sm:text-sm">

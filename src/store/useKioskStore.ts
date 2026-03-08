@@ -72,6 +72,7 @@ interface KioskState {
   deleteNote: (id: string) => void;
   addBooking: (booking: Omit<BookingItem, 'id' | 'createdAt'>) => void;
   cancelBooking: (id: string) => void;
+  updateCustomerInfo: (info: Partial<CustomerInfo>) => void;
   resetSession: () => void;
 }
 
@@ -131,6 +132,10 @@ export const useKioskStore = create<KioskState>((set) => ({
   cancelBooking: (id) =>
     set((s) => ({
       bookings: s.bookings.filter((b) => b.id !== id),
+    })),
+  updateCustomerInfo: (info) =>
+    set((s) => ({
+      customerInfo: s.customerInfo ? { ...s.customerInfo, ...info } : null,
     })),
   resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [], bookings: [] }),
 }));

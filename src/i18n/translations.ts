@@ -98,6 +98,9 @@ export const translations: Record<Language, Record<string, string>> = {
     booking_cancelled: 'Термін скасовано',
     yes: 'Так',
     no: 'Ні',
+    edit_profile: 'Мій профіль',
+    save: 'Зберегти',
+    profile_updated: 'Профіль оновлено!',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -196,6 +199,9 @@ export const translations: Record<Language, Record<string, string>> = {
     booking_cancelled: 'Termin storniert',
     yes: 'Ja',
     no: 'Nein',
+    edit_profile: 'Mein Profil',
+    save: 'Speichern',
+    profile_updated: 'Profil aktualisiert!',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -294,5 +300,8 @@ export const translations: Record<Language, Record<string, string>> = {
     booking_cancelled: 'Booking cancelled',
     yes: 'Yes',
     no: 'No',
+    edit_profile: 'My Profile',
+    save: 'Save',
+    profile_updated: 'Profile updated!',
   },
 };
