@@ -30,8 +30,15 @@ const menuItems: MenuItem[] = [
   { key: 'trending', icon: TrendingUp, route: '/trending' },
   { key: 'bonuses', icon: Gift, route: '/bonuses' },
   { key: 'before_after', icon: Images, route: '/before-after' },
-  { key: 'procedure_history', icon: History, route: '/procedure-history' },
+  { key: 'procedure_history', icon: History, route: '/procedure-history', guestHidden: true },
 ];
+
+interface MenuItem {
+  key: string;
+  icon: LucideIcon;
+  route: string;
+  guestHidden?: boolean;
+}
 
 const DashboardScreen = () => {
   const { t, language } = useTranslation();

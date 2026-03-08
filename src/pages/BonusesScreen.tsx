@@ -30,7 +30,7 @@ const generateBonuses = (): BonusOffer[] => {
   const serviceBonuses: BonusOffer[] = mockServices.slice(0, 4).map((s) => ({
     id: `bonus-${s.id}`,
     name: s.name,
-    originalPrice: s.price,
+    originalPrice: Math.round(s.priceCents / 100),
     discountPercent: [10, 15, 20][Math.floor(Math.random() * 3)],
     type: 'service',
   }));

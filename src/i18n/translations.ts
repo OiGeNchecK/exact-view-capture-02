@@ -243,5 +243,11 @@ export const translations: Record<Language, Record<string, string>> = {
     procedure_history: 'Procedure History',
     call_admin: 'Call Administrator',
     admin_called: 'Administrator has been called!',
+    bonuses_subtitle: 'Special discounts just for you',
+    product_discounts: 'Product Discounts',
+    service_discounts: 'Service Discounts',
+    before_label: 'Before',
+    after_label: 'After',
+    no_history: 'No procedure history yet',
   },
 };
