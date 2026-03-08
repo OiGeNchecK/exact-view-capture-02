@@ -31,13 +31,14 @@ const KioskHeader = () => {
   };
 
   const handleConfirmOrder = () => {
+    const unconfirmed = cartItems.filter((i) => !i.confirmed);
+    if (unconfirmed.length === 0) return;
     const batchId = crypto.randomUUID();
-    cartItems.forEach((item) => {
+    unconfirmed.forEach((item) => {
       addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type, confirmed: true, batchId });
     });
-    clearCart();
+    confirmCart();
     toast.success(t('order_confirmed'));
-    setCartOpen(false);
   };
 
   const handleAddNote = () => {
