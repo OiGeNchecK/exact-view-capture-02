@@ -150,7 +150,7 @@ export const translations: Record<Language, Record<string, string>> = {
     your_name: 'Ihr Name',
     email_or_phone: 'E-Mail oder Telefonnummer',
     bonuses: 'Boni',
-    before_after: 'Vorher / Nachher Galerie',
+    before_after: 'Galerie (Vorher / Nachher)',
     procedure_history: 'Behandlungshistorie',
     call_admin: 'Administrator rufen',
     admin_called: 'Administrator wurde gerufen!',
