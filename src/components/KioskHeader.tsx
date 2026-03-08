@@ -68,12 +68,6 @@ const KioskHeader = () => {
           </button>
         </div>
 
-        {/* Center: category in gold border */}
-        {category && (
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gold bg-gold/10 px-4 py-1.5 text-xs font-medium text-gold sm:text-sm">
-            {t(category)}
-          </span>
-        )}
 
         <div className="flex items-center gap-2 sm:gap-4">
           {/* My Bookings popover */}
@@ -316,6 +310,15 @@ const KioskHeader = () => {
           </button>
         </div>
       </header>
+
+      {/* Category below header line */}
+      {category && (
+        <div className="fixed left-0 right-0 top-[56px] z-40 flex justify-center py-2 sm:top-[72px]">
+          <span className="rounded-full border border-gold/30 bg-background/80 px-4 py-1 text-xs font-medium text-gold shadow-sm backdrop-blur-md sm:text-sm">
+            {t(category)}
+          </span>
+        </div>
+      )}
 
       {/* Cart Sheet */}
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
