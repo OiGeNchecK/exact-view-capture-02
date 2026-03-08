@@ -6,7 +6,7 @@ import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockMasters } from '@/data/mockMasters';
 import type { Master } from '@/data/mockMasters';
-import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X, Shuffle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const ChooseMasterScreen = () => {
