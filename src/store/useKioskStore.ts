@@ -12,6 +12,13 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface CustomerInfo {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email?: string;
+}
+
 interface KioskState {
   language: Language;
   gender: Gender | null;
@@ -19,12 +26,14 @@ interface KioskState {
   cartItems: CartItem[];
   cartTotal: number;
   selectedMaster: Master | null;
+  customerInfo: CustomerInfo | null;
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
   addToCart: (item: { id: string; name: string; price: number }) => void;
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
+  setCustomerInfo: (info: CustomerInfo) => void;
   resetSession: () => void;
 }
 
@@ -37,6 +46,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   cartItems: [],
   cartTotal: 0,
   selectedMaster: null,
+  customerInfo: null,
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
@@ -58,5 +68,6 @@ export const useKioskStore = create<KioskState>((set) => ({
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
   setSelectedMaster: (master) => set({ selectedMaster: master }),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null }),
+  setCustomerInfo: (info) => set({ customerInfo: info }),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null }),
 }));

@@ -59,6 +59,10 @@ export const translations: Record<Language, Record<string, string>> = {
     milk: 'Молоко',
     cart_empty: 'Кошик порожній',
     total: 'Разом',
+    customer_info_title: 'Ваші дані',
+    optional: 'необов\'язково',
+    fill_required_fields: 'Заповніть обов\'язкові поля',
+    continue: 'Продовжити',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -118,6 +122,10 @@ export const translations: Record<Language, Record<string, string>> = {
     milk: 'Milch',
     cart_empty: 'Warenkorb ist leer',
     total: 'Gesamt',
+    customer_info_title: 'Ihre Daten',
+    optional: 'optional',
+    fill_required_fields: 'Bitte füllen Sie die Pflichtfelder aus',
+    continue: 'Weiter',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -177,5 +185,9 @@ export const translations: Record<Language, Record<string, string>> = {
     milk: 'Milk',
     cart_empty: 'Cart is empty',
     total: 'Total',
+    customer_info_title: 'Your Details',
+    optional: 'optional',
+    fill_required_fields: 'Please fill in the required fields',
+    continue: 'Continue',
   },
 };

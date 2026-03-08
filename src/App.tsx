@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WelcomeScreen from "./pages/WelcomeScreen";
+import CustomerInfoScreen from "./pages/CustomerInfoScreen";
 import GenderScreen from "./pages/GenderScreen";
 import ServiceScreen from "./pages/ServiceScreen";
 import DashboardScreen from "./pages/DashboardScreen";
@@ -25,6 +26,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
+          <Route path="/customer-info" element={<CustomerInfoScreen />} />
           {/* Gender screen removed */}
           <Route path="/services" element={<ServiceScreen />} />
           <Route path="/dashboard" element={<DashboardScreen />} />
