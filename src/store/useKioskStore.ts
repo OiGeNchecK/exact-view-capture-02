@@ -72,6 +72,7 @@ interface KioskState {
   deleteNote: (id: string) => void;
   addBooking: (booking: Omit<BookingItem, 'id' | 'createdAt'>) => void;
   cancelBooking: (id: string) => void;
+  updateCustomerInfo: (info: Partial<CustomerInfo>) => void;
   resetSession: () => void;
 }
 
