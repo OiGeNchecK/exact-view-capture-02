@@ -37,7 +37,7 @@ const KioskHeader = () => {
 
   const handleAddNote = () => {
     if (!noteText.trim()) return;
-    addNote(noteText.trim(), noteAuthor);
+    addNote(noteText.trim(), 'client');
     setNoteText('');
   };
 
