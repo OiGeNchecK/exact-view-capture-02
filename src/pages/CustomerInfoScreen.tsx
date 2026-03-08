@@ -310,6 +310,16 @@ const CustomerInfoScreen = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        onClick={() => navigate('/')}
+        className="mt-6 mb-8 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
+      >
+        ← {t('back')}
+      </motion.button>
     </div>
   );
 };
