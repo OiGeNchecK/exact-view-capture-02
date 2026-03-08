@@ -196,7 +196,7 @@ const CustomerInfoScreen = () => {
               <ArrowRight className="h-5 w-5" />
             </motion.button>
           </motion.div>
-        ) : (
+        ) : mode === 'login' ? (
           <motion.div
             key="login"
             initial={{ opacity: 0, x: 20 }}
@@ -245,6 +245,49 @@ const CustomerInfoScreen = () => {
               className="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-gold-gradient px-10 py-4 text-lg font-semibold text-primary-foreground shadow-gold-lg transition-shadow"
             >
               {t('login_btn')}
+              <ArrowRight className="h-5 w-5" />
+            </motion.button>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="guest"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="flex w-full max-w-md flex-col gap-4"
+          >
+            <h2 className="mb-2 text-center font-display text-2xl font-bold tracking-wider text-gold sm:text-3xl">
+              {t('guest_name_title')}
+            </h2>
+            <div className="mx-auto mb-4 h-px w-20 bg-gold-gradient" />
+
+            <div className="relative">
+              <User className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder={t('your_name')}
+                value={guestName}
+                onChange={(e) => { setGuestName(e.target.value); setGuestError(false); }}
+                className={inputClass(guestError ? '_err' : '', { _err: guestError })}
+              />
+            </div>
+
+            {guestError && (
+              <p className="text-center text-sm text-destructive">{t('fill_required_fields')}</p>
+            )}
+
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => {
+                if (!guestName.trim()) { setGuestError(true); return; }
+                setCustomerInfo({ firstName: guestName.trim(), lastName: '', phone: '' });
+                navigate('/services');
+              }}
+              className="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-gold-gradient px-10 py-4 text-lg font-semibold text-primary-foreground shadow-gold-lg transition-shadow"
+            >
+              {t('continue')}
               <ArrowRight className="h-5 w-5" />
             </motion.button>
           </motion.div>
