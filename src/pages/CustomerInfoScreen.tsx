@@ -13,6 +13,8 @@ const CustomerInfoScreen = () => {
   const { setCustomerInfo } = useKioskStore();
 
   const [mode, setMode] = useState<Mode>('register');
+  const [guestName, setGuestName] = useState('');
+  const [guestError, setGuestError] = useState(false);
 
   // Register fields
   const [firstName, setFirstName] = useState('');
