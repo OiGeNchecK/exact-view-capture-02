@@ -259,5 +259,10 @@ export const translations: Record<Language, Record<string, string>> = {
     before_label: 'Before',
     after_label: 'After',
     no_history: 'No procedure history yet',
+    notes: 'Notes',
+    client: 'Client',
+    master: 'Master',
+    note_placeholder: 'Write a note...',
+    no_notes: 'No notes yet',
   },
 };
