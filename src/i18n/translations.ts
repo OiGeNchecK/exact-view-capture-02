@@ -59,6 +59,10 @@ export const translations: Record<Language, Record<string, string>> = {
     milk: 'Молоко',
     cart_empty: 'Кошик порожній',
     total: 'Разом',
+    customer_info_title: 'Ваші дані',
+    optional: 'необов\'язково',
+    fill_required_fields: 'Заповніть обов\'язкові поля',
+    continue: 'Продовжити',
   },
   DE: {
     welcome_title: 'Willkommen',
