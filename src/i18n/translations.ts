@@ -83,6 +83,11 @@ export const translations: Record<Language, Record<string, string>> = {
     before_label: 'До',
     after_label: 'Після',
     no_history: 'Історія процедур порожня',
+    notes: 'Нотатки',
+    client: 'Клієнт',
+    master: 'Майстер',
+    note_placeholder: 'Напишіть нотатку...',
+    no_notes: 'Нотаток поки немає',
   },
   DE: {
     welcome_title: 'Willkommen',

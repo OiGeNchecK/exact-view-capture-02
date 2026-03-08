@@ -72,6 +72,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   customerInfo: null,
   isGuest: false,
   orderHistory: [],
+  notes: [],
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
@@ -99,5 +100,13 @@ export const useKioskStore = create<KioskState>((set) => ({
     set((s) => ({
       orderHistory: [...s.orderHistory, { ...item, date: new Date().toISOString() }],
     })),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [] }),
+  addNote: (text, author) =>
+    set((s) => ({
+      notes: [...s.notes, { id: crypto.randomUUID(), text, author, date: new Date().toISOString() }],
+    })),
+  deleteNote: (id) =>
+    set((s) => ({
+      notes: s.notes.filter((n) => n.id !== id),
+    })),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [], notes: [] }),
 }));

@@ -41,6 +41,7 @@ const App = () => (
           <Route path="/bonuses" element={<BonusesScreen />} />
           <Route path="/before-after" element={<BeforeAfterScreen />} />
           <Route path="/procedure-history" element={<ProcedureHistoryScreen />} />
+          <Route path="/notes" element={<NotesScreen />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
