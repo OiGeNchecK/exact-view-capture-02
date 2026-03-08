@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
-import { History, ShoppingBag, Coffee, Scissors } from 'lucide-react';
+import { History, ShoppingBag, Coffee, Scissors, CheckCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import type { OrderHistoryItem } from '@/store/useKioskStore';
@@ -12,6 +12,32 @@ const typeIcons = {
   service: Scissors,
   product: ShoppingBag,
   drink: Coffee,
+};
+
+interface Batch {
+  batchId: string;
+  items: OrderHistoryItem[];
+  date: string;
+  confirmed: boolean;
+}
+
+const groupIntoBatches = (items: OrderHistoryItem[]): Batch[] => {
+  const batches: Batch[] = [];
+  const seen = new Set<string>();
+  // Process in original order
+  for (const item of items) {
+    if (!seen.has(item.batchId)) {
+      seen.add(item.batchId);
+      const batchItems = items.filter((i) => i.batchId === item.batchId);
+      batches.push({
+        batchId: item.batchId,
+        items: batchItems,
+        date: batchItems[0].date,
+        confirmed: batchItems[0].confirmed,
+      });
+    }
+  }
+  return batches.reverse();
 };
 
 const HistoryList = ({ items, emptyMessage }: { items: OrderHistoryItem[]; emptyMessage: string }) => {
@@ -23,29 +49,60 @@ const HistoryList = ({ items, emptyMessage }: { items: OrderHistoryItem[]; empty
     );
   }
 
+  const batches = groupIntoBatches(items);
+
   return (
-    <div className="flex w-full max-w-2xl flex-col gap-3">
-      {[...items].reverse().map((item, i) => {
-        const Icon = typeIcons[item.type] || ShoppingBag;
-        return (
-          <motion.div
-            key={`${item.id}-${item.date}-${i}`}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="tile-luxury flex items-center gap-4 rounded-2xl px-5 py-4"
-          >
-            <Icon className="h-6 w-6 shrink-0 text-gold" />
-            <div className="flex-1">
-              <p className="text-sm font-medium text-foreground">{item.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {format(new Date(item.date), 'dd.MM.yyyy HH:mm')} · x{item.quantity}
-              </p>
+    <div className="flex w-full max-w-2xl flex-col gap-4">
+      {batches.map((batch, batchIndex) => (
+        <motion.div
+          key={batch.batchId}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: batchIndex * 0.08 }}
+        >
+          {batchIndex > 0 && (
+            <div className="mb-4 flex items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                {format(new Date(batch.date), 'dd.MM.yyyy HH:mm')}
+              </span>
+              <div className="h-px flex-1 bg-border" />
             </div>
-            <span className="text-sm font-bold text-gold">€{item.price * item.quantity}</span>
-          </motion.div>
-        );
-      })}
+          )}
+          <div className="flex flex-col gap-2">
+            {batch.items.map((item, i) => {
+              const Icon = typeIcons[item.type] || ShoppingBag;
+              const isConfirmed = item.confirmed;
+              return (
+                <div
+                  key={`${item.id}-${item.date}-${i}`}
+                  className={`tile-luxury flex items-center gap-4 rounded-2xl px-5 py-4 transition-colors duration-500 ${
+                    isConfirmed
+                      ? 'border border-emerald-500/30 bg-emerald-500/5'
+                      : ''
+                  }`}
+                >
+                  <Icon className={`h-6 w-6 shrink-0 ${isConfirmed ? 'text-emerald-400' : 'text-gold'}`} />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-foreground">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {format(new Date(item.date), 'dd.MM.yyyy HH:mm')} · x{item.quantity}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {item.price > 0 && (
+                      <span className={`text-sm font-bold ${isConfirmed ? 'text-emerald-400' : 'text-gold'}`}>
+                        €{((item.price * item.quantity) / 100).toFixed(2)}
+                      </span>
+                    )}
+                    {isConfirmed && <CheckCircle className="h-4 w-4 text-emerald-400" />}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+      ))}
     </div>
   );
 };
