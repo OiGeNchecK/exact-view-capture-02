@@ -210,15 +210,15 @@ const CustomerInfoScreen = () => {
             </h2>
             <div className="mx-auto mb-4 h-px w-20 bg-gold-gradient" />
 
-            {/* Email */}
+            {/* Email or Phone */}
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
               <input
-                type="email"
-                placeholder={t('email')}
-                value={loginEmail}
-                onChange={(e) => { setLoginEmail(e.target.value); setLoginErrors((p) => ({ ...p, loginEmail: false })); }}
-                className={inputClass('loginEmail', loginErrors)}
+                type="text"
+                placeholder={t('email_or_phone')}
+                value={loginIdentifier}
+                onChange={(e) => { setLoginIdentifier(e.target.value); setLoginErrors((p) => ({ ...p, loginIdentifier: false })); }}
+                className={inputClass('loginIdentifier', loginErrors)}
               />
             </div>
 
