@@ -124,6 +124,7 @@ export const translations: Record<Language, Record<string, string>> = {
     cart_empty: 'Warenkorb ist leer',
     total: 'Gesamt',
     customer_info_title: 'Ihre Daten',
+    continue_as_guest: 'Als Gast fortfahren',
     optional: 'optional',
     fill_required_fields: 'Bitte füllen Sie die Pflichtfelder aus',
     continue: 'Weiter',
