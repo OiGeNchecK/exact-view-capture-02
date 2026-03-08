@@ -160,7 +160,7 @@ const KioskHeader = () => {
 
       {/* Notes Sheet */}
       <Sheet open={notesOpen} onOpenChange={setNotesOpen}>
-        <SheetContent className="border-border bg-background" side="left">
+        <SheetContent className="border-border bg-background" side="right">
           <SheetHeader>
             <SheetTitle className="text-gold">{t('notes')}</SheetTitle>
           </SheetHeader>
