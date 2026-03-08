@@ -96,6 +96,8 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'Мої терміни',
     no_bookings: 'Немає заброньованих термінів',
     booking_cancelled: 'Термін скасовано',
+    yes: 'Так',
+    no: 'Ні',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -192,6 +194,8 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'Meine Termine',
     no_bookings: 'Keine gebuchten Termine',
     booking_cancelled: 'Termin storniert',
+    yes: 'Ja',
+    no: 'Nein',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -288,5 +292,7 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'My Bookings',
     no_bookings: 'No bookings yet',
     booking_cancelled: 'Booking cancelled',
+    yes: 'Yes',
+    no: 'No',
   },
 };

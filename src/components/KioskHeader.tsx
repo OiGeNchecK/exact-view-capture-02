@@ -17,6 +17,7 @@ const KioskHeader = () => {
   const [notesOpen, setNotesOpen] = useState(false);
   const [noteText, setNoteText] = useState('');
   const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
+  const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
 
   const handleEnd = () => {
     resetSession();
@@ -94,15 +95,33 @@ const KioskHeader = () => {
                             <p className="text-sm text-foreground">{b.date} · {b.time}</p>
                             <p className="text-xs text-muted-foreground">{b.firstName} {b.lastName}</p>
                           </div>
-                          <button
-                            onClick={() => {
-                              cancelBooking(b.id);
-                              toast.success(t('booking_cancelled'));
-                            }}
-                            className="ml-2 shrink-0 self-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
+                          {confirmCancelId === b.id ? (
+                            <div className="ml-2 flex shrink-0 items-center gap-1">
+                              <button
+                                onClick={() => {
+                                  cancelBooking(b.id);
+                                  setConfirmCancelId(null);
+                                  toast.success(t('booking_cancelled'));
+                                }}
+                                className="rounded-lg bg-destructive/10 px-2 py-1 text-xs font-semibold text-destructive hover:bg-destructive/20"
+                              >
+                                {t('yes')}
+                              </button>
+                              <button
+                                onClick={() => setConfirmCancelId(null)}
+                                className="rounded-lg bg-muted px-2 py-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                              >
+                                {t('no')}
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => setConfirmCancelId(b.id)}
+                              className="ml-2 shrink-0 self-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>
