@@ -285,5 +285,8 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'No notes yet',
     no_gallery: 'No photos for this category',
     any_master: 'Any Available Master',
+    my_bookings: 'My Bookings',
+    no_bookings: 'No bookings yet',
+    booking_cancelled: 'Booking cancelled',
   },
 };
