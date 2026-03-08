@@ -58,6 +58,7 @@ export const translations: Record<Language, Record<string, string>> = {
     select_master: 'Обрати',
     milk: 'Молоко',
     cart_empty: 'Кошик порожній',
+    new_items: 'Нові позиції',
     total: 'Разом',
     customer_info_title: 'Ваші дані',
     continue_as_guest: 'Переглянути як гість',
