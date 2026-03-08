@@ -46,6 +46,7 @@ export const useKioskStore = create<KioskState>((set) => ({
   cartItems: [],
   cartTotal: 0,
   selectedMaster: null,
+  customerInfo: null,
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
