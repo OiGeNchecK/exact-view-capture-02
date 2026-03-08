@@ -38,6 +38,15 @@ const BookingScreen = () => {
       toast.error(t('fill_all_fields'));
       return;
     }
+    addBooking({
+      category: category || 'hair',
+      date: format(date, 'dd.MM.yyyy'),
+      time,
+      firstName: form.firstName,
+      lastName: form.lastName,
+      phone: form.phone,
+      email: form.email,
+    });
     toast.success(t('booking_confirmed'));
     navigate('/dashboard');
   };
