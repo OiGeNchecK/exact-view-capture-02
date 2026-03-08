@@ -53,7 +53,7 @@ const BeforeAfterScreen = () => {
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       <KioskHeader />
-      <main className="flex flex-1 flex-col items-center overflow-y-auto px-4 pt-32 pb-8 sm:pt-36">
+      <main className="flex flex-1 flex-col items-center overflow-y-auto px-4 pt-20 pb-8 sm:pt-24">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

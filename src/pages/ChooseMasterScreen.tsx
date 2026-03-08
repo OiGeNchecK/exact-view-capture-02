@@ -44,7 +44,7 @@ const ChooseMasterScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-4 pt-32 pb-12 sm:px-8 sm:pt-36">
+      <main className="flex min-h-screen flex-col items-center px-4 pt-20 pb-12 sm:px-8 sm:pt-24">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
