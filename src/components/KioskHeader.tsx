@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t, language } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, addToHistory, clearCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
