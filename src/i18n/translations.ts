@@ -160,6 +160,12 @@ export const translations: Record<Language, Record<string, string>> = {
     procedure_history: 'Behandlungshistorie',
     call_admin: 'Administrator rufen',
     admin_called: 'Administrator wurde gerufen!',
+    bonuses_subtitle: 'Spezielle Rabatte für Sie',
+    product_discounts: 'Produktrabatte',
+    service_discounts: 'Servicerabatte',
+    before_label: 'Vorher',
+    after_label: 'Nachher',
+    no_history: 'Behandlungshistorie ist leer',
   },
   EN: {
     welcome_title: 'Welcome',
