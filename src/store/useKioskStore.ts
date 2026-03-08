@@ -11,6 +11,7 @@ export interface CartItem {
   price: number;
   quantity: number;
   type: 'service' | 'product' | 'drink';
+  confirmed?: boolean;
 }
 
 export interface CustomerInfo {
@@ -66,6 +67,7 @@ interface KioskState {
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
   addToCart: (item: { id: string; name: string; price: number; type: 'service' | 'product' | 'drink' }) => void;
+  confirmCart: () => void;
   clearCart: () => void;
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
@@ -99,20 +101,25 @@ export const useKioskStore = create<KioskState>((set) => ({
   setCategory: (category) => set({ category }),
   addToCart: (item) =>
     set((s) => {
-      const existing = s.cartItems.find((ci) => ci.id === item.id);
+      // Only match unconfirmed items for quantity increment
+      const existing = s.cartItems.find((ci) => ci.id === item.id && !ci.confirmed);
       const newItems = existing
-        ? s.cartItems.map((ci) => ci.id === item.id ? { ...ci, quantity: ci.quantity + 1 } : ci)
+        ? s.cartItems.map((ci) => ci.id === item.id && !ci.confirmed ? { ...ci, quantity: ci.quantity + 1 } : ci)
         : [...s.cartItems, { ...item, quantity: 1 }];
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
+  confirmCart: () =>
+    set((s) => ({
+      cartItems: s.cartItems.map((ci) => ci.confirmed ? ci : { ...ci, confirmed: true }),
+    })),
   clearCart: () => set({ cartItems: [], cartTotal: 0 }),
   removeFromCart: (id) =>
     set((s) => {
-      const existing = s.cartItems.find((ci) => ci.id === id);
+      const existing = s.cartItems.find((ci) => ci.id === id && !ci.confirmed);
       if (!existing) return s;
       const newItems = existing.quantity > 1
-        ? s.cartItems.map((ci) => ci.id === id ? { ...ci, quantity: ci.quantity - 1 } : ci)
-        : s.cartItems.filter((ci) => ci.id !== id);
+        ? s.cartItems.map((ci) => ci.id === id && !ci.confirmed ? { ...ci, quantity: ci.quantity - 1 } : ci)
+        : s.cartItems.filter((ci) => !(ci.id === id && !ci.confirmed));
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
   setSelectedMaster: (master) => set({ selectedMaster: master }),
