@@ -103,6 +103,7 @@ export const useKioskStore = create<KioskState>((set) => ({
         : [...s.cartItems, { ...item, quantity: 1 }];
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
+  clearCart: () => set({ cartItems: [], cartTotal: 0 }),
   removeFromCart: (id) =>
     set((s) => {
       const existing = s.cartItems.find((ci) => ci.id === id);
