@@ -20,7 +20,7 @@ const PriceListScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="mx-auto px-4 pb-16 pt-24">
+      <main className="mx-auto px-4 pb-16 pt-32 sm:pt-36">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
