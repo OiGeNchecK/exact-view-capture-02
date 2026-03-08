@@ -189,6 +189,9 @@ export const translations: Record<Language, Record<string, string>> = {
     no_notes: 'Noch keine Notizen',
     no_gallery: 'Keine Fotos für diese Kategorie',
     any_master: 'Freier Meister',
+    my_bookings: 'Meine Termine',
+    no_bookings: 'Keine gebuchten Termine',
+    booking_cancelled: 'Termin storniert',
   },
   EN: {
     welcome_title: 'Welcome',
