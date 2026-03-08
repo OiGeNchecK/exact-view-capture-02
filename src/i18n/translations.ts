@@ -194,6 +194,8 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'Meine Termine',
     no_bookings: 'Keine gebuchten Termine',
     booking_cancelled: 'Termin storniert',
+    yes: 'Ja',
+    no: 'Nein',
   },
   EN: {
     welcome_title: 'Welcome',
