@@ -86,36 +86,38 @@ const CustomerInfoScreen = () => {
         {t('continue_as_guest')}
       </motion.button>
 
-      {/* Mode tabs */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15, duration: 0.5 }}
-        className="mb-8 flex w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-md"
-      >
-        <button
-          onClick={() => setMode('register')}
-          className={`flex flex-1 items-center justify-center gap-2 py-4 text-base font-semibold transition-all sm:text-lg ${
-            mode === 'register'
-              ? 'bg-gold-gradient text-primary-foreground shadow-gold-lg'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
+      {/* Mode tabs — only show when not in guest mode */}
+      {mode !== 'guest' && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="mb-8 flex w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-md"
         >
-          <UserPlus className="h-5 w-5" />
-          {t('registration')}
-        </button>
-        <button
-          onClick={() => setMode('login')}
-          className={`flex flex-1 items-center justify-center gap-2 py-4 text-base font-semibold transition-all sm:text-lg ${
-            mode === 'login'
-              ? 'bg-gold-gradient text-primary-foreground shadow-gold-lg'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          <LogIn className="h-5 w-5" />
-          {t('login')}
-        </button>
-      </motion.div>
+          <button
+            onClick={() => setMode('register')}
+            className={`flex flex-1 items-center justify-center gap-2 py-4 text-base font-semibold transition-all sm:text-lg ${
+              mode === 'register'
+                ? 'bg-gold-gradient text-primary-foreground shadow-gold-lg'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <UserPlus className="h-5 w-5" />
+            {t('registration')}
+          </button>
+          <button
+            onClick={() => setMode('login')}
+            className={`flex flex-1 items-center justify-center gap-2 py-4 text-base font-semibold transition-all sm:text-lg ${
+              mode === 'login'
+                ? 'bg-gold-gradient text-primary-foreground shadow-gold-lg'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <LogIn className="h-5 w-5" />
+            {t('login')}
+          </button>
+        </motion.div>
+      )}
 
       <AnimatePresence mode="wait">
         {mode === 'register' ? (
