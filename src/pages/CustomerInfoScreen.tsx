@@ -5,7 +5,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
 import { User, Phone, Mail, ArrowRight, Eye, UserPlus, LogIn, Lock } from 'lucide-react';
 
-type Mode = 'register' | 'login';
+type Mode = 'register' | 'login' | 'guest';
 
 const CustomerInfoScreen = () => {
   const { t } = useTranslation();
