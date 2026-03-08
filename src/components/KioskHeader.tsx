@@ -48,7 +48,7 @@ const KioskHeader = () => {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
+      <header className="fixed left-0 right-0 top-0 z-50 flex flex-wrap items-center justify-between gap-y-2 border-b border-gold/20 bg-background/90 px-3 py-2.5 backdrop-blur-xl sm:flex-nowrap sm:px-8 sm:py-4">
         <div className="flex items-center gap-2 sm:gap-4">
           <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
             <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
@@ -313,8 +313,8 @@ const KioskHeader = () => {
 
       {/* Category below header line */}
       {category && (
-        <div className="fixed left-0 right-0 top-[56px] z-40 flex justify-center py-2 sm:top-[72px]">
-          <span className="rounded-full border border-gold/30 bg-background/80 px-4 py-1 text-xs font-medium text-gold shadow-sm backdrop-blur-md sm:text-sm">
+        <div className="fixed left-0 right-0 top-[52px] z-40 flex justify-center py-1.5 sm:top-[68px] sm:py-2">
+          <span className="rounded-full border border-gold/30 bg-background/90 px-3 py-0.5 text-[10px] font-medium text-gold shadow-sm backdrop-blur-md sm:px-4 sm:py-1 sm:text-sm">
             {t(category)}
           </span>
         </div>
