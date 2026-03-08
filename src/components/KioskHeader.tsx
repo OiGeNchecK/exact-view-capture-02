@@ -14,7 +14,7 @@ const KioskHeader = () => {
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
-  const [notesOpen, setNotesOpen] = useState(false);
+  
   const [noteText, setNoteText] = useState('');
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
 
