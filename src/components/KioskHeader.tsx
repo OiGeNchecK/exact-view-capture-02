@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 const KioskHeader = () => {
   const { t } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
