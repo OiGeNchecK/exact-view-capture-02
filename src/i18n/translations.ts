@@ -199,6 +199,9 @@ export const translations: Record<Language, Record<string, string>> = {
     booking_cancelled: 'Termin storniert',
     yes: 'Ja',
     no: 'Nein',
+    edit_profile: 'Mein Profil',
+    save: 'Speichern',
+    profile_updated: 'Profil aktualisiert!',
   },
   EN: {
     welcome_title: 'Welcome',
