@@ -64,6 +64,11 @@ export const translations: Record<Language, Record<string, string>> = {
     optional: 'необов\'язково',
     fill_required_fields: 'Заповніть обов\'язкові поля',
     continue: 'Продовжити',
+    registration: 'Реєстрація',
+    login: 'Вхід в кабінет',
+    password: 'Пароль',
+    register_btn: 'Зареєструватися',
+    login_btn: 'Увійти',
   },
   DE: {
     welcome_title: 'Willkommen',
