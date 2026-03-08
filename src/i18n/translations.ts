@@ -96,6 +96,8 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'Мої терміни',
     no_bookings: 'Немає заброньованих термінів',
     booking_cancelled: 'Термін скасовано',
+    yes: 'Так',
+    no: 'Ні',
   },
   DE: {
     welcome_title: 'Willkommen',

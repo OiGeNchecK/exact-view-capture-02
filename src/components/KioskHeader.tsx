@@ -18,12 +18,6 @@ const KioskHeader = () => {
   const [noteText, setNoteText] = useState('');
   const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [notesOpen, setNotesOpen] = useState(false);
-  const [noteText, setNoteText] = useState('');
-  const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
 
   const handleEnd = () => {
     resetSession();
