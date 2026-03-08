@@ -17,19 +17,19 @@ interface BeforeAfterItem {
 
 const galleryItems: BeforeAfterItem[] = [
   // Hair
-  { id: 'ba1', title: { UA: 'Фарбування волосся', DE: 'Haarfärbung', EN: 'Hair Coloring' }, category: 'hair', before: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=500&fit=crop' },
-  { id: 'ba5', title: { UA: 'Стрижка', DE: 'Haarschnitt', EN: 'Haircut' }, category: 'hair', before: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=500&fit=crop' },
+  { id: 'ba1', title: { UA: 'Фарбування волосся', DE: 'Haarfärbung', EN: 'Hair Coloring' }, category: 'hair', before: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=400&fit=crop' },
+  { id: 'ba5', title: { UA: 'Стрижка', DE: 'Haarschnitt', EN: 'Haircut' }, category: 'hair', before: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1562322140-8baeacacf957?w=400&h=400&fit=crop' },
   // Nails
-  { id: 'ba2', title: { UA: 'Манікюр', DE: 'Maniküre', EN: 'Manicure' }, category: 'nails', before: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&h=500&fit=crop' },
-  { id: 'ba7', title: { UA: 'Нарощування нігтів', DE: 'Nagelmodellage', EN: 'Nail Extensions' }, category: 'nails', before: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1610992015732-2449b0dd2b8f?w=500&h=500&fit=crop' },
+  { id: 'ba2', title: { UA: 'Манікюр', DE: 'Maniküre', EN: 'Manicure' }, category: 'nails', before: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=400&h=400&fit=crop' },
+  { id: 'ba7', title: { UA: 'Нарощування нігтів', DE: 'Nagelmodellage', EN: 'Nail Extensions' }, category: 'nails', before: 'https://images.unsplash.com/photo-1571290274554-6a2eaa74d75b?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=400&h=400&fit=crop' },
   // Makeup
-  { id: 'ba3', title: { UA: 'Перманентний макіяж', DE: 'Permanent Make-up', EN: 'Permanent Makeup' }, category: 'makeup', before: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=500&fit=crop' },
+  { id: 'ba3', title: { UA: 'Перманентний макіяж', DE: 'Permanent Make-up', EN: 'Permanent Makeup' }, category: 'makeup', before: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop' },
   // Sugaring
-  { id: 'ba4', title: { UA: 'Шугаринг', DE: 'Sugaring', EN: 'Sugaring' }, category: 'sugaring', before: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500&h=500&fit=crop' },
+  { id: 'ba4', title: { UA: 'Шугаринг', DE: 'Sugaring', EN: 'Sugaring' }, category: 'sugaring', before: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=400&fit=crop' },
   // Massage
-  { id: 'ba8', title: { UA: 'Масаж спини', DE: 'Rückenmassage', EN: 'Back Massage' }, category: 'massage', before: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=500&h=500&fit=crop' },
+  { id: 'ba8', title: { UA: 'Масаж спини', DE: 'Rückenmassage', EN: 'Back Massage' }, category: 'massage', before: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=400&h=400&fit=crop' },
   // Laser
-  { id: 'ba6', title: { UA: 'Лазерна процедура', DE: 'Laserbehandlung', EN: 'Laser Treatment' }, category: 'laser', before: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=500&h=500&fit=crop' },
+  { id: 'ba6', title: { UA: 'Лазерна процедура', DE: 'Laserbehandlung', EN: 'Laser Treatment' }, category: 'laser', before: 'https://images.unsplash.com/photo-1612532275214-e4ca76d0e4d1?w=400&h=400&fit=crop', after: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=400&h=400&fit=crop' },
 ];
 
 const categories: ServiceCategory[] = ['hair', 'nails', 'makeup', 'sugaring', 'massage', 'laser'];
@@ -77,7 +77,7 @@ const BeforeAfterScreen = () => {
         {filtered.length === 0 ? (
           <p className="text-muted-foreground">{t('no_gallery')}</p>
         ) : (
-          <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid w-full max-w-3xl grid-cols-1 place-items-center gap-6 sm:grid-cols-2">
             {filtered.map((item, i) => (
               <motion.div
                 key={item.id}
