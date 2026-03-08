@@ -143,6 +143,7 @@ export const translations: Record<Language, Record<string, string>> = {
     login_btn: 'Anmelden',
     guest_name_title: 'Wie heißen Sie?',
     your_name: 'Ihr Name',
+    email_or_phone: 'E-Mail oder Telefonnummer',
   },
   EN: {
     welcome_title: 'Welcome',
