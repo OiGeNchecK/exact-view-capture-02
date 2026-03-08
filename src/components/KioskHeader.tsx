@@ -2,16 +2,20 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, Scissors } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { toast } from 'sonner';
+import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [noteText, setNoteText] = useState('');
+  const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
 
   const handleEnd = () => {
     resetSession();
@@ -21,6 +25,12 @@ const KioskHeader = () => {
   const handleConfirmOrder = () => {
     toast.success(t('order_confirmed'));
     setCartOpen(false);
+  };
+
+  const handleAddNote = () => {
+    if (!noteText.trim()) return;
+    addNote(noteText.trim(), noteAuthor);
+    setNoteText('');
   };
 
   return (
@@ -55,7 +65,7 @@ const KioskHeader = () => {
         <div className="flex items-center gap-2 sm:gap-4">
           {!isGuest && (
             <button
-              onClick={() => navigate('/notes')}
+              onClick={() => setNotesOpen(true)}
               className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
             >
               <StickyNote className="h-4 w-4" />
@@ -144,6 +154,95 @@ const KioskHeader = () => {
                 </button>
               </>
             )}
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Notes Sheet */}
+      <Sheet open={notesOpen} onOpenChange={setNotesOpen}>
+        <SheetContent className="border-border bg-background" side="left">
+          <SheetHeader>
+            <SheetTitle className="text-gold">{t('notes')}</SheetTitle>
+          </SheetHeader>
+          <div className="mt-4 flex flex-col gap-4">
+            {/* Author toggle */}
+            <div className="flex overflow-hidden rounded-xl border border-border">
+              <button
+                onClick={() => setNoteAuthor('client')}
+                className={`flex flex-1 items-center justify-center gap-1.5 py-2.5 text-xs font-semibold transition-all ${
+                  noteAuthor === 'client'
+                    ? 'bg-gold-gradient text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <User className="h-3.5 w-3.5" />
+                {t('client')}
+              </button>
+              <button
+                onClick={() => setNoteAuthor('master')}
+                className={`flex flex-1 items-center justify-center gap-1.5 py-2.5 text-xs font-semibold transition-all ${
+                  noteAuthor === 'master'
+                    ? 'bg-gold-gradient text-primary-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Scissors className="h-3.5 w-3.5" />
+                {t('master')}
+              </button>
+            </div>
+
+            {/* Input */}
+            <div className="flex gap-2">
+              <textarea
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+                placeholder={t('note_placeholder')}
+                className="flex-1 resize-none rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
+                rows={2}
+              />
+              <button
+                onClick={handleAddNote}
+                disabled={!noteText.trim()}
+                className="self-end rounded-xl bg-gold-gradient p-2.5 text-primary-foreground shadow-gold-lg transition-opacity disabled:opacity-40"
+              >
+                <Send className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Notes list */}
+            <div className="flex flex-col gap-2 overflow-y-auto">
+              {notes.length === 0 && (
+                <p className="py-6 text-center text-sm text-muted-foreground">{t('no_notes')}</p>
+              )}
+              {[...notes].reverse().map((note) => (
+                <div
+                  key={note.id}
+                  className={`flex gap-2 rounded-xl card-luxury p-3 ${
+                    note.author === 'master' ? 'ml-4 border-l-2 border-gold/40' : 'mr-4'
+                  }`}
+                >
+                  <div className="mt-0.5">
+                    {note.author === 'client' ? (
+                      <User className="h-3.5 w-3.5 text-muted-foreground" />
+                    ) : (
+                      <Scissors className="h-3.5 w-3.5 text-gold" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-foreground whitespace-pre-wrap break-words">{note.text}</p>
+                    <p className="mt-1 text-[10px] text-muted-foreground">
+                      {note.author === 'client' ? t('client') : t('master')} · {format(new Date(note.date), 'dd.MM.yyyy HH:mm')}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => deleteNote(note.id)}
+                    className="self-start text-muted-foreground transition-colors hover:text-destructive"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </SheetContent>
       </Sheet>
