@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
-import { User, Phone, Mail, ArrowRight } from 'lucide-react';
+import { User, Phone, Mail, ArrowRight, Eye } from 'lucide-react';
 
 const CustomerInfoScreen = () => {
   const { t } = useTranslation();
@@ -45,12 +45,15 @@ const CustomerInfoScreen = () => {
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 sm:px-8">
       {/* Guest link */}
       <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.4 }}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
         onClick={() => navigate('/services')}
-        className="mb-8 text-sm text-muted-foreground underline underline-offset-4 transition-colors hover:text-gold"
+        className="mb-10 flex items-center gap-3 rounded-2xl border border-border bg-card px-10 py-4 text-base font-medium text-foreground shadow-md transition-all hover:border-gold hover:shadow-gold-lg sm:px-14 sm:py-5 sm:text-lg"
       >
+        <Eye className="h-5 w-5 text-gold" />
         {t('continue_as_guest')}
       </motion.button>
 
