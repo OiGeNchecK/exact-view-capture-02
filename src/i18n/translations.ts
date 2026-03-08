@@ -69,6 +69,8 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Пароль',
     register_btn: 'Зареєструватися',
     login_btn: 'Увійти',
+    guest_name_title: 'Як вас звати?',
+    your_name: 'Ваше ім\'я',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -138,6 +140,8 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Passwort',
     register_btn: 'Registrieren',
     login_btn: 'Anmelden',
+    guest_name_title: 'Wie heißen Sie?',
+    your_name: 'Ihr Name',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -207,5 +211,7 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Password',
     register_btn: 'Register',
     login_btn: 'Sign In',
+    guest_name_title: 'What\'s your name?',
+    your_name: 'Your name',
   },
 };
