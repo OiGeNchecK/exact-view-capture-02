@@ -16,6 +16,7 @@ import ChooseMasterScreen from "./pages/ChooseMasterScreen";
 import BonusesScreen from "./pages/BonusesScreen";
 import BeforeAfterScreen from "./pages/BeforeAfterScreen";
 import ProcedureHistoryScreen from "./pages/ProcedureHistoryScreen";
+import NotesScreen from "./pages/NotesScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/bonuses" element={<BonusesScreen />} />
           <Route path="/before-after" element={<BeforeAfterScreen />} />
           <Route path="/procedure-history" element={<ProcedureHistoryScreen />} />
+          <Route path="/notes" element={<NotesScreen />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
