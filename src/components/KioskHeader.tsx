@@ -48,7 +48,7 @@ const KioskHeader = () => {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
+      <header className="fixed left-0 right-0 top-0 z-50 flex flex-wrap items-center justify-between gap-y-2 border-b border-gold/20 bg-background/90 px-3 py-2.5 backdrop-blur-xl sm:flex-nowrap sm:px-8 sm:py-4">
         <div className="flex items-center gap-2 sm:gap-4">
           <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
             <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
