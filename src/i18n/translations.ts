@@ -71,6 +71,7 @@ export const translations: Record<Language, Record<string, string>> = {
     login_btn: 'Увійти',
     guest_name_title: 'Як вас звати?',
     your_name: 'Ваше ім\'я',
+    email_or_phone: 'Email або номер телефону',
   },
   DE: {
     welcome_title: 'Willkommen',
