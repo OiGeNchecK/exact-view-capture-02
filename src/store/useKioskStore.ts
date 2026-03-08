@@ -10,6 +10,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  type: 'service' | 'product' | 'drink';
 }
 
 export interface CustomerInfo {
