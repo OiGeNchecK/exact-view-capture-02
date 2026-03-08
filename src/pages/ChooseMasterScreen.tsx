@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -8,7 +8,6 @@ import { mockMasters } from '@/data/mockMasters';
 import type { Master } from '@/data/mockMasters';
 import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { toast } from 'sonner';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
 
 const ChooseMasterScreen = () => {
   const { t, language } = useTranslation();
@@ -29,14 +28,18 @@ const ChooseMasterScreen = () => {
     navigate('/dashboard');
   };
 
-  const openLightbox = (index: number) => setLightboxIndex(index);
-  const closeLightbox = () => setLightboxIndex(null);
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 
-  const goLightbox = (dir: number) => {
-    if (lightboxIndex === null || !viewMaster) return;
+  const goLightbox = useCallback((dir: number) => {
+    if (!viewMaster) return;
     const len = viewMaster.photos.length;
-    setLightboxIndex((lightboxIndex + dir + len) % len);
-  };
+    setLightboxIndex((prev) => (prev !== null ? (prev + dir + len) % len : null));
+  }, [viewMaster]);
+
+  const closeDetail = useCallback(() => {
+    if (lightboxIndex !== null) return; // don't close detail while lightbox is open
+    setViewMaster(null);
+  }, [lightboxIndex]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -60,7 +63,7 @@ const ChooseMasterScreen = () => {
               transition={{ delay: 0.08 * i }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setViewMaster(master)}
+              onClick={() => { setViewMaster(master); setLightboxIndex(null); }}
               className="card-luxury group flex flex-col items-center gap-3 rounded-2xl p-4 transition-all"
             >
               <div className="h-24 w-24 overflow-hidden rounded-xl border-2 border-gold/30 transition-all group-hover:border-gold-bright sm:h-28 sm:w-28">
@@ -91,13 +94,32 @@ const ChooseMasterScreen = () => {
         </motion.button>
       </main>
 
-      {/* Master detail dialog */}
-      <Dialog open={!!viewMaster} onOpenChange={() => setViewMaster(null)}>
-        <DialogContent className="max-w-md border-border bg-background p-0">
-          {viewMaster && (
-            <div className="p-6">
+      {/* Master detail overlay */}
+      <AnimatePresence>
+        {viewMaster && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={closeDetail}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative max-h-[85vh] w-full max-w-md overflow-y-auto rounded-2xl border border-border bg-background p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => { setViewMaster(null); setLightboxIndex(null); }}
+                className="absolute right-3 top-3 rounded-full p-1.5 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
               <div className="mb-4 flex items-center gap-4">
-                <div className="h-20 w-20 overflow-hidden rounded-2xl border-2 border-gold">
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border-2 border-gold">
                   <img src={viewMaster.photo} alt={viewMaster.name} className="h-full w-full object-cover" />
                 </div>
                 <div>
@@ -126,7 +148,7 @@ const ChooseMasterScreen = () => {
                 {viewMaster.photos.map((photo, i) => (
                   <button
                     key={i}
-                    onClick={() => openLightbox(i)}
+                    onClick={() => setLightboxIndex(i)}
                     className="aspect-square overflow-hidden rounded-xl border border-border transition-all hover:border-gold"
                   >
                     <img src={photo} alt={`${viewMaster.name} work ${i + 1}`} className="h-full w-full object-cover" loading="lazy" />
@@ -140,30 +162,35 @@ const ChooseMasterScreen = () => {
               >
                 {t('select_master')}
               </button>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Lightbox overlay */}
+      {/* Lightbox overlay for photos */}
       <AnimatePresence>
         {lightboxIndex !== null && viewMaster && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95"
             onClick={closeLightbox}
           >
-            <button onClick={closeLightbox} className="absolute right-4 top-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70">
+            <button
+              onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+              className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm hover:bg-white/20"
+            >
               <X className="h-6 w-6" />
             </button>
+
             <button
               onClick={(e) => { e.stopPropagation(); goLightbox(-1); }}
-              className="absolute left-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm hover:bg-white/20"
             >
               <ChevronLeft className="h-8 w-8" />
             </button>
+
             <motion.img
               key={lightboxIndex}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -171,16 +198,18 @@ const ChooseMasterScreen = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               src={viewMaster.photos[lightboxIndex]}
               alt={`${viewMaster.name} work ${lightboxIndex + 1}`}
-              className="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain"
+              className="max-h-[80vh] max-w-[85vw] rounded-2xl object-contain"
               onClick={(e) => e.stopPropagation()}
             />
+
             <button
               onClick={(e) => { e.stopPropagation(); goLightbox(1); }}
-              className="absolute right-4 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white backdrop-blur-sm hover:bg-white/20"
             >
               <ChevronRight className="h-8 w-8" />
             </button>
-            <div className="absolute bottom-6 text-sm text-white/70">
+
+            <div className="absolute bottom-6 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm">
               {lightboxIndex + 1} / {viewMaster.photos.length}
             </div>
           </motion.div>
