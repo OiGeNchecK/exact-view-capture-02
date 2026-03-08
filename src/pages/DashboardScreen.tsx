@@ -7,6 +7,9 @@ import {
   CalendarPlus,
   Coffee,
   Diamond,
+  Gift,
+  History,
+  Images,
   ShoppingBag,
   TrendingUp,
   UserCheck,
@@ -25,6 +28,9 @@ const menuItems: MenuItem[] = [
   { key: 'order_drink', icon: Coffee, route: '/order-drink' },
   { key: 'order_product', icon: ShoppingBag, route: '/order-product' },
   { key: 'trending', icon: TrendingUp, route: '/trending' },
+  { key: 'bonuses', icon: Gift, route: '/bonuses' },
+  { key: 'before_after', icon: Images, route: '/before-after' },
+  { key: 'procedure_history', icon: History, route: '/procedure-history' },
 ];
 
 const DashboardScreen = () => {
