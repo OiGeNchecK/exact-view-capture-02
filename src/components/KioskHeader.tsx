@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, Scissors } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, Scissors, CalendarCheck, X } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 
 const KioskHeader = () => {
-  const { t } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote } = useKioskStore();
+  const { t, language } = useTranslation();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
