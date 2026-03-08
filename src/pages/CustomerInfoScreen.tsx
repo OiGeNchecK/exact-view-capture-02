@@ -77,8 +77,10 @@ const CustomerInfoScreen = () => {
         transition={{ delay: 0.1, duration: 0.4 }}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
-        onClick={() => navigate('/services')}
-        className="mb-10 flex items-center gap-3 rounded-2xl border border-border bg-card px-10 py-4 text-base font-medium text-foreground shadow-md transition-all hover:border-gold hover:shadow-gold-lg sm:px-14 sm:py-5 sm:text-lg"
+        onClick={() => setMode('guest')}
+        className={`mb-10 flex items-center gap-3 rounded-2xl border bg-card px-10 py-4 text-base font-medium text-foreground shadow-md transition-all hover:border-gold hover:shadow-gold-lg sm:px-14 sm:py-5 sm:text-lg ${
+          mode === 'guest' ? 'border-gold shadow-gold-lg' : 'border-border'
+        }`}
       >
         <Eye className="h-5 w-5 text-gold" />
         {t('continue_as_guest')}
