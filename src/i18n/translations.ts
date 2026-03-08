@@ -278,5 +278,6 @@ export const translations: Record<Language, Record<string, string>> = {
     note_placeholder: 'Write a note...',
     no_notes: 'No notes yet',
     no_gallery: 'No photos for this category',
+    any_master: 'Any Available Master',
   },
 };
