@@ -160,6 +160,7 @@ export const translations: Record<Language, Record<string, string>> = {
     select_master: 'Auswählen',
     milk: 'Milch',
     cart_empty: 'Warenkorb ist leer',
+    new_items: 'Neue Positionen',
     total: 'Gesamt',
     customer_info_title: 'Ihre Daten',
     continue_as_guest: 'Als Gast fortfahren',
