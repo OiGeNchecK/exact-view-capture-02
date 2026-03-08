@@ -26,7 +26,7 @@ const OrderProductScreen = () => {
   return (
     <div className="min-h-screen bg-background">
       <KioskHeader />
-      <main className="flex min-h-screen flex-col items-center px-8 pt-24 pb-12">
+      <main className="flex min-h-screen flex-col items-center px-8 pt-32 pb-12 sm:pt-36">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
