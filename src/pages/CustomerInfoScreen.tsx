@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useKioskStore } from '@/store/useKioskStore';
-import { User, Phone, Mail, ArrowRight } from 'lucide-react';
+import { User, Phone, Mail, ArrowRight, Eye } from 'lucide-react';
 
 const CustomerInfoScreen = () => {
   const { t } = useTranslation();
