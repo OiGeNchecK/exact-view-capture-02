@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, CalendarCheck, X, Phone, Mail, CheckCircle } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle, Bell, StickyNote, Send, Trash2, User, CalendarCheck, X, Phone, Mail } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t, language } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, addToHistory, confirmCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, addToHistory, clearCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -31,14 +31,13 @@ const KioskHeader = () => {
   };
 
   const handleConfirmOrder = () => {
-    const unconfirmed = cartItems.filter((i) => !i.confirmed);
-    if (unconfirmed.length === 0) return;
     const batchId = crypto.randomUUID();
-    unconfirmed.forEach((item) => {
+    cartItems.forEach((item) => {
       addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type, confirmed: true, batchId });
     });
-    confirmCart();
+    clearCart();
     toast.success(t('order_confirmed'));
+    setCartOpen(false);
   };
 
   const handleAddNote = () => {
@@ -324,77 +323,47 @@ const KioskHeader = () => {
           <SheetHeader>
             <SheetTitle className="text-gold">{t('cart')}</SheetTitle>
           </SheetHeader>
-          <div className="mt-4 flex flex-col gap-3 overflow-y-auto max-h-[calc(100vh-180px)]">
+          <div className="mt-4 flex flex-col gap-3">
             {cartItems.length === 0 && (
               <p className="py-8 text-center text-muted-foreground">{t('cart_empty')}</p>
             )}
-            {(() => {
-              const confirmed = cartItems.filter((i) => i.confirmed);
-              const unconfirmed = cartItems.filter((i) => !i.confirmed);
-              const hasUnconfirmed = unconfirmed.length > 0;
-              return (
-                <>
-                  {confirmed.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-foreground">{item.name}</p>
-                        <p className="text-xs text-emerald-400">{(item.price / 100).toFixed(2)} €</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="w-5 text-center text-sm font-semibold text-emerald-400">{item.quantity}</span>
-                        <CheckCircle className="h-4 w-4 text-emerald-400" />
-                      </div>
-                    </div>
-                  ))}
-                  {confirmed.length > 0 && hasUnconfirmed && (
-                    <div className="flex items-center gap-3 py-1">
-                      <div className="h-px flex-1 bg-border" />
-                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{t('new_items')}</span>
-                      <div className="h-px flex-1 bg-border" />
-                    </div>
-                  )}
-                  {unconfirmed.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between rounded-xl card-luxury p-3">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-foreground">{item.name}</p>
-                        <p className="text-xs text-gold">{(item.price / 100).toFixed(2)} €</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => removeFromCart(item.id)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-destructive hover:text-destructive"
-                        >
-                          <Minus className="h-3 w-3" />
-                        </button>
-                        <span className="w-5 text-center text-sm font-semibold text-gold">{item.quantity}</span>
-                        <button
-                          onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, type: item.type })}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-gold-bright hover:text-gold"
-                        >
-                          <Plus className="h-3 w-3" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  {cartItems.length > 0 && (
-                    <>
-                      <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-                        <span className="font-semibold text-foreground">{t('total')}</span>
-                        <span className="text-lg font-bold text-gold">{(cartTotal / 100).toFixed(2)} €</span>
-                      </div>
-                      {hasUnconfirmed && (
-                        <button
-                          onClick={handleConfirmOrder}
-                          className="mt-2 w-full rounded-xl bg-gold py-3 text-lg font-semibold text-background transition-colors hover:bg-gold-bright"
-                        >
-                          {t('confirm_order')}
-                        </button>
-                      )}
-                    </>
-                  )}
-                </>
-              );
-            })()}
+            {cartItems.map((item) => (
+              <div key={item.id} className="flex items-center justify-between rounded-xl card-luxury p-3">
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">{item.name}</p>
+                  <p className="text-xs text-gold">{(item.price / 100).toFixed(2)} €</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-destructive hover:text-destructive"
+                  >
+                    <Minus className="h-3 w-3" />
+                  </button>
+                  <span className="w-5 text-center text-sm font-semibold text-gold">{item.quantity}</span>
+                  <button
+                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, type: item.type })}
+                    className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-gold-bright hover:text-gold"
+                  >
+                    <Plus className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            ))}
+            {cartItems.length > 0 && (
+              <>
+                <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
+                  <span className="font-semibold text-foreground">{t('total')}</span>
+                  <span className="text-lg font-bold text-gold">{(cartTotal / 100).toFixed(2)} €</span>
+                </div>
+                <button
+                  onClick={handleConfirmOrder}
+                  className="mt-2 w-full rounded-xl bg-gold py-3 text-lg font-semibold text-background transition-colors hover:bg-gold-bright"
+                >
+                  {t('confirm_order')}
+                </button>
+              </>
+            )}
           </div>
         </SheetContent>
       </Sheet>
