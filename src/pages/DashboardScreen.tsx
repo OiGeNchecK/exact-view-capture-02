@@ -20,6 +20,7 @@ interface MenuItem {
   key: string;
   icon: LucideIcon;
   route: string;
+  guestHidden?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -33,18 +34,14 @@ const menuItems: MenuItem[] = [
   { key: 'procedure_history', icon: History, route: '/procedure-history', guestHidden: true },
 ];
 
-interface MenuItem {
-  key: string;
-  icon: LucideIcon;
-  route: string;
-  guestHidden?: boolean;
-}
-
 const DashboardScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
   const selectedMaster = useKioskStore((s) => s.selectedMaster);
   const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
+  const isGuest = useKioskStore((s) => s.isGuest);
+
+  const visibleItems = menuItems.filter((item) => !(item.guestHidden && isGuest));
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
