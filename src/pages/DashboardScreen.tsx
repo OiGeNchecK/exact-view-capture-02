@@ -111,7 +111,7 @@ const DashboardScreen = () => {
                 style={{ width: 200, maxWidth: 220 }}
               >
                 <Icon className="h-9 w-9 text-gold drop-shadow-[0_0_8px_hsl(40_55%_50%/0.5)] transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_16px_hsl(40_55%_50%/0.7)] sm:h-10 sm:w-10" />
-                <span className="min-h-[2.5rem] text-center text-sm font-medium leading-tight text-foreground sm:text-base">
+                <span className="min-h-[2.5rem] whitespace-pre-line text-center text-sm font-medium leading-tight text-foreground sm:text-base">
                   {t(item.key)}
                 </span>
               </motion.button>
