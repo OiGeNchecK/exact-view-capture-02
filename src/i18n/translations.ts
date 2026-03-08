@@ -292,5 +292,7 @@ export const translations: Record<Language, Record<string, string>> = {
     my_bookings: 'My Bookings',
     no_bookings: 'No bookings yet',
     booking_cancelled: 'Booking cancelled',
+    yes: 'Yes',
+    no: 'No',
   },
 };
