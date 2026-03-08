@@ -21,7 +21,7 @@ const generateBonuses = (): BonusOffer[] => {
   const productBonuses: BonusOffer[] = mockProducts.slice(0, 4).map((p) => ({
     id: `bonus-${p.id}`,
     name: p.name,
-    originalPrice: p.price,
+    originalPrice: p.price * 100,
     discountPercent: [10, 15, 20, 25][Math.floor(Math.random() * 4)],
     type: 'product',
     image: p.image,
