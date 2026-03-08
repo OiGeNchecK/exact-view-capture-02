@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useKioskStore, type ServiceCategory } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { Images, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Language } from '@/i18n/translations';
@@ -9,60 +10,38 @@ import type { Language } from '@/i18n/translations';
 interface BeforeAfterItem {
   id: string;
   title: Record<Language, string>;
-  category: string;
+  category: ServiceCategory;
   before: string;
   after: string;
 }
 
 const galleryItems: BeforeAfterItem[] = [
-  {
-    id: 'ba1',
-    title: { UA: 'Фарбування волосся', DE: 'Haarfärbung', EN: 'Hair Coloring' },
-    category: 'hair',
-    before: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=500&fit=crop',
-  },
-  {
-    id: 'ba2',
-    title: { UA: 'Манікюр', DE: 'Maniküre', EN: 'Manicure' },
-    category: 'nails',
-    before: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&h=500&fit=crop',
-  },
-  {
-    id: 'ba3',
-    title: { UA: 'Перманентний макіяж', DE: 'Permanent Make-up', EN: 'Permanent Makeup' },
-    category: 'makeup',
-    before: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=500&fit=crop',
-  },
-  {
-    id: 'ba4',
-    title: { UA: 'Шугаринг', DE: 'Sugaring', EN: 'Sugaring' },
-    category: 'sugaring',
-    before: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500&h=500&fit=crop',
-  },
-  {
-    id: 'ba5',
-    title: { UA: 'Стрижка', DE: 'Haarschnitt', EN: 'Haircut' },
-    category: 'hair',
-    before: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=500&fit=crop',
-  },
-  {
-    id: 'ba6',
-    title: { UA: 'Лазерна процедура', DE: 'Laserbehandlung', EN: 'Laser Treatment' },
-    category: 'laser',
-    before: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&h=500&fit=crop',
-    after: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=500&h=500&fit=crop',
-  },
+  // Hair
+  { id: 'ba1', title: { UA: 'Фарбування волосся', DE: 'Haarfärbung', EN: 'Hair Coloring' }, category: 'hair', before: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=500&fit=crop' },
+  { id: 'ba5', title: { UA: 'Стрижка', DE: 'Haarschnitt', EN: 'Haircut' }, category: 'hair', before: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=500&fit=crop' },
+  // Nails
+  { id: 'ba2', title: { UA: 'Манікюр', DE: 'Maniküre', EN: 'Manicure' }, category: 'nails', before: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&h=500&fit=crop' },
+  { id: 'ba7', title: { UA: 'Нарощування нігтів', DE: 'Nagelmodellage', EN: 'Nail Extensions' }, category: 'nails', before: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1610992015732-2449b0dd2b8f?w=500&h=500&fit=crop' },
+  // Makeup
+  { id: 'ba3', title: { UA: 'Перманентний макіяж', DE: 'Permanent Make-up', EN: 'Permanent Makeup' }, category: 'makeup', before: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=500&fit=crop' },
+  // Sugaring
+  { id: 'ba4', title: { UA: 'Шугаринг', DE: 'Sugaring', EN: 'Sugaring' }, category: 'sugaring', before: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500&h=500&fit=crop' },
+  // Massage
+  { id: 'ba8', title: { UA: 'Масаж спини', DE: 'Rückenmassage', EN: 'Back Massage' }, category: 'massage', before: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=500&h=500&fit=crop' },
+  // Laser
+  { id: 'ba6', title: { UA: 'Лазерна процедура', DE: 'Laserbehandlung', EN: 'Laser Treatment' }, category: 'laser', before: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&h=500&fit=crop', after: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=500&h=500&fit=crop' },
 ];
+
+const categories: ServiceCategory[] = ['hair', 'nails', 'makeup', 'sugaring', 'massage', 'laser'];
 
 const BeforeAfterScreen = () => {
   const { t, language } = useTranslation();
   const navigate = useNavigate();
+  const storeCategory = useKioskStore((s) => s.category);
+  const [activeCategory, setActiveCategory] = useState<ServiceCategory>(storeCategory || 'hair');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const filtered = galleryItems.filter((item) => item.category === activeCategory);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
@@ -76,43 +55,64 @@ const BeforeAfterScreen = () => {
           <Images className="h-8 w-8 text-gold" />
           <h1 className="font-display text-3xl font-bold text-gold">{t('before_after')}</h1>
         </motion.div>
-        <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
+        <div className="mx-auto mb-6 h-px w-24 bg-gold-gradient" />
 
-        <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {galleryItems.map((item, i) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.07 }}
-              whileHover={{ y: -4 }}
-              onClick={() => setLightboxIndex(i)}
-              className="tile-luxury cursor-pointer overflow-hidden rounded-2xl"
+        {/* Category tabs */}
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => { setActiveCategory(cat); setLightboxIndex(null); }}
+              className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all sm:text-sm ${
+                activeCategory === cat
+                  ? 'bg-gold-gradient text-primary-foreground shadow-gold-lg'
+                  : 'border border-border bg-card text-muted-foreground hover:text-foreground'
+              }`}
             >
-              <div className="flex">
-                <div className="relative w-1/2">
-                  <img src={item.before} alt="Before" className="h-40 w-full object-cover" />
-                  <span className="absolute bottom-2 left-2 rounded-full bg-background/80 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
-                    {t('before_label')}
-                  </span>
-                </div>
-                <div className="relative w-1/2">
-                  <img src={item.after} alt="After" className="h-40 w-full object-cover" />
-                  <span className="absolute bottom-2 right-2 rounded-full bg-gold/80 px-2 py-0.5 text-xs font-semibold text-primary-foreground">
-                    {t('after_label')}
-                  </span>
-                </div>
-              </div>
-              <div className="p-3 text-center">
-                <p className="text-sm font-medium text-foreground">{item.title[language]}</p>
-              </div>
-            </motion.div>
+              {t(cat)}
+            </button>
           ))}
         </div>
 
+        {filtered.length === 0 ? (
+          <p className="text-muted-foreground">{t('no_gallery')}</p>
+        ) : (
+          <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((item, i) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.07 }}
+                whileHover={{ y: -4 }}
+                onClick={() => setLightboxIndex(i)}
+                className="tile-luxury cursor-pointer overflow-hidden rounded-2xl"
+              >
+                <div className="flex">
+                  <div className="relative w-1/2">
+                    <img src={item.before} alt="Before" className="h-40 w-full object-cover" />
+                    <span className="absolute bottom-2 left-2 rounded-full bg-background/80 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
+                      {t('before_label')}
+                    </span>
+                  </div>
+                  <div className="relative w-1/2">
+                    <img src={item.after} alt="After" className="h-40 w-full object-cover" />
+                    <span className="absolute bottom-2 right-2 rounded-full bg-gold/80 px-2 py-0.5 text-xs font-semibold text-primary-foreground">
+                      {t('after_label')}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-3 text-center">
+                  <p className="text-sm font-medium text-foreground">{item.title[language]}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
         {/* Lightbox */}
         <AnimatePresence>
-          {lightboxIndex !== null && (
+          {lightboxIndex !== null && filtered[lightboxIndex] && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -131,25 +131,17 @@ const BeforeAfterScreen = () => {
                   <X className="h-8 w-8" />
                 </button>
                 <p className="text-lg font-semibold text-gold">
-                  {galleryItems[lightboxIndex].title[language]}
+                  {filtered[lightboxIndex].title[language]}
                 </p>
                 <div className="flex gap-4">
                   <div className="relative">
-                    <img
-                      src={galleryItems[lightboxIndex].before}
-                      alt="Before"
-                      className="max-h-[60vh] rounded-xl object-contain"
-                    />
+                    <img src={filtered[lightboxIndex].before} alt="Before" className="max-h-[60vh] rounded-xl object-contain" />
                     <span className="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1 text-sm font-semibold">
                       {t('before_label')}
                     </span>
                   </div>
                   <div className="relative">
-                    <img
-                      src={galleryItems[lightboxIndex].after}
-                      alt="After"
-                      className="max-h-[60vh] rounded-xl object-contain"
-                    />
+                    <img src={filtered[lightboxIndex].after} alt="After" className="max-h-[60vh] rounded-xl object-contain" />
                     <span className="absolute bottom-3 right-3 rounded-full bg-gold/80 px-3 py-1 text-sm font-semibold text-primary-foreground">
                       {t('after_label')}
                     </span>
@@ -157,13 +149,13 @@ const BeforeAfterScreen = () => {
                 </div>
                 <div className="flex gap-4">
                   <button
-                    onClick={() => setLightboxIndex((p) => (p! > 0 ? p! - 1 : galleryItems.length - 1))}
+                    onClick={() => setLightboxIndex((p) => (p! > 0 ? p! - 1 : filtered.length - 1))}
                     className="rounded-full bg-card p-2 text-foreground"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </button>
                   <button
-                    onClick={() => setLightboxIndex((p) => (p! < galleryItems.length - 1 ? p! + 1 : 0))}
+                    onClick={() => setLightboxIndex((p) => (p! < filtered.length - 1 ? p! + 1 : 0))}
                     className="rounded-full bg-card p-2 text-foreground"
                   >
                     <ChevronRight className="h-6 w-6" />
