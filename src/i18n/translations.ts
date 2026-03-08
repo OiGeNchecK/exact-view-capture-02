@@ -92,6 +92,7 @@ export const translations: Record<Language, Record<string, string>> = {
     note_placeholder: 'Напишіть нотатку...',
     no_notes: 'Нотаток поки немає',
     no_gallery: 'Немає фото для цієї категорії',
+    any_master: 'Вільний майстер',
   },
   DE: {
     welcome_title: 'Willkommen',
@@ -184,6 +185,7 @@ export const translations: Record<Language, Record<string, string>> = {
     note_placeholder: 'Notiz schreiben...',
     no_notes: 'Noch keine Notizen',
     no_gallery: 'Keine Fotos für diese Kategorie',
+    any_master: 'Freier Meister',
   },
   EN: {
     welcome_title: 'Welcome',
@@ -276,5 +278,6 @@ export const translations: Record<Language, Record<string, string>> = {
     note_placeholder: 'Write a note...',
     no_notes: 'No notes yet',
     no_gallery: 'No photos for this category',
+    any_master: 'Any Available Master',
   },
 };

@@ -6,7 +6,7 @@ import { useKioskStore } from '@/store/useKioskStore';
 import KioskHeader from '@/components/KioskHeader';
 import { mockMasters } from '@/data/mockMasters';
 import type { Master } from '@/data/mockMasters';
-import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Calendar, GraduationCap, MapPin, ChevronLeft, ChevronRight, X, Shuffle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const ChooseMasterScreen = () => {
@@ -55,12 +55,34 @@ const ChooseMasterScreen = () => {
         <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
 
         <div className="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 sm:gap-5">
+          {/* "Any available master" tile */}
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              const random = masters[Math.floor(Math.random() * masters.length)];
+              if (random) handleConfirm(random);
+            }}
+            className="card-luxury group flex flex-col items-center gap-3 rounded-2xl p-4 transition-all"
+          >
+            <div className="flex h-24 w-24 items-center justify-center rounded-xl border-2 border-gold/30 bg-gold/5 transition-all group-hover:border-gold-bright sm:h-28 sm:w-28">
+              <Shuffle className="h-10 w-10 text-gold" />
+            </div>
+            <div className="text-center">
+              <p className="text-sm font-semibold text-foreground">{t('any_master')}</p>
+              <p className="text-xs text-muted-foreground">{t('available_now')}</p>
+            </div>
+          </motion.button>
+
           {masters.map((master, i) => (
             <motion.button
               key={master.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.08 * i }}
+              transition={{ delay: 0.08 * (i + 1) }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => { setViewMaster(master); setLightboxIndex(null); }}
