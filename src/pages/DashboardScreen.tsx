@@ -20,6 +20,7 @@ interface MenuItem {
   key: string;
   icon: LucideIcon;
   route: string;
+  guestHidden?: boolean;
 }
 
 const menuItems: MenuItem[] = [
@@ -30,7 +31,7 @@ const menuItems: MenuItem[] = [
   { key: 'trending', icon: TrendingUp, route: '/trending' },
   { key: 'bonuses', icon: Gift, route: '/bonuses' },
   { key: 'before_after', icon: Images, route: '/before-after' },
-  { key: 'procedure_history', icon: History, route: '/procedure-history' },
+  { key: 'procedure_history', icon: History, route: '/procedure-history', guestHidden: true },
 ];
 
 const DashboardScreen = () => {
@@ -38,6 +39,9 @@ const DashboardScreen = () => {
   const navigate = useNavigate();
   const selectedMaster = useKioskStore((s) => s.selectedMaster);
   const setSelectedMaster = useKioskStore((s) => s.setSelectedMaster);
+  const isGuest = useKioskStore((s) => s.isGuest);
+
+  const visibleItems = menuItems.filter((item) => !(item.guestHidden && isGuest));
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
@@ -92,7 +96,7 @@ const DashboardScreen = () => {
 
         {/* Fullscreen Tiles Row */}
         <div className="flex w-full items-stretch justify-center gap-4 overflow-x-auto overflow-y-hidden px-2 sm:gap-5 md:gap-6" style={{ scrollbarWidth: 'none' }}>
-          {menuItems.map((item, i) => {
+          {visibleItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <motion.button

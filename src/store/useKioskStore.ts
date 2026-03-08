@@ -19,6 +19,15 @@ export interface CustomerInfo {
   email?: string;
 }
 
+export interface OrderHistoryItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  type: 'service' | 'product' | 'drink';
+  date: string;
+}
+
 interface KioskState {
   language: Language;
   gender: Gender | null;
@@ -27,6 +36,8 @@ interface KioskState {
   cartTotal: number;
   selectedMaster: Master | null;
   customerInfo: CustomerInfo | null;
+  isGuest: boolean;
+  orderHistory: OrderHistoryItem[];
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
@@ -34,6 +45,8 @@ interface KioskState {
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
   setCustomerInfo: (info: CustomerInfo) => void;
+  setIsGuest: (val: boolean) => void;
+  addToHistory: (item: Omit<OrderHistoryItem, 'date'>) => void;
   resetSession: () => void;
 }
 
@@ -47,6 +60,8 @@ export const useKioskStore = create<KioskState>((set) => ({
   cartTotal: 0,
   selectedMaster: null,
   customerInfo: null,
+  isGuest: false,
+  orderHistory: [],
   setLanguage: (language) => set({ language }),
   setGender: (gender) => set({ gender }),
   setCategory: (category) => set({ category }),
@@ -69,5 +84,10 @@ export const useKioskStore = create<KioskState>((set) => ({
     }),
   setSelectedMaster: (master) => set({ selectedMaster: master }),
   setCustomerInfo: (info) => set({ customerInfo: info }),
-  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null }),
+  setIsGuest: (isGuest) => set({ isGuest }),
+  addToHistory: (item) =>
+    set((s) => ({
+      orderHistory: [...s.orderHistory, { ...item, date: new Date().toISOString() }],
+    })),
+  resetSession: () => set({ gender: null, category: null, cartItems: [], cartTotal: 0, language: 'DE', selectedMaster: null, customerInfo: null, isGuest: false, orderHistory: [] }),
 }));

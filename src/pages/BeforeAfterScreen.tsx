@@ -1,0 +1,191 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '@/hooks/useTranslation';
+import KioskHeader from '@/components/KioskHeader';
+import { Images, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { Language } from '@/i18n/translations';
+
+interface BeforeAfterItem {
+  id: string;
+  title: Record<Language, string>;
+  category: string;
+  before: string;
+  after: string;
+}
+
+const galleryItems: BeforeAfterItem[] = [
+  {
+    id: 'ba1',
+    title: { UA: 'Фарбування волосся', DE: 'Haarfärbung', EN: 'Hair Coloring' },
+    category: 'hair',
+    before: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&h=500&fit=crop',
+  },
+  {
+    id: 'ba2',
+    title: { UA: 'Манікюр', DE: 'Maniküre', EN: 'Manicure' },
+    category: 'nails',
+    before: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&h=500&fit=crop',
+  },
+  {
+    id: 'ba3',
+    title: { UA: 'Перманентний макіяж', DE: 'Permanent Make-up', EN: 'Permanent Makeup' },
+    category: 'makeup',
+    before: 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=500&fit=crop',
+  },
+  {
+    id: 'ba4',
+    title: { UA: 'Шугаринг', DE: 'Sugaring', EN: 'Sugaring' },
+    category: 'sugaring',
+    before: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=500&h=500&fit=crop',
+  },
+  {
+    id: 'ba5',
+    title: { UA: 'Стрижка', DE: 'Haarschnitt', EN: 'Haircut' },
+    category: 'hair',
+    before: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=500&fit=crop',
+  },
+  {
+    id: 'ba6',
+    title: { UA: 'Лазерна процедура', DE: 'Laserbehandlung', EN: 'Laser Treatment' },
+    category: 'laser',
+    before: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&h=500&fit=crop',
+    after: 'https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=500&h=500&fit=crop',
+  },
+];
+
+const BeforeAfterScreen = () => {
+  const { t, language } = useTranslation();
+  const navigate = useNavigate();
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  return (
+    <div className="flex h-screen flex-col overflow-hidden">
+      <KioskHeader />
+      <main className="flex flex-1 flex-col items-center overflow-y-auto px-4 pt-24 pb-8">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-2 flex items-center gap-3"
+        >
+          <Images className="h-8 w-8 text-gold" />
+          <h1 className="font-display text-3xl font-bold text-gold">{t('before_after')}</h1>
+        </motion.div>
+        <div className="mx-auto mb-8 h-px w-24 bg-gold-gradient" />
+
+        <div className="grid w-full max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryItems.map((item, i) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + i * 0.07 }}
+              whileHover={{ y: -4 }}
+              onClick={() => setLightboxIndex(i)}
+              className="tile-luxury cursor-pointer overflow-hidden rounded-2xl"
+            >
+              <div className="flex">
+                <div className="relative w-1/2">
+                  <img src={item.before} alt="Before" className="h-40 w-full object-cover" />
+                  <span className="absolute bottom-2 left-2 rounded-full bg-background/80 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
+                    {t('before_label')}
+                  </span>
+                </div>
+                <div className="relative w-1/2">
+                  <img src={item.after} alt="After" className="h-40 w-full object-cover" />
+                  <span className="absolute bottom-2 right-2 rounded-full bg-gold/80 px-2 py-0.5 text-xs font-semibold text-primary-foreground">
+                    {t('after_label')}
+                  </span>
+                </div>
+              </div>
+              <div className="p-3 text-center">
+                <p className="text-sm font-medium text-foreground">{item.title[language]}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Lightbox */}
+        <AnimatePresence>
+          {lightboxIndex !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+              onClick={() => setLightboxIndex(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.9 }}
+                className="relative flex max-h-[80vh] max-w-4xl flex-col items-center gap-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button onClick={() => setLightboxIndex(null)} className="absolute -top-10 right-0 text-white">
+                  <X className="h-8 w-8" />
+                </button>
+                <p className="text-lg font-semibold text-gold">
+                  {galleryItems[lightboxIndex].title[language]}
+                </p>
+                <div className="flex gap-4">
+                  <div className="relative">
+                    <img
+                      src={galleryItems[lightboxIndex].before}
+                      alt="Before"
+                      className="max-h-[60vh] rounded-xl object-contain"
+                    />
+                    <span className="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1 text-sm font-semibold">
+                      {t('before_label')}
+                    </span>
+                  </div>
+                  <div className="relative">
+                    <img
+                      src={galleryItems[lightboxIndex].after}
+                      alt="After"
+                      className="max-h-[60vh] rounded-xl object-contain"
+                    />
+                    <span className="absolute bottom-3 right-3 rounded-full bg-gold/80 px-3 py-1 text-sm font-semibold text-primary-foreground">
+                      {t('after_label')}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setLightboxIndex((p) => (p! > 0 ? p! - 1 : galleryItems.length - 1))}
+                    className="rounded-full bg-card p-2 text-foreground"
+                  >
+                    <ChevronLeft className="h-6 w-6" />
+                  </button>
+                  <button
+                    onClick={() => setLightboxIndex((p) => (p! < galleryItems.length - 1 ? p! + 1 : 0))}
+                    className="rounded-full bg-card p-2 text-foreground"
+                  >
+                    <ChevronRight className="h-6 w-6" />
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          onClick={() => navigate('/dashboard')}
+          className="mt-8 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
+        >
+          ← {t('back')}
+        </motion.button>
+      </main>
+    </div>
+  );
+};
+
+export default BeforeAfterScreen;

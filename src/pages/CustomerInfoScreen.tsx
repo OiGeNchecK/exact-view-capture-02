@@ -10,7 +10,7 @@ type Mode = 'register' | 'login' | 'guest';
 const CustomerInfoScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setCustomerInfo } = useKioskStore();
+  const { setCustomerInfo, setIsGuest } = useKioskStore();
 
   const [mode, setMode] = useState<Mode>('register');
   const [guestName, setGuestName] = useState('');
@@ -46,6 +46,7 @@ const CustomerInfoScreen = () => {
       phone: phone.trim(),
       email: email.trim(),
     });
+    setIsGuest(false);
     navigate('/services');
   };
 
@@ -62,6 +63,7 @@ const CustomerInfoScreen = () => {
     // TODO: actual login logic — name will come from backend
     // For now, simulate with identifier as name
     setCustomerInfo({ firstName: loginIdentifier.trim(), lastName: '', phone: '' });
+    setIsGuest(false);
     navigate('/services');
   };
 
@@ -285,6 +287,7 @@ const CustomerInfoScreen = () => {
               onClick={() => {
                 if (!guestName.trim()) { setGuestError(true); return; }
                 setCustomerInfo({ firstName: guestName.trim(), lastName: '', phone: '' });
+                setIsGuest(true);
                 navigate('/services');
               }}
               className="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-gold-gradient px-10 py-4 text-lg font-semibold text-primary-foreground shadow-gold-lg transition-shadow"
