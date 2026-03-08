@@ -99,7 +99,7 @@ const DashboardScreen = () => {
 
         {/* Fullscreen Tiles Row */}
         <div className="flex w-full items-stretch justify-center gap-4 overflow-x-auto overflow-y-hidden px-2 sm:gap-5 md:gap-6" style={{ scrollbarWidth: 'none' }}>
-          {menuItems.map((item, i) => {
+          {visibleItems.map((item, i) => {
             const Icon = item.icon;
             return (
               <motion.button

@@ -287,6 +287,7 @@ const CustomerInfoScreen = () => {
               onClick={() => {
                 if (!guestName.trim()) { setGuestError(true); return; }
                 setCustomerInfo({ firstName: guestName.trim(), lastName: '', phone: '' });
+                setIsGuest(true);
                 navigate('/services');
               }}
               className="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-gold-gradient px-10 py-4 text-lg font-semibold text-primary-foreground shadow-gold-lg transition-shadow"
