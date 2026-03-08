@@ -257,7 +257,7 @@ export const translations: Record<Language, Record<string, string>> = {
     your_name: 'Your name',
     email_or_phone: 'Email or phone number',
     bonuses: 'Bonuses',
-    before_after: 'Gallery\nBefore / After',
+    before_after: 'Gallery\n(Before & After)',
     procedure_history: 'Procedures & Purchases',
     tab_procedures: 'Procedure History',
     tab_purchases: 'Purchase History',
