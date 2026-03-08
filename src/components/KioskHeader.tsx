@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKioskStore } from '@/store/useKioskStore';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ShoppingBag, LogOut, Minus, Plus } from 'lucide-react';
+import { ShoppingBag, LogOut, Minus, Plus, UserCircle } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { toast } from 'sonner';
 
 const KioskHeader = () => {
   const { t } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -26,10 +26,20 @@ const KioskHeader = () => {
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
-        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
-          <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
-          <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
-        </button>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
+            <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
+            <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
+          </button>
+          {customerInfo && (
+            <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
+              <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
+              <span className="text-xs font-medium text-foreground sm:text-sm">
+                {customerInfo.firstName} {customerInfo.lastName}
+              </span>
+            </div>
+          )}
+        </div>
 
         {/* Center: category in gold border */}
         {category && (
