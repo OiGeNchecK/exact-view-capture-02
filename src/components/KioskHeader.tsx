@@ -53,6 +53,15 @@ const KioskHeader = () => {
         )}
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {!isGuest && (
+            <button
+              onClick={() => navigate('/notes')}
+              className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
+            >
+              <StickyNote className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('notes')}</span>
+            </button>
+          )}
           {customerInfo && (
             <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
               <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
