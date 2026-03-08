@@ -303,7 +303,7 @@ const CustomerInfoScreen = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setMode('register')}
-              className="mt-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+              className="mt-4 rounded-xl card-luxury px-6 py-3 text-muted-foreground transition-colors hover:text-gold"
             >
               ← {t('back')}
             </motion.button>
