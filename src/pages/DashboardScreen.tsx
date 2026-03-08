@@ -11,7 +11,6 @@ import {
   History,
   Images,
   ShoppingBag,
-  StickyNote,
   TrendingUp,
   UserCheck,
 } from 'lucide-react';
