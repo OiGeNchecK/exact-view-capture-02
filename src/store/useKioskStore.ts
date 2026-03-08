@@ -63,7 +63,8 @@ interface KioskState {
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
-  addToCart: (item: { id: string; name: string; price: number }) => void;
+  addToCart: (item: { id: string; name: string; price: number; type: 'service' | 'product' | 'drink' }) => void;
+  clearCart: () => void;
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
   setCustomerInfo: (info: CustomerInfo) => void;
