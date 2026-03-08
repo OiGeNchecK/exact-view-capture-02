@@ -115,11 +115,11 @@ export const useKioskStore = create<KioskState>((set) => ({
   clearCart: () => set({ cartItems: [], cartTotal: 0 }),
   removeFromCart: (id) =>
     set((s) => {
-      const existing = s.cartItems.find((ci) => ci.id === id);
+      const existing = s.cartItems.find((ci) => ci.id === id && !ci.confirmed);
       if (!existing) return s;
       const newItems = existing.quantity > 1
-        ? s.cartItems.map((ci) => ci.id === id ? { ...ci, quantity: ci.quantity - 1 } : ci)
-        : s.cartItems.filter((ci) => ci.id !== id);
+        ? s.cartItems.map((ci) => ci.id === id && !ci.confirmed ? { ...ci, quantity: ci.quantity - 1 } : ci)
+        : s.cartItems.filter((ci) => !(ci.id === id && !ci.confirmed));
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
   setSelectedMaster: (master) => set({ selectedMaster: master }),
