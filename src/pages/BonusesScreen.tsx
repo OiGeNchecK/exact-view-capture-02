@@ -61,7 +61,7 @@ const BonusesScreen = () => {
     const discountedPrice = Math.round(offer.originalPrice * (1 - offer.discountPercent / 100));
     const item = { id: offer.id, name: offer.name[language], price: discountedPrice, type: offer.type as 'service' | 'product' | 'drink' };
     addToCart(item);
-    addToHistory({ ...item, quantity: 1, type: offer.type });
+    addToHistory({ ...item, quantity: 1, type: offer.type, confirmed: true, batchId: crypto.randomUUID() });
   };
 
   const BonusCard = ({ offer, i }: { offer: BonusOffer; i: number }) => (

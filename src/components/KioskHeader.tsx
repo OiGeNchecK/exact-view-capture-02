@@ -31,8 +31,9 @@ const KioskHeader = () => {
   };
 
   const handleConfirmOrder = () => {
+    const batchId = crypto.randomUUID();
     cartItems.forEach((item) => {
-      addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type });
+      addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type, confirmed: true, batchId });
     });
     clearCart();
     toast.success(t('order_confirmed'));
