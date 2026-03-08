@@ -211,5 +211,7 @@ export const translations: Record<Language, Record<string, string>> = {
     password: 'Password',
     register_btn: 'Register',
     login_btn: 'Sign In',
+    guest_name_title: 'What\'s your name?',
+    your_name: 'Your name',
   },
 };
