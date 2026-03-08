@@ -202,5 +202,10 @@ export const translations: Record<Language, Record<string, string>> = {
     optional: 'optional',
     fill_required_fields: 'Please fill in the required fields',
     continue: 'Continue',
+    registration: 'Registration',
+    login: 'Login',
+    password: 'Password',
+    register_btn: 'Register',
+    login_btn: 'Sign In',
   },
 };
