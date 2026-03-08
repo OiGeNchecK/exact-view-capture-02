@@ -35,6 +35,18 @@ export interface NoteItem {
   date: string;
 }
 
+export interface BookingItem {
+  id: string;
+  category: ServiceCategory;
+  date: string;
+  time: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  createdAt: string;
+}
+
 interface KioskState {
   language: Language;
   gender: Gender | null;
@@ -46,6 +58,7 @@ interface KioskState {
   isGuest: boolean;
   orderHistory: OrderHistoryItem[];
   notes: NoteItem[];
+  bookings: BookingItem[];
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
@@ -57,6 +70,8 @@ interface KioskState {
   addToHistory: (item: Omit<OrderHistoryItem, 'date'>) => void;
   addNote: (text: string, author: 'client' | 'master') => void;
   deleteNote: (id: string) => void;
+  addBooking: (booking: Omit<BookingItem, 'id' | 'createdAt'>) => void;
+  cancelBooking: (id: string) => void;
   resetSession: () => void;
 }
 
