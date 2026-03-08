@@ -177,6 +177,7 @@ export const translations: Record<Language, Record<string, string>> = {
     master: 'Meister',
     note_placeholder: 'Notiz schreiben...',
     no_notes: 'Noch keine Notizen',
+    no_gallery: 'Keine Fotos für diese Kategorie',
   },
   EN: {
     welcome_title: 'Welcome',
