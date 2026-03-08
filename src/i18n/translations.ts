@@ -215,5 +215,6 @@ export const translations: Record<Language, Record<string, string>> = {
     login_btn: 'Sign In',
     guest_name_title: 'What\'s your name?',
     your_name: 'Your name',
+    email_or_phone: 'Email or phone number',
   },
 };
