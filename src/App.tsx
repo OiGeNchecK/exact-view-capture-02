@@ -16,6 +16,7 @@ import ChooseMasterScreen from "./pages/ChooseMasterScreen";
 import BonusesScreen from "./pages/BonusesScreen";
 import BeforeAfterScreen from "./pages/BeforeAfterScreen";
 import ProcedureHistoryScreen from "./pages/ProcedureHistoryScreen";
+import NotesScreen from "./pages/NotesScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
