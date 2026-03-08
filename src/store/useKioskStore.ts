@@ -11,6 +11,7 @@ export interface CartItem {
   price: number;
   quantity: number;
   type: 'service' | 'product' | 'drink';
+  confirmed?: boolean;
 }
 
 export interface CustomerInfo {
