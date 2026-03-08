@@ -37,12 +37,12 @@ const OrderProductScreen = () => {
         <div className="mx-auto mb-6 h-px w-24 bg-gold-gradient" />
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-4xl">
-          <TabsList className="mx-auto mb-6 flex w-full flex-wrap justify-center gap-1 bg-transparent">
+          <TabsList className="mx-auto mb-6 flex w-full flex-nowrap justify-center gap-1 overflow-x-auto bg-transparent" style={{ scrollbarWidth: 'none' }}>
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat}
                 value={cat}
-                className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors data-[state=active]:border-gold data-[state=active]:bg-gold/10 data-[state=active]:text-gold sm:px-4 sm:text-sm"
+                className="shrink-0 rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors data-[state=active]:border-gold data-[state=active]:bg-gold/10 data-[state=active]:text-gold sm:px-4 sm:text-sm"
               >
                 {t(cat)}
               </TabsTrigger>
