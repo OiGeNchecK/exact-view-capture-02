@@ -37,7 +37,7 @@ const OrderProductScreen = () => {
         <div className="mx-auto mb-6 h-px w-24 bg-gold-gradient" />
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-4xl">
-          <TabsList className="mx-auto mb-6 flex h-auto w-full flex-nowrap justify-center gap-1 overflow-x-auto bg-transparent" style={{ scrollbarWidth: 'none' }}>
+          <TabsList className="mx-auto mb-6 flex h-auto w-full flex-nowrap justify-start gap-1 overflow-x-auto px-2 bg-transparent" style={{ scrollbarWidth: 'none' }}>
             {categories.map((cat) => (
               <TabsTrigger
                 key={cat}
