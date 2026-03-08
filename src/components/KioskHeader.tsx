@@ -26,20 +26,10 @@ const KioskHeader = () => {
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
-            <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
-            <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
-          </button>
-          {customerInfo && (
-            <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
-              <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
-              <span className="text-xs font-medium text-foreground sm:text-sm">
-                {customerInfo.firstName} {customerInfo.lastName}
-              </span>
-            </div>
-          )}
-        </div>
+        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
+          <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
+          <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
+        </button>
 
         {/* Center: category in gold border */}
         {category && (
@@ -49,6 +39,14 @@ const KioskHeader = () => {
         )}
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {customerInfo && (
+            <div className="flex items-center gap-1.5 rounded-xl border border-gold/20 bg-gold/5 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2">
+              <UserCircle className="h-4 w-4 text-gold sm:h-5 sm:w-5" />
+              <span className="text-xs font-medium text-foreground sm:text-sm">
+                {customerInfo.firstName}{customerInfo.lastName ? ` ${customerInfo.lastName}` : ''}
+              </span>
+            </div>
+          )}
           {cartTotal > 0 && (
             <span className="text-xs font-semibold text-gold sm:text-sm">
               {(cartTotal / 100).toFixed(2)} €
