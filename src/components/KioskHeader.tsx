@@ -26,10 +26,21 @@ const KioskHeader = () => {
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-8 sm:py-4">
-        <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
-          <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
-          <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
-        </button>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
+            <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
+            <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
+          </button>
+          <button
+            onClick={() => {
+              toast.success(t('admin_called'));
+            }}
+            className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
+          >
+            <Bell className="h-4 w-4" />
+            <span className="hidden sm:inline">{t('call_admin')}</span>
+          </button>
+        </div>
 
         {/* Center: category in gold border */}
         {category && (

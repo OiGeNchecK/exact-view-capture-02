@@ -226,5 +226,10 @@ export const translations: Record<Language, Record<string, string>> = {
     guest_name_title: 'What\'s your name?',
     your_name: 'Your name',
     email_or_phone: 'Email or phone number',
+    bonuses: 'Bonuses',
+    before_after: 'Before / After Gallery',
+    procedure_history: 'Procedure History',
+    call_admin: 'Call Administrator',
+    admin_called: 'Administrator has been called!',
   },
 };
