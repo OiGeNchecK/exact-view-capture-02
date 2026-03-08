@@ -46,7 +46,7 @@ const KioskHeader = () => {
                 {customerInfo.firstName}{customerInfo.lastName ? ` ${customerInfo.lastName}` : ''}
               </span>
             </div>
-          )
+          )}
           {cartTotal > 0 && (
             <span className="text-xs font-semibold text-gold sm:text-sm">
               {(cartTotal / 100).toFixed(2)} €
