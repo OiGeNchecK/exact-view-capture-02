@@ -21,6 +21,8 @@ const timeSlots = [
 const BookingScreen = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const category = useKioskStore((s) => s.category);
+  const addBooking = useKioskStore((s) => s.addBooking);
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState<string>();
   const [showCalendar, setShowCalendar] = useState(true);
