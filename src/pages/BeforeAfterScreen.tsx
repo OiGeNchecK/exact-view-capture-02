@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type SyntheticEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -43,6 +43,13 @@ const BeforeAfterScreen = () => {
 
   const filtered = galleryItems.filter((item) => item.category === activeCategory);
 
+  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    if (img.dataset.fallback === 'true') return;
+    img.dataset.fallback = 'true';
+    img.src = '/placeholder.svg';
+  };
+
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       <KioskHeader />
@@ -57,7 +64,6 @@ const BeforeAfterScreen = () => {
         </motion.div>
         <div className="mx-auto mb-6 h-px w-24 bg-gold-gradient" />
 
-        {/* Category tabs */}
         <div className="mb-8 flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <button
@@ -86,17 +92,17 @@ const BeforeAfterScreen = () => {
                 transition={{ delay: 0.1 + i * 0.07 }}
                 whileHover={{ y: -4 }}
                 onClick={() => setLightboxIndex(i)}
-                className="tile-luxury cursor-pointer overflow-hidden rounded-2xl"
+                className="tile-luxury w-full max-w-[360px] cursor-pointer overflow-hidden rounded-2xl"
               >
-                <div className="flex">
-                  <div className="relative w-1/2">
-                    <img src={item.before} alt="Before" className="h-40 w-full object-cover" />
+                <div className="grid grid-cols-2 gap-2 p-2">
+                  <div className="relative overflow-hidden rounded-xl">
+                    <img src={item.before} alt="Before" className="h-40 w-full object-cover" onError={handleImageError} />
                     <span className="absolute bottom-2 left-2 rounded-full bg-background/80 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
                       {t('before_label')}
                     </span>
                   </div>
-                  <div className="relative w-1/2">
-                    <img src={item.after} alt="After" className="h-40 w-full object-cover" />
+                  <div className="relative overflow-hidden rounded-xl">
+                    <img src={item.after} alt="After" className="h-40 w-full object-cover" onError={handleImageError} />
                     <span className="absolute bottom-2 right-2 rounded-full bg-gold/80 px-2 py-0.5 text-xs font-semibold text-primary-foreground">
                       {t('after_label')}
                     </span>
@@ -110,7 +116,6 @@ const BeforeAfterScreen = () => {
           </div>
         )}
 
-        {/* Lightbox */}
         <AnimatePresence>
           {lightboxIndex !== null && filtered[lightboxIndex] && (
             <motion.div
@@ -124,7 +129,7 @@ const BeforeAfterScreen = () => {
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.9 }}
-                className="relative flex max-h-[80vh] max-w-4xl flex-col items-center gap-4"
+                className="relative flex max-h-[80vh] w-full max-w-4xl flex-col items-center gap-4"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button onClick={() => setLightboxIndex(null)} className="absolute -top-10 right-0 text-white">
@@ -133,15 +138,15 @@ const BeforeAfterScreen = () => {
                 <p className="text-lg font-semibold text-gold">
                   {filtered[lightboxIndex].title[language]}
                 </p>
-                <div className="flex gap-4">
+                <div className="grid w-full max-w-4xl grid-cols-2 justify-center gap-4">
                   <div className="relative">
-                    <img src={filtered[lightboxIndex].before} alt="Before" className="max-h-[60vh] rounded-xl object-contain" />
+                    <img src={filtered[lightboxIndex].before} alt="Before" className="h-[55vh] w-full rounded-xl object-cover" onError={handleImageError} />
                     <span className="absolute bottom-3 left-3 rounded-full bg-background/80 px-3 py-1 text-sm font-semibold">
                       {t('before_label')}
                     </span>
                   </div>
                   <div className="relative">
-                    <img src={filtered[lightboxIndex].after} alt="After" className="max-h-[60vh] rounded-xl object-contain" />
+                    <img src={filtered[lightboxIndex].after} alt="After" className="h-[55vh] w-full rounded-xl object-cover" onError={handleImageError} />
                     <span className="absolute bottom-3 right-3 rounded-full bg-gold/80 px-3 py-1 text-sm font-semibold text-primary-foreground">
                       {t('after_label')}
                     </span>
