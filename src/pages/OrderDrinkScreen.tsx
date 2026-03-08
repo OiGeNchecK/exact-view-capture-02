@@ -50,7 +50,7 @@ const OrderDrinkScreen = () => {
       if (config.sugar > 0) extras.push(`${config.sugar}x ${t('sugar_spoons')}`);
       if (config.milk) extras.push(t('milk'));
       if (extras.length > 0) name += ` (${extras.join(', ')})`;
-      addToCart({ id: `drink_${id}_${Date.now()}`, name, price: 0 });
+      addToCart({ id: `drink_${id}_${Date.now()}`, name, price: 0, type: 'drink' });
     });
     toast.success(t('drink_ordered'));
     navigate('/dashboard');

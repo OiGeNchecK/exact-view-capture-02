@@ -80,7 +80,7 @@ const OrderProductScreen = () => {
                           </button>
                           <span className="w-5 text-center text-sm font-semibold text-gold">{qty}</span>
                           <button
-                            onClick={() => addToCart({ id: product.id, name: product.name[language], price: product.price * 100 })}
+                            onClick={() => addToCart({ id: product.id, name: product.name[language], price: product.price * 100, type: 'product' })}
                             className="flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground hover:border-gold-bright"
                           >
                             <Plus className="h-4 w-4" />
