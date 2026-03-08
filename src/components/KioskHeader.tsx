@@ -16,7 +16,6 @@ const KioskHeader = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
   const [noteText, setNoteText] = useState('');
-  const [noteAuthor, setNoteAuthor] = useState<'client' | 'master'>('client');
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
 
   // Profile edit state
