@@ -171,6 +171,11 @@ export const translations: Record<Language, Record<string, string>> = {
     before_label: 'Vorher',
     after_label: 'Nachher',
     no_history: 'Behandlungshistorie ist leer',
+    notes: 'Notizen',
+    client: 'Kunde',
+    master: 'Meister',
+    note_placeholder: 'Notiz schreiben...',
+    no_notes: 'Noch keine Notizen',
   },
   EN: {
     welcome_title: 'Welcome',
