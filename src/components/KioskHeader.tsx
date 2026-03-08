@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 
 const KioskHeader = () => {
   const { t, language } = useTranslation();
-  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
+  const { category, cartItems, cartTotal, resetSession, removeFromCart, addToCart, addToHistory, clearCart, customerInfo, isGuest, notes, addNote, deleteNote, bookings, cancelBooking, updateCustomerInfo } = useKioskStore();
   const navigate = useNavigate();
   const cartCount = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
   const [cartOpen, setCartOpen] = useState(false);
@@ -31,6 +31,10 @@ const KioskHeader = () => {
   };
 
   const handleConfirmOrder = () => {
+    cartItems.forEach((item) => {
+      addToHistory({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, type: item.type });
+    });
+    clearCart();
     toast.success(t('order_confirmed'));
     setCartOpen(false);
   };
@@ -337,7 +341,7 @@ const KioskHeader = () => {
                   </button>
                   <span className="w-5 text-center text-sm font-semibold text-gold">{item.quantity}</span>
                   <button
-                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price })}
+                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, type: item.type })}
                     className="flex h-7 w-7 items-center justify-center rounded-lg border border-border text-foreground hover:border-gold-bright hover:text-gold"
                   >
                     <Plus className="h-3 w-3" />

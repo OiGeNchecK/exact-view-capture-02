@@ -61,7 +61,7 @@ const PriceListScreen = () => {
                     <span className="w-5 text-center text-sm font-semibold text-gold">{qty}</span>
                   )}
                   <button
-                    onClick={() => addToCart({ id: s.id, name: s.name[language], price: s.priceCents })}
+                    onClick={() => addToCart({ id: s.id, name: s.name[language], price: s.priceCents, type: 'service' })}
                     className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-glass text-gold transition-all duration-200 hover:border-gold-bright hover:bg-gold-gradient hover:text-primary-foreground hover:shadow-gold"
                   >
                     <Plus className="h-5 w-5" />

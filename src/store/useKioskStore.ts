@@ -10,6 +10,7 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  type: 'service' | 'product' | 'drink';
 }
 
 export interface CustomerInfo {
@@ -62,7 +63,8 @@ interface KioskState {
   setLanguage: (lang: Language) => void;
   setGender: (gender: Gender) => void;
   setCategory: (cat: ServiceCategory) => void;
-  addToCart: (item: { id: string; name: string; price: number }) => void;
+  addToCart: (item: { id: string; name: string; price: number; type: 'service' | 'product' | 'drink' }) => void;
+  clearCart: () => void;
   removeFromCart: (id: string) => void;
   setSelectedMaster: (master: Master | null) => void;
   setCustomerInfo: (info: CustomerInfo) => void;
@@ -101,6 +103,7 @@ export const useKioskStore = create<KioskState>((set) => ({
         : [...s.cartItems, { ...item, quantity: 1 }];
       return { cartItems: newItems, cartTotal: calcTotal(newItems) };
     }),
+  clearCart: () => set({ cartItems: [], cartTotal: 0 }),
   removeFromCart: (id) =>
     set((s) => {
       const existing = s.cartItems.find((ci) => ci.id === id);
