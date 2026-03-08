@@ -27,6 +27,8 @@ export interface OrderHistoryItem {
   quantity: number;
   type: 'service' | 'product' | 'drink';
   date: string;
+  confirmed: boolean;
+  batchId: string;
 }
 
 export interface NoteItem {
