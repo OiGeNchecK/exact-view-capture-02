@@ -28,7 +28,7 @@ const ServiceScreen = () => {
   return (
     <div className="min-h-screen">
       <KioskHeader />
-      <main className="flex flex-col items-center px-4 pt-32 pb-12 sm:px-8 sm:pt-36">
+      <main className="flex flex-col items-center px-4 pt-20 pb-12 sm:px-8 sm:pt-24">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
