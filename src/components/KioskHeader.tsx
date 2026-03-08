@@ -64,6 +64,53 @@ const KioskHeader = () => {
         )}
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* My Bookings popover */}
+          {!isGuest && (
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="relative flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm">
+                  <CalendarCheck className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('my_bookings')}</span>
+                  {bookings.length > 0 && (
+                    <span className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold-gradient text-[10px] font-bold text-primary-foreground">
+                      {bookings.length}
+                    </span>
+                  )}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 border-border bg-background p-0" align="end" sideOffset={8}>
+                <div className="border-b border-border px-4 py-3">
+                  <p className="text-sm font-semibold text-gold">{t('my_bookings')}</p>
+                </div>
+                <div className="max-h-64 overflow-y-auto p-2">
+                  {bookings.length === 0 ? (
+                    <p className="py-6 text-center text-sm text-muted-foreground">{t('no_bookings')}</p>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {bookings.map((b) => (
+                        <div key={b.id} className="flex items-start justify-between rounded-xl card-luxury p-3">
+                          <div className="min-w-0 flex-1">
+                            <p className="text-xs font-semibold text-gold">{t(b.category)}</p>
+                            <p className="text-sm text-foreground">{b.date} · {b.time}</p>
+                            <p className="text-xs text-muted-foreground">{b.firstName} {b.lastName}</p>
+                          </div>
+                          <button
+                            onClick={() => {
+                              cancelBooking(b.id);
+                              toast.success(t('booking_cancelled'));
+                            }}
+                            className="ml-2 shrink-0 self-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
           {!isGuest && (
             <button
               onClick={() => setNotesOpen(true)}
