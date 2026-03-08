@@ -133,6 +133,11 @@ export const translations: Record<Language, Record<string, string>> = {
     optional: 'optional',
     fill_required_fields: 'Bitte füllen Sie die Pflichtfelder aus',
     continue: 'Weiter',
+    registration: 'Registrierung',
+    login: 'Anmelden',
+    password: 'Passwort',
+    register_btn: 'Registrieren',
+    login_btn: 'Anmelden',
   },
   EN: {
     welcome_title: 'Welcome',
