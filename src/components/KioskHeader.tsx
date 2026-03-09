@@ -48,12 +48,17 @@ const KioskHeader = () => {
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 flex flex-wrap items-center justify-between gap-y-2 border-b border-gold/20 bg-background/90 px-3 py-2.5 backdrop-blur-xl sm:flex-nowrap sm:px-8 sm:py-4">
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-gold/20 bg-background/90 px-3 py-2.5 backdrop-blur-xl sm:px-8 sm:py-4">
         <div className="flex items-center gap-2 sm:gap-4">
           <button onClick={() => navigate('/dashboard')} className="flex items-center gap-2 sm:gap-3">
             <span className="font-display text-xl font-bold tracking-wider text-gold sm:text-2xl">TINTEI</span>
             <span className="hidden font-display text-sm tracking-[0.2em] text-gold-dim sm:inline">BEAUTY</span>
           </button>
+          {category && (
+            <span className="rounded-full border border-gold/30 bg-gold/5 px-2.5 py-0.5 text-[10px] font-medium text-gold sm:px-3 sm:py-1 sm:text-xs">
+              {t(category)}
+            </span>
+          )}
           <button
             onClick={() => {
               const name = customerInfo
@@ -61,7 +66,7 @@ const KioskHeader = () => {
                 : t('guest_name_title');
               toast.success(`${t('admin_called')} — ${name}`);
             }}
-            className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-3 py-2 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
+            className="flex items-center gap-1.5 rounded-xl border border-gold/30 bg-gold/5 px-2.5 py-1.5 text-xs font-medium text-gold transition-colors hover:bg-gold/15 sm:px-4 sm:py-2.5 sm:text-sm"
           >
             <Bell className="h-4 w-4" />
             <span className="hidden sm:inline">{t('call_admin')}</span>
@@ -311,14 +316,6 @@ const KioskHeader = () => {
         </div>
       </header>
 
-      {/* Category below header line */}
-      {category && (
-        <div className="fixed left-0 right-0 top-[52px] z-40 flex justify-center py-1.5 sm:top-[68px] sm:py-2">
-          <span className="rounded-full border border-gold/30 bg-background/90 px-3 py-0.5 text-[10px] font-medium text-gold shadow-sm backdrop-blur-md sm:px-4 sm:py-1 sm:text-sm">
-            {t(category)}
-          </span>
-        </div>
-      )}
 
       {/* Cart Sheet */}
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
