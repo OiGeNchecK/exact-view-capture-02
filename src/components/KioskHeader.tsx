@@ -316,14 +316,6 @@ const KioskHeader = () => {
         </div>
       </header>
 
-      {/* Category below header line */}
-      {category && (
-        <div className="fixed left-0 right-0 top-[52px] z-40 flex justify-center py-1.5 sm:top-[68px] sm:py-2">
-          <span className="rounded-full border border-gold/30 bg-background/90 px-3 py-0.5 text-[10px] font-medium text-gold shadow-sm backdrop-blur-md sm:px-4 sm:py-1 sm:text-sm">
-            {t(category)}
-          </span>
-        </div>
-      )}
 
       {/* Cart Sheet */}
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
